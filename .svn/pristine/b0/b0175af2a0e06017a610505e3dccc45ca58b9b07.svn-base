@@ -1,0 +1,117 @@
+﻿@model List<_4InShip.com.Areas.Admin.Models.ViewModelInvoice>
+@{
+    ViewBag.Title = "GetInvoiceDetail";
+}
+
+<div class="content-header">
+    <h2></h2>
+</div>
+
+<section class="content">
+    @Html.Partial("_MsgDivPartial")
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Invoices</h3>
+        </div>
+        <div class="form-horizontal">
+            <div class="box-body">
+                <table id="tblinvoice" class="table table-striped table-bordered dt-responsive" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Reference No</th>
+                            <th>Customer</th>
+                            <th>Customer Email</th>
+                            <th>Billing Address</th>
+                            <th>Invoice No</th>
+                            <th>Invoice Date</th>
+                            <th>Paid Status</th>
+                            <th>Paid Date   </th>
+                            <th>Payment Method</th>
+                            <th>Payment Amount</th>
+                            <th>Transaction Id</th>
+                            <th>Custom Guid</th>
+                            <th>Invoice Type</th>
+                            <th>Transaction Response</th>
+                            <th>Transaction Status</th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.reference_no</td>
+                                <td>@item.customer</td>
+                                <td>@item.customeremail</td>
+                                <td>@item.billingaddress</td>
+                                <td>@item.invoicenumber</td>
+                                <td><span>@(item.invoice_date == null ? "" : item.invoice_date.ToString("yyyy/MM/dd"))</span></td>
+                                <td>
+                                    <label class="textboxfor">
+                                        <span id='@("spanStatus"+item.Id)' class="label @(item.paid_status == true ? "label-success" : "label-danger")">@(item.paid_status == true ? "Paid" : "UnPaid")</span>
+                                    </label>
+                                </td>
+                                <td><span>@(item.paid_on == null ? "" : item.paid_on.ToString("yyyy/MM/dd"))</span></td>
+                                <td>@item.payment_method</td>
+                                <td>@String.Format("${0:0.00}", item.payment_amount)</td>
+                                <td>@item.transaction_id</td>
+                                <td>@item.custom_guid</td>
+                                <td>@item.invoice_type</td>
+                                <td>@item.transaction_response</td>
+                                <td>
+                                    <label class="textboxfor">
+                                        <span id='@("spanStatus"+item.Id)' class="label @(item.transaction_status == 1 ? "label-success" : "label-danger")">@(item.transaction_status == 1 ? "Paid" : "UnPaid")</span>
+                                    </label>
+                                </td>
+                               
+                               
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#tblinvoice").DataTable({
+                responsive: true,
+                "order": [],
+                "columnDefs": [
+                         { responsivePriority: 1, targets: 0 },
+                         { responsivePriority: 2, targets: -1 }
+            ]
+
+            });
+
+        })
+        @Html.Raw(ViewBag.Message);
+        function DeleteDatas(id) {
+            var parent = $(this).parent().parent();
+            $.ajax({
+                type: "post",
+                url: "/AdminUsers/DeleteAdminUsersDetailById",
+                data: { 'id': id },
+                success: function (id) {
+                    if (id !== "0") {
+
+                        $("a[id='Delete " + id + "']").eq(0).parent().parent().next('.child').remove();
+                        $("a[id='Delete " + id + "']").eq(0).parent().parent().remove();
+                        showMessage("Record has been deleted successfully", true);
+                    }
+                },
+                error: function (data) {
+                    alert(data.x);
+                }
+            });
+        }
+    </script>
+}
+
+
+

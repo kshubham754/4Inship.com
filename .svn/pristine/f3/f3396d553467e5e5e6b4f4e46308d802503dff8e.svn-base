@@ -1,0 +1,69 @@
+﻿@model _4InShip.com.Areas.User.Models.RewardAmountModel
+@{
+    ViewBag.Title = "ManagePoints";
+}
+<section class="margintop90PX margintop90PX-xs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li class="active"><a href="@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))">Home</a></li>
+                    <li class="active">My Account</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+@using (Ajax.BeginForm("ManagePoints", "Setting", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "SignUp" }))
+{
+    <section>
+        <div class="container">
+            <div class="row">
+                @Html.Partial("_LeftMenuSettingsPartial")
+                <div class="col-md-8">
+                    <h2>Manage Points</h2>
+                    Every time you ship with 4InShip.com you get Reward Points. Convert Reward Points to your balance from this page.
+                    <br><br>
+                    <div class="row form-group">
+                        <div class="col-sm-6 ">
+                            @*@Html.HiddenFor(model => model.points,new {@Value=ViewBag.yourpoints })
+                            @Html.HiddenFor(model => model.balance, new {@Value = ViewBag.yourbalance })*@
+                            <label> </label>
+                            @if (ViewBag.yourpoints != null)
+                            {
+                                <strong>@ViewBag.yourpoints @("Points =") @String.Format("${0:0.00}", (ViewBag.yourbalance))</strong>
+
+                            }
+                            else
+                            {
+                                <strong>@(" 0 Points = $0.00")</strong>
+                               
+                            }
+
+                        </div>
+                        <div class="col-sm-6">
+                            <label> Balance</label>
+                            @if (ViewBag.yourcreditAmount != null)
+                            {
+                                <strong>@String.Format("${0:0.00}",(ViewBag.yourcreditAmount))</strong>
+                            }
+                            else
+                            {
+                                <strong>@("$0.00")</strong>
+                            }
+
+                         </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12"><button class="btn btn-success btn-block">Convert Your Points</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+
+

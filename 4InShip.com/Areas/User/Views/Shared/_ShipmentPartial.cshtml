@@ -1,0 +1,1009 @@
+﻿@model List<_4InShip.com.Areas.User.Models.ViewRecivedShipmentModel>
+@using _4InShip.com.Areas.User.Models
+<link href="~/Areas/User/Content/css/fileinput.min.css" rel="stylesheet" />
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"><h1>Your Shipment Details</h1></div>
+            <div class="col-sm-12">
+                <!-- Nav tabs -->
+                @{ var ReadyStatus = Model.Where(x => x.status == 1).Count();
+                    var ProcessingStatus = Model.Where(x => x.status == 2).Count();
+                    var OnHoldStatus = Model.Where(x => x.status == 4).Count();
+                    var Prohibitted = Model.Where(x => x.status == 5).Count();
+                }
+                <ul class="nav nav-tabs text-md" role="tablist">
+                    <li role="presentation" class="active"><a href="#ready" id="ReadyTab" aria-controls="home" role="tab" data-toggle="tab">Ready <span class="label label-success">@ReadyStatus</span></a></li>
+                    <li role="presentation"><a href="#processing" aria-controls="profile" role="tab" data-toggle="tab">Processing <span class="label label-info">@ProcessingStatus</span></a></li>
+                    <li role="presentation"><a href="#onhold" aria-controls="messages" role="tab" data-toggle="tab">On Hold <span class="label label-warning">@OnHoldStatus</span></a></li>
+                    <li role="presentation"><a href="#notallowed" aria-controls="settings" role="tab" data-toggle="tab">Not Allowed <span class="label label-danger">@Prohibitted</span></a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <!-- Ready tab content start -->
+
+                    <div role="tabpanel" class="tab-pane active" id="ready">
+                        <div class="table-responsive margintop15PX">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" onchange="ReadyCheckBox(this);"></th>
+                                        <th><a href="#">Date <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Sender/Tracking Numberr <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Weight <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Warehouse <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Status <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Storage Left <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#" onclick="CollapeAll(this);">View <i class="fa fa-caret-down"></i></a></th>
+                                    </tr>
+                                </thead>
+                                @if (Model.Where(x => x.status == 1).Count() == 0)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="8" class="text-center">
+                                                <h2><i class="fa fa-exclamation-circle"></i> No results found</h2>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                }
+                                else
+                                {
+                                    <tbody>
+                                        @{foreach (var item in Model.Where(x => x.status == 1).Select(x => x))
+                                            {
+                                                <tr>
+                                                    <td><input id="id @item.ID" type="checkbox"></td>
+                                                    <td>@Convert.ToDateTime(item.received_date).ToString("yyyy/MM/dd")</td>
+                                                    <td>@item.sender / @item.tracking</td>
+                                                    <td>@item.weight LB</td>
+                                                    <td>US</td>
+                                                    <td><span class="label label-success">Ready</span></td>
+                                                    <td>@item.StorageDays Days</td>
+                                                    <td><a class="btn btn-info btn-sm" role="button" onclick="ChangeIcon(this);" data-toggle="collapse" href="#@item.ID" aria-expanded="false" aria-controls="collapseExample">View <i class="fa fa-angle-down"></i></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="8" class="padding0PX">
+                                                        <div class="collapse box-grey1" id="@item.ID">
+                                                            <div class="row margin0PX">
+                                                                <div class="col-sm-3 col-xs-3">
+                                                                    <form class="form-horizontal">
+                                                                        <div class="form-group">
+                                                                            <div class="row margin0PX">
+                                                                                <div class="col-sm-4 col-xs-4 line-height34PX">Dimension</div>
+                                                                                <div class="col-sm-8 col-xs-8">
+                                                                                    <input class="form-control" readonly id="focusedInput" value="@item.height X @item.length X @item.width" type="text" placeholder="Dimension">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="col-sm-3 col-xs-3 line-height34PX">
+                                                                    Box Condition &nbsp;@if (item.box_condition == "Good")
+                                                                    {<span class="label label-success">@item.box_condition</span>}
+                                                                    else
+                                                                    {<span class="label label-danger">@item.box_condition</span>}
+                                                                </div>
+                                                                <div class="col-sm-6 col-xs-6">
+                                                                    <form class="form-horizontal">
+                                                                        <div class="form-group">
+                                                                            <div class="row margin0PX">
+                                                                                <div class="col-sm-2 col-xs-2 line-height34PX">Comments</div>
+                                                                                <div class="col-sm-10 col-xs-10">
+                                                                                    <input class="form-control" readonly id="focusedInput" value="@item.staff_comments" type="text" placeholder="Comments">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin0PX">
+                                                                <div class="col-sm-12">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="inner-table-th"><a href="#">Description <i class="fa fa-caret-down"></i></a></th>
+                                                                                    <th class="inner-table-th"><a href="#">Quantity <i class="fa fa-caret-down"></i></a></th>
+                                                                                    <th class="inner-table-th"><a href="#">Purchase Price <i class="fa fa-caret-down"></i></a></th>
+                                                                                    <th class="inner-table-th"><a href="#">Total <i class="fa fa-caret-down"></i></a></th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+
+                                                                                @{
+                                                                                    decimal TotalQuantity = 0;
+                                                                                    decimal PurchasePrice = 0;
+                                                                                    List
+                                                                                    <ViewRecivedShipmentModel>
+                                                                                        Models = (List<ViewRecivedShipmentModel>
+                                                                                            )ViewBag.ShipmentDetails;
+                                                                                    foreach (ViewRecivedShipmentModel Shipmentitem in Models)
+                                                                                    {
+                                                                                        if (Shipmentitem.Fk_shipment_id == item.ID)
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>@Shipmentitem.description</td>
+                                                                                                <td>@Shipmentitem.quantity</td>
+                                                                                                <td>@String.Format("{0:0.##}", Shipmentitem.purchase_price)</td>
+                                                                                                @{ decimal TotalQuantityPrice = Shipmentitem.quantity * Shipmentitem.purchase_price;
+                                                                                                    TotalQuantity += TotalQuantityPrice;
+                                                                                                    //PurchasePrice += Shipmentitem.purchase_price;
+                                                                                                }
+                                                                                                <td>@String.Format("{0:0.##}", TotalQuantityPrice)</td>
+                                                                                            </tr>
+                                                                                                        }
+                                                                                                    }
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin0PX">
+                                                                <div class="col-sm-6 col-xs-4">
+                                                                    <a href="javascript:void(0)" class="btn btn-danger" id="CancelShipment"><i class="fa fa-times-circle"></i> Cancel Shipment</a> <a href="#" id="CorrectPrice" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-check-circle-o"></i> Correct Price</a>
+                                                                    @if (item.RecivedShipment_ImagePath != null)
+                                                                    { <a href="#" onclick="Lightboximg()" class="btn btn-primary"><i class="fa fa-picture-o" aria-hidden="true"></i> Request Image</a><div id="gallery">
+                                                                        @foreach (var imgs in item.RecivedShipment_ImagePath)
+                                                                        { <a class="example-image-link" href="http://Uploads/PackagesImages/@item.ID/@imgs" data-lightbox="example-1"><img class="example-image" src="~/Uploads/PackagesImages/@item.ID/@imgs" /></a> }
+                                                                    </div>
+                                                                    }
+                                                                </div>
+                                                                <div class="col-sm-3 col-xs-4"><h3><span class="label label-default"></span></h3></div>
+                                                                <div class="col-sm-3 col-xs-4 text-right"><h3>Total Value <span class="label label-success"> @String.Format("{0:0.##}", @TotalQuantity)</span></h3></div>
+
+                                                                <div class="col-sm-12 col-xs-12 spacetop15PX-xs">
+                                                                    <h4>Note</h4>
+                                                                    <textarea class="form-control" placeholder="Please enter any personal notes about this shipment. Notes can only be viewed by you."></textarea>
+
+                                                                    <button class="btn btn-info margintop5PX">Save Note <i class="fa fa-check"></i></button>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                                                                    }
+                                        }
+                                    </tbody>
+                                                                                                    }
+                            </table>
+                        </div>
+
+                    </div>
+                    <!-- Processing tab content start -->
+                    <div role="tabpanel" class="tab-pane" id="processing">
+                        <div class="table-responsive margintop15PX">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" onchange="CheckBoxProccesing(this);"></th>
+                                        <th><a href="#">Date <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Sender/Tracking Numberr <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Weight <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Warehouse <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Status <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Storage Left <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#" onclick="CollapeAll(this);">View <i class="fa fa-caret-down"></i></a></th>
+                                    </tr>
+                                </thead>
+                                @if (Model.Where(x => x.status == 2).Count() == 0)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="8" class="text-center">
+                                                <h2><i class="fa fa-exclamation-circle"></i> No results found</h2>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                }
+                                else
+                                {
+                                    <tbody>
+
+
+
+                                        @{foreach (var item in Model.Where(x => x.status == 2).Select(x => x))
+                                            {
+                                                <tr>
+                                                    <td><input id="Proccessingcheckbox" type="checkbox"></td>
+                                                    <td>@Convert.ToDateTime(item.received_date).ToString("yyyy/MM/dd")</td>
+                                                    <td>@item.sender / @item.tracking</td>
+                                                    <td>@item.weight LB</td>
+                                                    <td>US</td>
+                                                    <td><span class="label label label-primary">Processing</span></td>
+                                                    <td>@item.StorageDays Days</td>
+                                                    <td><a class="btn btn-info btn-sm" role="button" onclick="ChangeIcon(this)" data-toggle="collapse" href="#@item.ID" aria-expanded="false" aria-controls="collapseExample">View <i class="fa fa-angle-down"></i></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="8" class="padding0PX">
+                                                        <div class="collapse box-grey1" id="@item.ID">
+                                                            <div class="row margin0PX">
+                                                                <div class="col-sm-3 col-xs-3">
+                                                                    <form class="form-horizontal">
+                                                                        <div class="form-group">
+                                                                            <div class="row margin0PX">
+                                                                                <div class="col-sm-4 col-xs-4 line-height34PX">Dimension</div>
+                                                                                <div class="col-sm-8 col-xs-8">
+                                                                                    <input class="form-control" readonly id="focusedInput" value="@item.height X @item.length X @item.width" type="text" placeholder="Dimension">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="col-sm-3 col-xs-3 line-height34PX">
+                                                                    Box Condition &nbsp;<span class="label label-success">@item.box_condition</span>
+                                                                </div>
+                                                                <div class="col-sm-6 col-xs-6">
+                                                                    <form class="form-horizontal">
+                                                                        <div class="form-group">
+                                                                            <div class="row margin0PX">
+                                                                                <div class="col-sm-2 col-xs-2 line-height34PX">Comments</div>
+                                                                                <div class="col-sm-10 col-xs-10">
+                                                                                    <input class="form-control" readonly id="focusedInput" value="@item.staff_comments" type="text" placeholder="Comments">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin0PX">
+                                                                <div class="col-sm-12">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="inner-table-th"><a href="#">Description <i class="fa fa-caret-down"></i></a></th>
+                                                                                    <th class="inner-table-th"><a href="#">Quantity <i class="fa fa-caret-down"></i></a></th>
+                                                                                    <th class="inner-table-th"><a href="#">Purchase Price <i class="fa fa-caret-down"></i></a></th>
+                                                                                    <th class="inner-table-th"><a href="#">Total <i class="fa fa-caret-down"></i></a></th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+
+                                                                                @{
+                                                                                    decimal TotalQuantity = 0;
+                                                                                    decimal PurchasePrice = 0;
+                                                                                    List
+                                                                                    <ViewRecivedShipmentModel>
+                                                                                        Models = (List<ViewRecivedShipmentModel>
+                                                                                            )ViewBag.ShipmentDetails;
+                                                                                    foreach (ViewRecivedShipmentModel Shipmentitem in Models)
+                                                                                    {
+                                                                                        if (Shipmentitem.Fk_shipment_id == item.ID)
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>@Shipmentitem.description</td>
+                                                                                                <td>@Shipmentitem.quantity</td>
+                                                                                                <td>@String.Format("{0:0.##}", Shipmentitem.purchase_price)</td>
+                                                                                                @{ decimal TotalQuantityPrice = Shipmentitem.quantity * Shipmentitem.purchase_price;
+                                                                                                    TotalQuantity += TotalQuantityPrice;
+                                                                                                    PurchasePrice += Shipmentitem.purchase_price;
+                                                                                                }
+                                                                                                <td>@String.Format("{0:0.##}", TotalQuantityPrice)</td>
+                                                                                            </tr>
+                                                                                                        }
+                                                                                                    }
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin0PX">
+                                                                <div class="col-sm-6 col-xs-4"><a href="javascript:void(0)" class="btn btn-danger" id="CancelShipment"><i class="fa fa-times-circle"></i> Cancel Shipment</a> <a href="#" id="CorrectPrice" class="btn btn-info"><i class="fa fa-check-circle-o"></i> Correct Price</a></div>
+                                                                <div class="col-sm-3 col-xs-4"><h3>Declared Value <span class="label label-default">@String.Format("{0:0.##}", @PurchasePrice)</span></h3></div>
+                                                                <div class="col-sm-3 col-xs-4 text-right"><h3>Total Value <span class="label label-success"> @String.Format("{0:0.##}", @TotalQuantity)</span></h3></div>
+
+                                                                <div class="col-sm-12 col-xs-12 spacetop15PX-xs">
+                                                                    <h4>Note</h4>
+                                                                    <textarea class="form-control" placeholder="Please enter any personal notes about this shipment. Notes can only be viewed by you."></textarea>
+
+                                                                    <button class="btn btn-info margintop5PX">Save Note <i class="fa fa-check"></i></button>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                                                                    }
+                                        }
+
+                                    </tbody>
+                                                                                                    }
+                            </table>
+                        </div>
+                    </div>
+                    <!-- On Hold tab content start -->
+                    <div role="tabpanel" class="tab-pane" id="onhold">
+                        <div class="table-responsive margintop15PX">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" onchange="ONHoldCheckBox(this);"></th>
+                                        <th><a href="#">Date <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Sender/Tracking Numberr <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Weight <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Warehouse <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Status <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Storage Left <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#" onclick="CollapeAll(this);">View <i class="fa fa-caret-down"></i></a></th>
+                                    </tr>
+                                </thead>
+                                @if (Model.Where(x => x.status == 4).Count() == 0)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="8" class="text-center">
+                                                <h2><i class="fa fa-exclamation-circle"></i> No results found</h2>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                }
+                                else
+                                {
+                                    <tbody>
+
+
+
+                                        @{foreach (var item in Model.Where(x => x.status == 4).Select(x => x))
+                                            {
+                                                <tr>
+                                                    <td><input type="checkbox" id="onholdcheckbox"></td>
+                                                    <td>@Convert.ToDateTime(item.received_date).ToString("yyyy/MM/dd")</td>
+                                                    <td>@item.sender / @item.tracking</td>
+                                                    <td>@item.weight LB</td>
+                                                    <td>US</td>
+                                                    <td><span class="label label-warning">On Hold</span></td>
+                                                    <td>@item.StorageDays Days</td>
+                                                    <td><a class="btn btn-info btn-sm" role="button" onclick="ChangeIcon(this)" data-toggle="collapse" href="#@item.ID" aria-expanded="false" aria-controls="collapseExample">View <i class="fa fa-angle-down"></i></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="8" class="padding0PX">
+                                                        <div class="collapse box-grey1" id="@item.ID">
+                                                            <div class="row margin0PX">
+                                                                <div class="col-sm-3 col-xs-3">
+                                                                    <form class="form-horizontal">
+                                                                        <div class="form-group">
+                                                                            <div class="row margin0PX">
+                                                                                <div class="col-sm-4 col-xs-4 line-height34PX">Dimension</div>
+                                                                                <div class="col-sm-8 col-xs-8">
+                                                                                    <input class="form-control" readonly id="focusedInput" value="@item.height X @item.length X @item.width" type="text" placeholder="Dimension">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="col-sm-3 col-xs-3 line-height34PX">
+                                                                    Box Condition &nbsp;<span class="label label-success">@item.box_condition</span>
+                                                                </div>
+                                                                <div class="col-sm-6 col-xs-6">
+                                                                    <form class="form-horizontal">
+                                                                        <div class="form-group">
+                                                                            <div class="row margin0PX">
+                                                                                <div class="col-sm-2 col-xs-2 line-height34PX">Comments</div>
+                                                                                <div class="col-sm-10 col-xs-10">
+                                                                                    <input class="form-control" readonly id="focusedInput" value="@item.staff_comments" type="text" placeholder="Comments">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin0PX">
+                                                                <div class="col-sm-12">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="inner-table-th"><a href="#">Description <i class="fa fa-caret-down"></i></a></th>
+                                                                                    <th class="inner-table-th"><a href="#">Quantity <i class="fa fa-caret-down"></i></a></th>
+                                                                                    <th class="inner-table-th"><a href="#">Purchase Price <i class="fa fa-caret-down"></i></a></th>
+                                                                                    <th class="inner-table-th"><a href="#">Total <i class="fa fa-caret-down"></i></a></th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+
+                                                                                @{
+                                                                                    decimal TotalQuantity = 0;
+                                                                                    decimal PurchasePrice = 0;
+                                                                                    List<ViewRecivedShipmentModel> Models = (List<ViewRecivedShipmentModel>)ViewBag.ShipmentDetails;
+                                                                                    foreach (ViewRecivedShipmentModel Shipmentitem in Models)
+                                                                                    {
+                                                                                        if (Shipmentitem.Fk_shipment_id == item.ID)
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>@Shipmentitem.description</td>
+                                                                                                <td>@Shipmentitem.quantity</td>
+                                                                                                <td>@String.Format("{0:0.##}", Shipmentitem.purchase_price)</td>
+                                                                                                @{ decimal TotalQuantityPrice = Shipmentitem.quantity * Shipmentitem.purchase_price;
+                                                                                                    TotalQuantity += TotalQuantityPrice;
+                                                                                                    PurchasePrice += Shipmentitem.purchase_price;
+                                                                                                }
+                                                                                                <td>@String.Format("{0:0.##}", TotalQuantityPrice)</td>
+                                                                                            </tr>
+                                                                                                        }
+                                                                                                    }
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin0PX">
+                                                                <div class="col-sm-6 col-xs-4"><a href="javascript:void(0)" class="btn btn-danger" id="CancelShipment"><i class="fa fa-times-circle"></i> Cancel Shipment</a> <a href="#" class="btn btn-info" id="CorrectPrice"><i class="fa fa-check-circle-o"></i> Correct Price</a></div>
+                                                                <div class="col-sm-3 col-xs-4"><h3>Declared Value <span class="label label-default">@String.Format("{0:0.##}", @PurchasePrice)</span></h3></div>
+                                                                <div class="col-sm-3 col-xs-4 text-right"><h3>Total Value <span class="label label-success"> @String.Format("{0:0.##}", @TotalQuantity)</span></h3></div>
+
+                                                                <div class="col-sm-12 col-xs-12 spacetop15PX-xs">
+                                                                    <h4>Note</h4>
+                                                                    <textarea class="form-control" placeholder="Please enter any personal notes about this shipment. Notes can only be viewed by you."></textarea>
+
+                                                                    <button class="btn btn-info margintop5PX">Save Note <i class="fa fa-check"></i></button>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                                                                    }
+                                        }
+
+                                    </tbody>
+                                                                                                    }
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Not Allowed tab content start -->
+                    <div role="tabpanel" class="tab-pane" id="notallowed">
+                        <div class="table-responsive margintop15PX">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" onchange="NotAllowed(this);"></th>
+                                        <th><a href="#">Date <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Sender/Tracking Numberr <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Weight <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Warehouse <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Status <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Storage Left <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#" onclick="CollapeAll(this);">View <i class="fa fa-caret-down"></i></a></th>
+                                    </tr>
+                                </thead>
+                                @if (Model.Where(x => x.status == 5).Count() == 0)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="8" class="text-center">
+                                                <h2><i class="fa fa-exclamation-circle"></i> No results found</h2>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                }
+                                else
+                                {
+                                    <tbody>
+
+
+
+                                        @{foreach (var item in Model.Where(x => x.status == 5).Select(x => x))
+                                            {
+                                                <tr>
+                                                    <td><input type="checkbox" id="notallowedcheckbox"></td>
+                                                    <td>@Convert.ToDateTime(item.received_date).ToString("yyyy/MM/dd")</td>
+                                                    <td>@item.sender / @item.tracking</td>
+                                                    <td>@item.weight LB</td>
+                                                    <td>US</td>
+                                                    <td><span class="label label-danger">Prohibitted</span></td>
+                                                    <td>@item.StorageDays Days</td>
+                                                    <td><a class="btn btn-info btn-sm" role="button" onclick="ChangeIcon(this)" data-toggle="collapse" href="#@item.ID" aria-expanded="false" aria-controls="collapseExample">View <i class="fa fa-angle-down"></i></a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="8" class="padding0PX">
+                                                        <div class="collapse box-grey1" id="@item.ID">
+                                                            <div class="row margin0PX">
+                                                                <div class="col-sm-3 col-xs-3">
+                                                                    <form class="form-horizontal">
+                                                                        <div class="form-group">
+                                                                            <div class="row margin0PX">
+                                                                                <div class="col-sm-4 col-xs-4 line-height34PX">Dimension</div>
+                                                                                <div class="col-sm-8 col-xs-8">
+                                                                                    <input class="form-control" readonly id="focusedInput" value="@item.height X @item.length X @item.width" type="text" placeholder="Dimension">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="col-sm-3 col-xs-3 line-height34PX">
+                                                                    Box Condition &nbsp;<span class="label label-success">@item.box_condition</span>
+                                                                </div>
+                                                                <div class="col-sm-6 col-xs-6">
+                                                                    <form class="form-horizontal">
+                                                                        <div class="form-group">
+                                                                            <div class="row margin0PX">
+                                                                                <div class="col-sm-2 col-xs-2 line-height34PX">Comments</div>
+                                                                                <div class="col-sm-10 col-xs-10">
+                                                                                    <input class="form-control" readonly id="focusedInput" value="@item.staff_comments" type="text" placeholder="Comments">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin0PX">
+                                                                <div class="col-sm-12">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="inner-table-th"><a href="#">Description <i class="fa fa-caret-down"></i></a></th>
+                                                                                    <th class="inner-table-th"><a href="#">Quantity <i class="fa fa-caret-down"></i></a></th>
+                                                                                    <th class="inner-table-th"><a href="#">Purchase Price <i class="fa fa-caret-down"></i></a></th>
+                                                                                    <th class="inner-table-th"><a href="#">Total <i class="fa fa-caret-down"></i></a></th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+
+                                                                                @{
+                                                                                    decimal TotalQuantity = 0;
+                                                                                    decimal PurchasePrice = 0;
+                                                                                    List<ViewRecivedShipmentModel> Models = (List<ViewRecivedShipmentModel>)ViewBag.ShipmentDetails;
+                                                                                    foreach (ViewRecivedShipmentModel Shipmentitem in Models)
+                                                                                    {
+                                                                                        if (Shipmentitem.Fk_shipment_id == item.ID)
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td>@Shipmentitem.description</td>
+                                                                                                <td>@Shipmentitem.quantity</td>
+                                                                                                <td>@String.Format("{0:0.##}", Shipmentitem.purchase_price)</td>
+                                                                                                @{ decimal TotalQuantityPrice = Shipmentitem.quantity * Shipmentitem.purchase_price;
+                                                                                                    TotalQuantity += TotalQuantityPrice;
+                                                                                                    PurchasePrice += Shipmentitem.purchase_price;
+                                                                                                }
+                                                                                                <td>@String.Format("{0:0.##}", TotalQuantityPrice)</td>
+                                                                                            </tr>
+                                                                                                        }
+                                                                                                    }
+                                                                                }
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin0PX">
+                                                                <div class="col-sm-6 col-xs-4"><a href="javascript:void(0)" class="btn btn-danger" id="CancelShipment"><i class="fa fa-times-circle"></i> Cancel Shipment</a><a href="javascript:void(0)" class="btn btn-info" id="CorrectPrice"><i class="fa fa-check-circle-o"></i> Correct Price</a></div>
+                                                                <div class="col-sm-3 col-xs-4"><h3>Declared Value <span class="label label-default">@String.Format("{0:0.##}", @PurchasePrice)</span></h3></div>
+                                                                <div class="col-sm-3 col-xs-4 text-right"><h3>Total Value <span class="label label-success"> @String.Format("{0:0.##}", @TotalQuantity)</span></h3></div>
+
+                                                                <div class="col-sm-12 col-xs-12 spacetop15PX-xs">
+                                                                    <h4>Note</h4>
+                                                                    <textarea class="form-control" placeholder="Please enter any personal notes about this shipment. Notes can only be viewed by you."></textarea>
+
+                                                                    <button class="btn btn-info margintop5PX">Save Note <i class="fa fa-check"></i></button>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                                                                    }
+                                        }
+
+                                    </tbody>
+                                                                                                    }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a href="javascript:void(0)" class="btn btn-danger" data-toggle="modal" data-target="#myreturnpackage" onclick="ReturnPackage()"><i class="fa fa-retweet"></i> Return Packages</a> <a href="#" class="btn btn-info" onclick="RequestPicture();"><i class="fa fa-camera"></i> Request Picture</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Trigger the modal with a button -->
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        Please Upload Invoice
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <label class="control-label">Select File</label>
+                        <input type="file" id="fileUpload" class="file file-loading" multiple data-min-file-count="1" data-allowed-file-extensions='["csv", "txt","jpg","jpeg","pdf","doc","png","xlsx"]' />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Trigger the modal with a button -->
+        <!-- Modal -->
+        <div class="modal fade" id="myreturnpackage" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Return Packages</h4>You can choose to fill out the form or upload picture of your label.
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                form fill
+                            </h3>
+                            <a data-toggle="collapse" data-target="#prepaidlabel"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="panel-body collapse" id="prepaidlabel">
+                            <form id="formdata" name="formdata">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="FirstName" class="form-control" placeholder="First Name" />
+                                        <span id="FirstName" style="color:red">First Name is required</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="LastName" class="form-control" placeholder="Last Name" />
+                                        <span id="LastName" style="color:red">Last Name is required</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-space">
+                                        <input type="text" id="Address1" class="form-control" placeholder="Address1" />
+                                        <span id="Address1" style="color:red">Address1 is required</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-space">
+                                        <input type="text" id="Address2" class="form-control" placeholder="Address2" />
+                                        <span id="Address2" style="color:red">Address2 is required</span>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-space">
+                                        <input type="text" id="City" class="form-control" placeholder="City" />
+                                        <span id="City" style="color:red">City is required</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-space">
+                                        <input type="text" id="State" class="form-control" placeholder="State" />
+                                        <span id="State" style="color:red">State is required</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-space">
+                                        <input type="text" id="Zip" class="form-control" placeholder="Zip" />
+                                        <span id="Zip" style="color:red">Zip is required</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-space">
+                                        <input type="text" id="Phone" class="form-control" placeholder="Phone" />
+                                        <span id="Phone" style="color:red">Phone is required</span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-space">
+                                        <input type="text" id="Rma" class="form-control" placeholder="Rma" />
+                                        <span id="Rma" style="color:red">Rma is required</span>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-space text-center">
+                                                <button type="button" onclick="SubmitRequestPackageForm()" class="btn btn-primary">Submit</button>
+                                                <button type="reset" value="Clear" onclick="Cleardata()" class="btn btn-danger">Clear</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                    <div class="panel panel-default" style="margin-top:-21px!important">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Do you have prepaid label?
+                            </h3>
+                            <a data-toggle="collapse" data-target="#formfill"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="panel-body collapse" id="formfill">
+                            <label class="control-label">Select File</label>
+                            <input type="file" id="ReturnpackagefileUpload" class="file file-loading" multiple data-min-file-count="1" data-allowed-file-extensions='["csv", "txt","jpg","jpeg","pdf","doc","png","xlsx"]' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    function ReturnPackage() {
+
+        var idarray = [];
+        $('div.tab-pane.active').find("input[type='checkbox']:checked").each(function (i, obj) { (idarray.push(obj.id)) })
+        var confirmessage = confirm('Are you sure,you want to confirm return packages ')
+        if (confirmessage == true) {
+            $('#returnpackageid').val(idarray);
+        }
+    }
+    $(document).ready(function () {
+        $('form[id="formdata"]').find('span').addClass('hidden')
+    })
+    function Cleardata()
+    {
+        $('form[id="formdata"]').find('input').each(function (i, obj) {
+            $(this).val('');
+        })
+
+    }
+    function SubmitRequestPackageForm() {
+        var is_validate = true;
+        $('form[id="formdata"]').find('input').each(function (i, obj) {
+
+            if ($(this).val() === "" && $(this).attr("id") !== "Address2") {
+                $(this).css('border-color', 'red');
+                $(this).parent().children().eq(1).removeClass('hidden')
+                is_validate = false;
+            }
+            else if ($(this).val() != "") {
+                $(this).css('border-color', '#ccc');
+                $(this).parent().children().eq(1).addClass('hidden')
+            }
+        });
+        if (is_validate) {
+            var formrequestdata = new FormData();
+            var idarray = [];
+            $('div.tab-pane.active').find("input[type='checkbox']:checked").each(function (i, obj) { (idarray.push(obj.id)) })
+            formrequestdata.append("returnpackageid", idarray);
+            formrequestdata.append("FirstName", $("#FirstName").val());
+            formrequestdata.append("LastName", $("#LastName").val());
+            formrequestdata.append("Address1", $("#Address1").val());
+            formrequestdata.append("Address2", $("#Address2").val());
+            formrequestdata.append("City", $("#City").val());
+            formrequestdata.append("Zip", $("#Zip").val());
+            formrequestdata.append("State", $("#State").val());
+            formrequestdata.append("Phone", $("#Phone").val());
+            formrequestdata.append("Rma", $("#Rma").val());
+            $.ajax({
+                url: '/User/Shipment/ReturPackageForm',
+                type: "POST",
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
+                data: formrequestdata,
+                success: function (result) {
+                    if (result == "")
+                    { showMessage('Please select at least one shipment', false); }
+                    else
+                    {
+                        showMessage(result, true);
+                        $('form[id="formdata"]').find('input').each(function (i, obj) {
+                            $(this).val('');
+                        });
+                    }
+                        
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        }
+    }
+    function ReadyCheckBox(ready) {
+        if ($(ready).parents('thead').find('input[type="checkbox"]').prop('checked') == true) {
+            $(ready).parents('thead').next('tbody').children().children().find('input[type="checkbox"]').each(function () { $(this).prop('checked', true) });
+        }
+        else if ($(ready).parents('thead').find('input[type="checkbox"]').prop('checked') == false) {
+            $(ready).parents('thead').next('tbody').children().children().find('input[type="checkbox"]').each(function () { $(this).prop('checked', false) })
+        }
+
+    }
+
+    //Checkbox Events
+    $("td input[type='checkbox']").change(function () {
+        if ($(this).prop('checked') === false) {
+            $(this).parents('table').find('thead').find('input[type="checkbox"]').prop('checked', false);
+        }
+        else {
+            if ($(this).parents('tbody').find('input[type="checkbox"]').length === $(this).parents('tbody').find('input[type="checkbox"]:checked').length)
+                $(this).parents('table').find('thead').find('input[type="checkbox"]').prop('checked', true);
+        }
+    })
+    function CheckBoxProccesing(process) {
+        if ($(process).parents('thead').find('input[type="checkbox"]').prop('checked') == true) {
+            $(process).parents('thead').next('tbody').children().children().find('input[type="checkbox"]').each(function () { $(this).prop('checked', true) });
+        }
+        else if ($(process).parents('thead').find('input[type="checkbox"]').prop('checked') == false) {
+            $(process).parents('thead').next('tbody').children().children().find('input[type="checkbox"]').each(function () { $(this).prop('checked', false) })
+        }
+    }
+
+    function ONHoldCheckBox(onhold) {
+        if ($(onhold).parents('thead').find('input[type="checkbox"]').prop('checked') == true) {
+            $(onhold).parents('thead').next('tbody').children().children().find('input[type="checkbox"]').each(function () { $(this).prop('checked', true) });
+        }
+        else if ($(onhold).parents('thead').find('input[type="checkbox"]').prop('checked') == false) {
+            $(onhold).parents('thead').next('tbody').children().children().find('input[type="checkbox"]').each(function () { $(this).prop('checked', false) })
+        }
+    }
+
+    function NotAllowed(notallowed) {
+        if ($(notallowed).parents('thead').find('input[type="checkbox"]').prop('checked') == true) {
+            $(notallowed).parents('thead').next('tbody').children().children().find('input[type="checkbox"]').each(function () { $(this).prop('checked', true) });
+        }
+        else if ($(notallowed).parents('thead').find('input[type="checkbox"]').prop('checked') == false) {
+            $(notallowed).parents('thead').next('tbody').children().children().find('input[type="checkbox"]').each(function () { $(this).prop('checked', false) })
+        }
+    }
+
+
+</script>
+<script type="text/javascript">
+    function ChangeIcon(icon) {
+        var cancelrequest = $(icon).attr('href').replace('#', '');
+        $("#CancelShipment").val(cancelrequest);
+        $(icon).children().toggleClass('fa-angle-down fa-angle-up');
+
+    }
+    function CollapeAll(IconChange) {
+        $('[role="button"]').trigger('click');
+        $(IconChange).children().toggleClass('fa fa-caret-down  fa fa-caret-up');
+    }
+    $('a[data-target="#formfill"]').children().click(function () {
+        $('a[data-target="#formfill"]').children().toggleClass('fa fa-plus  fa fa-minus')
+        if ($('a[data-target="#prepaidlabel"]').parents('div[class="panel panel-default"]').children().eq(1).hasClass('collapse in') === true) {
+
+            $('a[data-target="#prepaidlabel"]').parents('div[class="panel panel-default"]').children().eq(1).removeClass('collapse in').addClass('collapse');
+            if ($('a[data-target="#prepaidlabel"]').children().hasClass('fa fa-minus') === true) {
+                $('a[data-target="#prepaidlabel"]').children().removeClass('fa fa-minus').addClass('fa fa-plus')
+
+            }
+            else if ($('a[data-target="#prepaidlabel"]').children().hasClass('fa fa-plus') === true) {
+                $('a[data-target="#prepaidlabel"]').children().removeClass('fa fa-pluss').addClass('fa fa-minus')
+
+            }
+        }
+
+    })
+    $('a[data-target="#prepaidlabel"]').children().click(function () {
+        $('a[data-target="#prepaidlabel"]').children().toggleClass('fa fa-plus  fa fa-minus')
+        if ($('a[data-target="#formfill"]').parents('div[class="panel panel-default"]').children().eq(1).hasClass('collapse in') === true) {
+            $('a[data-target="#formfill"]').parents('div[class="panel panel-default"]').children().eq(1).removeClass('collapse in').addClass('collapse');
+
+            if ($('a[data-target="#formfill"]').children().hasClass('fa fa-minus') === true) {
+                $('a[data-target="#formfill"]').children().removeClass('fa fa-minus').addClass('fa fa-plus')
+
+            }
+            else if ($('a[data-target="#formfill"]').children().hasClass('fa fa-plus') === true) {
+                $('a[data-target="#formfill"]').children().removeClass('fa fa-pluss').addClass('fa fa-minus')
+
+            }
+        }
+    })
+</script>
+<script type="text/javascript">
+    $("[id='CancelShipment']").click(function () {
+        var CancelShipmentID = $(this).parents('tr').prev().find('a').attr('href').replace('#', '')
+        var confirmessage = confirm('Are you sure,you want to confirm cancelshipment ')
+        if (confirmessage == true) {
+            $.ajax({
+                url: '/User/Shipment/CancelRecivedShipment',
+                type: 'POST',
+                data: JSON.stringify({ "CancelShipmentID": CancelShipmentID }),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (data != null) {
+                        showMessage(data, true);
+                        location.reload();
+                        showMessage('You shipment has been successfully cancel ', true);
+                    }
+                }
+            })
+        }
+    });
+    $("[id='CorrectPrice']").click(function () {
+        var CorrectPrice = $(this).parents('tr').prev().find('a').attr('href').replace('#', '')
+        $('button[class="btn btn-default fileinput-remove fileinput-remove-button"]').trigger("click");
+        localStorage.setItem("CorrectPriceID", CorrectPrice);
+    });
+    //Request Picture//
+    function RequestPicture() {
+        var idarray = [];
+        $('div.tab-pane.active').find("input[type='checkbox']:checked").each(function (i, obj) { (idarray.push(obj.id)) })
+        var confirmessage = confirm('Are you sure? you will be charges according your plan')
+        if (confirmessage == true) {
+            $.ajax({
+                url: '/User/Shipment/RequestPicture',
+                type: 'POST',
+                data: JSON.stringify({ "requestpicture": idarray }),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (data == "") {
+                        showMessage('Please select at least one shipment', false);
+                        
+                    }
+                    else
+                        showMessage(data, true);
+                }
+            })
+        }
+    }
+  
+</script>
+<script type="text/javascript">
+    $(document).on('ready', function () {
+        $("#fileUpload").fileinput();
+    });
+    $(document).ready(function () {
+        $(document).on("click", ".fileinput-upload-button", function () {
+            // Checking whether FormData is available in browser
+            var fileUpload = $("#fileUpload").get(0);
+            var filesrec = $("#ReturnpackagefileUpload").get(0);
+            var filerecship = filesrec.files;
+            var files = fileUpload.files;
+            if (fileUpload.files.length === 0) {
+                // Create FormData object
+                var fileData = new FormData();
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < filerecship.length; i++) {
+                    fileData.append(filerecship[i].name, filerecship[i]);
+                }
+                var idarray = [];
+                $('div.tab-pane.active').find("input[type='checkbox']:checked").each(function (i, obj) { (idarray.push(obj.id)) })
+                fileData.append("returnpackageid", idarray);
+
+                // Adding one more key to FormData object
+                $.ajax({
+                    url: '/User/Shipment/ReturPackageForm',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (result) {
+                        showMessage(result, true);
+                        if (result == "")
+                        { showMessage('Please select at least one shipment', false); }
+                        else
+                        {
+                            showMessage(result, true);
+                            $('button[class="btn btn-default fileinput-remove fileinput-remove-button"]').trigger("click");
+                        }
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                    }
+                });
+            }
+            else if (filesrec.files.length === 0) {
+                var fileData = new FormData();
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+                var recivesshipid = localStorage.CorrectPriceID;
+                fileData.append("recievshipId", recivesshipid);
+                // Adding one more key to FormData object
+                $.ajax({
+                    url: '/User/Shipment/CorrectPrice',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (result) {
+                        showMessage(result, true);
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                    }
+                });
+
+            }
+        });
+    });
+</script>
+

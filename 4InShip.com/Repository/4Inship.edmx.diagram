@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c170bdbf6326499f9233fa2f3b952c9f" Name="Diagram1">
+        <EntityTypeShape EntityType="InShipModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="InShipModel.tblAddressBook" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="InShipModel.tblAdminUser" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="InShipModel.tblBillingAddress" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="InShipModel.tblCityMaster" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="InShipModel.tblCountryMaster" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="InShipModel.tblCreditCard" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="InShipModel.tblCustomer" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="InShipModel.tblCustomerPlanLinking" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="InShipModel.tblDeliveryAddress" Width="1.5" PointX="8.75" PointY="4.75" />
+        <EntityTypeShape EntityType="InShipModel.tblInvoice" Width="1.5" PointX="4.75" PointY="8.75" />
+        <EntityTypeShape EntityType="InShipModel.tblOrder" Width="1.5" PointX="6.75" PointY="9.75" />
+        <EntityTypeShape EntityType="InShipModel.tblOrderBox" Width="1.5" PointX="8.75" PointY="9.75" />
+        <EntityTypeShape EntityType="InShipModel.tblOrderCharge" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="InShipModel.tblPackagingOption" Width="1.5" PointX="10.75" PointY="3.75" />
+        <EntityTypeShape EntityType="InShipModel.tblPlanOptionLinking" Width="1.5" PointX="10.75" PointY="7.75" />
+        <EntityTypeShape EntityType="InShipModel.tblPlan" Width="1.5" PointX="10.75" PointY="10.75" />
+        <EntityTypeShape EntityType="InShipModel.tblReceivedShipment" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="InShipModel.tblRewardAmount" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="InShipModel.tblRewardPoint" Width="1.5" PointX="12.75" PointY="3.75" />
+        <EntityTypeShape EntityType="InShipModel.tblShipmentDetail" Width="1.5" PointX="12.75" PointY="6.75" />
+        <EntityTypeShape EntityType="InShipModel.tblShipmentImage" Width="1.5" PointX="12.75" PointY="9.75" />
+        <EntityTypeShape EntityType="InShipModel.tblShipmentReturnDetail" Width="1.5" PointX="12.75" PointY="12.75" />
+        <EntityTypeShape EntityType="InShipModel.tblSignupCouponConsumed" Width="1.5" PointX="2.75" PointY="13.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

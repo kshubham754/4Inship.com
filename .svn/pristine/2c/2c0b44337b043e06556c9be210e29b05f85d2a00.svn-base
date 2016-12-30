@@ -1,0 +1,1239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="InShipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblAddressBook">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_customer_Id" Type="int" Nullable="false" />
+          <Property Name="address_name" Type="varchar" MaxLength="50" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" />
+          <Property Name="company" Type="varchar" MaxLength="50" />
+          <Property Name="address1" Type="varchar" MaxLength="100" />
+          <Property Name="address2" Type="varchar" MaxLength="100" />
+          <Property Name="country_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="state" Type="varchar" MaxLength="50" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="post_code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="mobile1" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="mobile2" Type="varchar" MaxLength="20" />
+          <Property Name="is_default" Type="bit" Nullable="false" />
+          <Property Name="tax_id" Type="varchar" MaxLength="50" />
+          <Property Name="created_on" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblAdminUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="role" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="created_on" Type="datetime" />
+          <Property Name="modified_on" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblBillingAddress">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="mobile" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="country_code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="state" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="post_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="created_on" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCityMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_Country_Id" Type="int" />
+          <Property Name="city_name" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblCountryMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="country_code" Type="varchar" MaxLength="20" />
+          <Property Name="country_name" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblCreditCard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_customer_Id" Type="int" Nullable="false" />
+          <Property Name="card_type" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="card_num" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="card_expiry" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cust_name" Type="varchar" MaxLength="20" />
+          <Property Name="cust_address" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="cust_post_code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cust_country_code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cust_email" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="cust_mobile" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="card_auth_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="card_auth_status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="card_auth_response" Type="varchar(max)" Nullable="false" />
+          <Property Name="created_on" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_reference" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="facebook_id" Type="varchar" MaxLength="50" />
+          <Property Name="google_id" Type="varchar" MaxLength="50" />
+          <Property Name="payment_status" Type="bit" />
+          <Property Name="account_expiry_date" Type="date" />
+          <Property Name="status" Type="bit" />
+          <Property Name="created_on" Type="datetime" />
+          <Property Name="modified_on" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblCustomerPlanLinking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_Customer_Id" Type="int" Nullable="false" />
+          <Property Name="plan_title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="plan_amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="created_on" Type="datetime" />
+          <Property Name="free_storage_days" Type="smallint" />
+        </EntityType>
+        <EntityType Name="tblDeliveryAddress">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" />
+          <Property Name="company" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address1" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="address2" Type="varchar" MaxLength="500" />
+          <Property Name="country_code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="state" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="postal_code" Type="varchar" MaxLength="50" />
+          <Property Name="mobile1" Type="varchar" MaxLength="50" />
+          <Property Name="mobile2" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblInvoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reference_no" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Fk_customer_id" Type="int" Nullable="false" />
+          <Property Name="Fk_billing_address_id" Type="int" Nullable="false" />
+          <Property Name="invoice_number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="invoice_date" Type="datetime" Nullable="false" />
+          <Property Name="paid_status" Type="bit" Nullable="false" />
+          <Property Name="paid_on" Type="datetime" Nullable="false" />
+          <Property Name="payment_method" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="payment_amount" Type="money" Nullable="false" />
+          <Property Name="transaction_id" Type="int" Nullable="false" />
+          <Property Name="custom_guid" Type="uniqueidentifier" />
+          <Property Name="invoice_type" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="transaction_status" Type="smallint" Nullable="false" />
+          <Property Name="transaction_response" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reference_no" Type="varchar" MaxLength="50" />
+          <Property Name="Fk_customer_id" Type="int" Nullable="false" />
+          <Property Name="Fk_invoice_id" Type="int" />
+          <Property Name="Fk_delivery_address_id" Type="int" />
+          <Property Name="carrier" Type="varchar" MaxLength="50" />
+          <Property Name="product" Type="varchar" MaxLength="50" />
+          <Property Name="service" Type="varchar" MaxLength="50" />
+          <Property Name="pickup_date" Type="datetime" />
+          <Property Name="pickup_cut_off_time" Type="datetime" />
+          <Property Name="booking_time" Type="datetime" />
+          <Property Name="delvery_date" Type="date" />
+          <Property Name="delvery_time" Type="datetime" />
+          <Property Name="payable_amount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="tracking_no" Type="varchar" MaxLength="50" />
+          <Property Name="billing_weight" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="is_delivered" Type="bit" />
+          <Property Name="signature" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="creted_on" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblOrderBoxes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_order_id" Type="int" Nullable="false" />
+          <Property Name="actual_weight" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="dim_weight" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="billable_weight" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="height" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="width" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="length" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="tblOrderCharges">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_order_id" Type="int" Nullable="false" />
+          <Property Name="charge_name" Type="varchar" MaxLength="50" />
+          <Property Name="buy_price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="sell_price" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="tblPackagingOptions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="created_on" Type="datetime" />
+          <Property Name="modified_on" Type="datetime" />
+          <Property Name="is_signup" Type="bit" />
+          <Property Name="is_shipment" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblPlanOptionLinking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_plan_id" Type="int" Nullable="false" />
+          <Property Name="Fk_packaging_option_id" Type="int" Nullable="false" />
+          <Property Name="price" Type="money" />
+        </EntityType>
+        <EntityType Name="tblPlans">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="price" Type="money" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="is_recurring" Type="bit" />
+          <Property Name="recurring_duration" Type="smallint" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="created_on" Type="datetime" />
+          <Property Name="modified_on" Type="datetime" />
+          <Property Name="free_storage_days" Type="smallint" />
+        </EntityType>
+        <EntityType Name="tblReceivedShipment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_Customer_Id" Type="int" Nullable="false" />
+          <Property Name="Fk_order_id" Type="int" />
+          <Property Name="received_date" Type="date" Nullable="false" />
+          <Property Name="sender" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tracking" Type="varchar" MaxLength="50" />
+          <Property Name="carrier" Type="varchar" MaxLength="50" />
+          <Property Name="weight" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="height" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="length" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="width" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="box_condition" Type="varchar" MaxLength="50" />
+          <Property Name="staff_comments" Type="varchar" MaxLength="500" />
+          <Property Name="user_notes" Type="varchar" MaxLength="500" />
+          <Property Name="is_requested_picture" Type="bit" />
+          <Property Name="status" Type="tinyint" Nullable="false" />
+          <Property Name="created_on" Type="datetime" />
+          <Property Name="created_by" Type="varchar" MaxLength="50" />
+          <Property Name="modified_on" Type="datetime" />
+          <Property Name="modified_by" Type="varchar" MaxLength="50" />
+          <Property Name="created_invoice_file_path" Type="varchar(max)" />
+          <Property Name="shelf_no" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblRewardAmount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_CustomerId" Type="int" Nullable="false" />
+          <Property Name="credit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="debit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="created_on" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblRewardPoints">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_CustomerId" Type="int" Nullable="false" />
+          <Property Name="reward_points" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="is_converted" Type="bit" />
+          <Property Name="type" Type="varchar" MaxLength="25" />
+          <Property Name="created_on" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblShipmentDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_shipment_id" Type="int" Nullable="false" />
+          <Property Name="comodity_code" Type="varchar" MaxLength="50" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="purchase_price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblShipmentImages">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_shipment_id" Type="int" Nullable="false" />
+          <Property Name="file_path" Type="varchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblShipmentReturnDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_shipment_id" Type="int" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" />
+          <Property Name="address1" Type="varchar" MaxLength="500" />
+          <Property Name="address2" Type="varchar" MaxLength="500" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="state" Type="varchar" MaxLength="50" />
+          <Property Name="postal_code" Type="varchar" MaxLength="50" />
+          <Property Name="mobile" Type="varchar" MaxLength="50" />
+          <Property Name="rma" Type="varchar" MaxLength="50" />
+          <Property Name="prepaid_label_filename" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblSignupCouponConsumed">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_CustomerId" Type="int" Nullable="false" />
+          <Property Name="coupon_Code" Type="varchar" MaxLength="50" />
+          <Property Name="redeemed_Amount" Type="money" />
+          <Property Name="redeemed_on" Type="datetime" />
+        </EntityType>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="InShipModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAddressBook" EntityType="Self.tblAddressBook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAdminUsers" EntityType="Self.tblAdminUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBillingAddress" EntityType="Self.tblBillingAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCityMaster" EntityType="Self.tblCityMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCountryMaster" EntityType="Self.tblCountryMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCreditCard" EntityType="Self.tblCreditCard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCustomer" EntityType="Self.tblCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCustomerPlanLinking" EntityType="Self.tblCustomerPlanLinking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDeliveryAddress" EntityType="Self.tblDeliveryAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblInvoice" EntityType="Self.tblInvoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOrder" EntityType="Self.tblOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOrderBoxes" EntityType="Self.tblOrderBoxes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOrderCharges" EntityType="Self.tblOrderCharges" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPackagingOptions" EntityType="Self.tblPackagingOptions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPlanOptionLinking" EntityType="Self.tblPlanOptionLinking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPlans" EntityType="Self.tblPlans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblReceivedShipment" EntityType="Self.tblReceivedShipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRewardAmount" EntityType="Self.tblRewardAmount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRewardPoints" EntityType="Self.tblRewardPoints" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblShipmentDetail" EntityType="Self.tblShipmentDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblShipmentImages" EntityType="Self.tblShipmentImages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblShipmentReturnDetail" EntityType="Self.tblShipmentReturnDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSignupCouponConsumed" EntityType="Self.tblSignupCouponConsumed" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InShipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Context4InshipEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(InShipModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(InShipModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="sysdiagrams" EntityType="InShipModel.sysdiagram" />
+          <EntitySet Name="tblAddressBooks" EntityType="InShipModel.tblAddressBook" />
+          <EntitySet Name="tblAdminUsers" EntityType="InShipModel.tblAdminUser" />
+          <EntitySet Name="tblBillingAddresses" EntityType="InShipModel.tblBillingAddress" />
+          <EntitySet Name="tblCityMasters" EntityType="InShipModel.tblCityMaster" />
+          <EntitySet Name="tblCountryMasters" EntityType="InShipModel.tblCountryMaster" />
+          <EntitySet Name="tblCreditCards" EntityType="InShipModel.tblCreditCard" />
+          <EntitySet Name="tblCustomers" EntityType="InShipModel.tblCustomer" />
+          <EntitySet Name="tblCustomerPlanLinkings" EntityType="InShipModel.tblCustomerPlanLinking" />
+          <EntitySet Name="tblDeliveryAddresses" EntityType="InShipModel.tblDeliveryAddress" />
+          <EntitySet Name="tblInvoices" EntityType="InShipModel.tblInvoice" />
+          <EntitySet Name="tblOrders" EntityType="InShipModel.tblOrder" />
+          <EntitySet Name="tblOrderBoxes" EntityType="InShipModel.tblOrderBox" />
+          <EntitySet Name="tblOrderCharges" EntityType="InShipModel.tblOrderCharge" />
+          <EntitySet Name="tblPackagingOptions" EntityType="InShipModel.tblPackagingOption" />
+          <EntitySet Name="tblPlanOptionLinkings" EntityType="InShipModel.tblPlanOptionLinking" />
+          <EntitySet Name="tblPlans" EntityType="InShipModel.tblPlan" />
+          <EntitySet Name="tblReceivedShipments" EntityType="InShipModel.tblReceivedShipment" />
+          <EntitySet Name="tblRewardAmounts" EntityType="InShipModel.tblRewardAmount" />
+          <EntitySet Name="tblRewardPoints" EntityType="InShipModel.tblRewardPoint" />
+          <EntitySet Name="tblShipmentDetails" EntityType="InShipModel.tblShipmentDetail" />
+          <EntitySet Name="tblShipmentImages" EntityType="InShipModel.tblShipmentImage" />
+          <EntitySet Name="tblShipmentReturnDetails" EntityType="InShipModel.tblShipmentReturnDetail" />
+          <EntitySet Name="tblSignupCouponConsumeds" EntityType="InShipModel.tblSignupCouponConsumed" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblAddressBook">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_customer_Id" Type="Int32" Nullable="false" />
+          <Property Name="address_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="country_code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="post_code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="mobile1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="mobile2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="is_default" Type="Boolean" Nullable="false" />
+          <Property Name="tax_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="created_on" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblAdminUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="role" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="created_on" Type="DateTime" Precision="3" />
+          <Property Name="modified_on" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblBillingAddress">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mobile" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="country_code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="post_code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="created_on" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblCityMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_Country_Id" Type="Int32" />
+          <Property Name="city_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblCountryMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="country_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="country_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblCreditCard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_customer_Id" Type="Int32" Nullable="false" />
+          <Property Name="card_type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="card_num" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="card_expiry" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cust_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cust_address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="cust_post_code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cust_country_code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cust_email" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cust_mobile" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="card_auth_id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="card_auth_status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="card_auth_response" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="created_on" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_reference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="facebook_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="google_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="payment_status" Type="Boolean" />
+          <Property Name="account_expiry_date" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="created_on" Type="DateTime" Precision="3" />
+          <Property Name="modified_on" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblCustomerPlanLinking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_Customer_Id" Type="Int32" Nullable="false" />
+          <Property Name="plan_title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="plan_amount" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="created_on" Type="DateTime" Precision="3" />
+          <Property Name="free_storage_days" Type="Int16" />
+        </EntityType>
+        <EntityType Name="tblDeliveryAddress">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="company" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="address1" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="address2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="country_code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="postal_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mobile1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mobile2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblInvoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reference_no" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fk_customer_id" Type="Int32" Nullable="false" />
+          <Property Name="Fk_billing_address_id" Type="Int32" Nullable="false" />
+          <Property Name="invoice_number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="invoice_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="paid_status" Type="Boolean" Nullable="false" />
+          <Property Name="paid_on" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="payment_method" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="payment_amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="transaction_id" Type="Int32" Nullable="false" />
+          <Property Name="custom_guid" Type="Guid" />
+          <Property Name="invoice_type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="transaction_status" Type="Int16" Nullable="false" />
+          <Property Name="transaction_response" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reference_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fk_customer_id" Type="Int32" Nullable="false" />
+          <Property Name="Fk_invoice_id" Type="Int32" />
+          <Property Name="Fk_delivery_address_id" Type="Int32" />
+          <Property Name="carrier" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="product" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="service" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pickup_date" Type="DateTime" Precision="3" />
+          <Property Name="pickup_cut_off_time" Type="DateTime" Precision="3" />
+          <Property Name="booking_time" Type="DateTime" Precision="3" />
+          <Property Name="delvery_date" Type="DateTime" Precision="0" />
+          <Property Name="delvery_time" Type="DateTime" Precision="3" />
+          <Property Name="payable_amount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="tracking_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="billing_weight" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="is_delivered" Type="Boolean" />
+          <Property Name="signature" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="creted_on" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblOrderBox">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_order_id" Type="Int32" Nullable="false" />
+          <Property Name="actual_weight" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="dim_weight" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="billable_weight" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="height" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="width" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="length" Type="Decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="tblOrderCharge">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_order_id" Type="Int32" Nullable="false" />
+          <Property Name="charge_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="buy_price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="sell_price" Type="Decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="tblPackagingOption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="created_on" Type="DateTime" Precision="3" />
+          <Property Name="modified_on" Type="DateTime" Precision="3" />
+          <Property Name="is_signup" Type="Boolean" />
+          <Property Name="is_shipment" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblPlanOptionLinking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_plan_id" Type="Int32" Nullable="false" />
+          <Property Name="Fk_packaging_option_id" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="tblPlan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="is_recurring" Type="Boolean" />
+          <Property Name="recurring_duration" Type="Int16" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="created_on" Type="DateTime" Precision="3" />
+          <Property Name="modified_on" Type="DateTime" Precision="3" />
+          <Property Name="free_storage_days" Type="Int16" />
+        </EntityType>
+        <EntityType Name="tblReceivedShipment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_Customer_Id" Type="Int32" Nullable="false" />
+          <Property Name="Fk_order_id" Type="Int32" />
+          <Property Name="received_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="sender" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tracking" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="carrier" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="weight" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="height" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="length" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="width" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="box_condition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="staff_comments" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="user_notes" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="is_requested_picture" Type="Boolean" />
+          <Property Name="status" Type="Byte" Nullable="false" />
+          <Property Name="created_on" Type="DateTime" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="modified_on" Type="DateTime" Precision="3" />
+          <Property Name="modified_by" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="created_invoice_file_path" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="shelf_no" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblRewardAmount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="credit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="debit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="created_on" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblRewardPoint">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="reward_points" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="is_converted" Type="Boolean" />
+          <Property Name="type" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="created_on" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblShipmentDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_shipment_id" Type="Int32" Nullable="false" />
+          <Property Name="comodity_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="purchase_price" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="tblShipmentImage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_shipment_id" Type="Int32" Nullable="false" />
+          <Property Name="file_path" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblShipmentReturnDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_shipment_id" Type="Int32" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="address1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="address2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="postal_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rma" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prepaid_label_filename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblSignupCouponConsumed">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="coupon_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="redeemed_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="redeemed_on" Type="DateTime" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InShipModelStoreContainer" CdmEntityContainer="Context4InshipEntities">
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="InShipModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="InShipModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="InShipModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="InShipModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InShipModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="InShipModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InShipModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="InShipModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="InShipModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="InShipModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAddressBooks">
+            <EntityTypeMapping TypeName="InShipModel.tblAddressBook">
+              <MappingFragment StoreEntitySet="tblAddressBook">
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
+                <ScalarProperty Name="is_default" ColumnName="is_default" />
+                <ScalarProperty Name="mobile2" ColumnName="mobile2" />
+                <ScalarProperty Name="mobile1" ColumnName="mobile1" />
+                <ScalarProperty Name="post_code" ColumnName="post_code" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="country_code" ColumnName="country_code" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="address_name" ColumnName="address_name" />
+                <ScalarProperty Name="Fk_customer_Id" ColumnName="Fk_customer_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAdminUsers">
+            <EntityTypeMapping TypeName="InShipModel.tblAdminUser">
+              <MappingFragment StoreEntitySet="tblAdminUsers">
+                <ScalarProperty Name="modified_on" ColumnName="modified_on" />
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBillingAddresses">
+            <EntityTypeMapping TypeName="InShipModel.tblBillingAddress">
+              <MappingFragment StoreEntitySet="tblBillingAddress">
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="post_code" ColumnName="post_code" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="country_code" ColumnName="country_code" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCityMasters">
+            <EntityTypeMapping TypeName="InShipModel.tblCityMaster">
+              <MappingFragment StoreEntitySet="tblCityMaster">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="city_name" ColumnName="city_name" />
+                <ScalarProperty Name="Fk_Country_Id" ColumnName="Fk_Country_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCountryMasters">
+            <EntityTypeMapping TypeName="InShipModel.tblCountryMaster">
+              <MappingFragment StoreEntitySet="tblCountryMaster">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="country_name" ColumnName="country_name" />
+                <ScalarProperty Name="country_code" ColumnName="country_code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCreditCards">
+            <EntityTypeMapping TypeName="InShipModel.tblCreditCard">
+              <MappingFragment StoreEntitySet="tblCreditCard">
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="card_auth_response" ColumnName="card_auth_response" />
+                <ScalarProperty Name="card_auth_status" ColumnName="card_auth_status" />
+                <ScalarProperty Name="card_auth_id" ColumnName="card_auth_id" />
+                <ScalarProperty Name="cust_mobile" ColumnName="cust_mobile" />
+                <ScalarProperty Name="cust_email" ColumnName="cust_email" />
+                <ScalarProperty Name="cust_country_code" ColumnName="cust_country_code" />
+                <ScalarProperty Name="cust_post_code" ColumnName="cust_post_code" />
+                <ScalarProperty Name="cust_address" ColumnName="cust_address" />
+                <ScalarProperty Name="cust_name" ColumnName="cust_name" />
+                <ScalarProperty Name="card_expiry" ColumnName="card_expiry" />
+                <ScalarProperty Name="card_num" ColumnName="card_num" />
+                <ScalarProperty Name="card_type" ColumnName="card_type" />
+                <ScalarProperty Name="Fk_customer_Id" ColumnName="Fk_customer_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCustomers">
+            <EntityTypeMapping TypeName="InShipModel.tblCustomer">
+              <MappingFragment StoreEntitySet="tblCustomer">
+                <ScalarProperty Name="modified_on" ColumnName="modified_on" />
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="account_expiry_date" ColumnName="account_expiry_date" />
+                <ScalarProperty Name="payment_status" ColumnName="payment_status" />
+                <ScalarProperty Name="google_id" ColumnName="google_id" />
+                <ScalarProperty Name="facebook_id" ColumnName="facebook_id" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="customer_reference" ColumnName="customer_reference" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCustomerPlanLinkings">
+            <EntityTypeMapping TypeName="InShipModel.tblCustomerPlanLinking">
+              <MappingFragment StoreEntitySet="tblCustomerPlanLinking">
+                <ScalarProperty Name="free_storage_days" ColumnName="free_storage_days" />
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="plan_amount" ColumnName="plan_amount" />
+                <ScalarProperty Name="plan_title" ColumnName="plan_title" />
+                <ScalarProperty Name="Fk_Customer_Id" ColumnName="Fk_Customer_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDeliveryAddresses">
+            <EntityTypeMapping TypeName="InShipModel.tblDeliveryAddress">
+              <MappingFragment StoreEntitySet="tblDeliveryAddress">
+                <ScalarProperty Name="mobile2" ColumnName="mobile2" />
+                <ScalarProperty Name="mobile1" ColumnName="mobile1" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="country_code" ColumnName="country_code" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblInvoices">
+            <EntityTypeMapping TypeName="InShipModel.tblInvoice">
+              <MappingFragment StoreEntitySet="tblInvoice">
+                <ScalarProperty Name="transaction_response" ColumnName="transaction_response" />
+                <ScalarProperty Name="transaction_status" ColumnName="transaction_status" />
+                <ScalarProperty Name="invoice_type" ColumnName="invoice_type" />
+                <ScalarProperty Name="custom_guid" ColumnName="custom_guid" />
+                <ScalarProperty Name="transaction_id" ColumnName="transaction_id" />
+                <ScalarProperty Name="payment_amount" ColumnName="payment_amount" />
+                <ScalarProperty Name="payment_method" ColumnName="payment_method" />
+                <ScalarProperty Name="paid_on" ColumnName="paid_on" />
+                <ScalarProperty Name="paid_status" ColumnName="paid_status" />
+                <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
+                <ScalarProperty Name="invoice_number" ColumnName="invoice_number" />
+                <ScalarProperty Name="Fk_billing_address_id" ColumnName="Fk_billing_address_id" />
+                <ScalarProperty Name="Fk_customer_id" ColumnName="Fk_customer_id" />
+                <ScalarProperty Name="reference_no" ColumnName="reference_no" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOrders">
+            <EntityTypeMapping TypeName="InShipModel.tblOrder">
+              <MappingFragment StoreEntitySet="tblOrder">
+                <ScalarProperty Name="creted_on" ColumnName="creted_on" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="signature" ColumnName="signature" />
+                <ScalarProperty Name="is_delivered" ColumnName="is_delivered" />
+                <ScalarProperty Name="billing_weight" ColumnName="billing_weight" />
+                <ScalarProperty Name="tracking_no" ColumnName="tracking_no" />
+                <ScalarProperty Name="payable_amount" ColumnName="payable_amount" />
+                <ScalarProperty Name="delvery_time" ColumnName="delvery_time" />
+                <ScalarProperty Name="delvery_date" ColumnName="delvery_date" />
+                <ScalarProperty Name="booking_time" ColumnName="booking_time" />
+                <ScalarProperty Name="pickup_cut_off_time" ColumnName="pickup_cut_off_time" />
+                <ScalarProperty Name="pickup_date" ColumnName="pickup_date" />
+                <ScalarProperty Name="service" ColumnName="service" />
+                <ScalarProperty Name="product" ColumnName="product" />
+                <ScalarProperty Name="carrier" ColumnName="carrier" />
+                <ScalarProperty Name="Fk_delivery_address_id" ColumnName="Fk_delivery_address_id" />
+                <ScalarProperty Name="Fk_invoice_id" ColumnName="Fk_invoice_id" />
+                <ScalarProperty Name="Fk_customer_id" ColumnName="Fk_customer_id" />
+                <ScalarProperty Name="reference_no" ColumnName="reference_no" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOrderBoxes">
+            <EntityTypeMapping TypeName="InShipModel.tblOrderBox">
+              <MappingFragment StoreEntitySet="tblOrderBoxes">
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="width" ColumnName="width" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="billable_weight" ColumnName="billable_weight" />
+                <ScalarProperty Name="dim_weight" ColumnName="dim_weight" />
+                <ScalarProperty Name="actual_weight" ColumnName="actual_weight" />
+                <ScalarProperty Name="Fk_order_id" ColumnName="Fk_order_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOrderCharges">
+            <EntityTypeMapping TypeName="InShipModel.tblOrderCharge">
+              <MappingFragment StoreEntitySet="tblOrderCharges">
+                <ScalarProperty Name="sell_price" ColumnName="sell_price" />
+                <ScalarProperty Name="buy_price" ColumnName="buy_price" />
+                <ScalarProperty Name="charge_name" ColumnName="charge_name" />
+                <ScalarProperty Name="Fk_order_id" ColumnName="Fk_order_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPackagingOptions">
+            <EntityTypeMapping TypeName="InShipModel.tblPackagingOption">
+              <MappingFragment StoreEntitySet="tblPackagingOptions">
+                <ScalarProperty Name="is_shipment" ColumnName="is_shipment" />
+                <ScalarProperty Name="is_signup" ColumnName="is_signup" />
+                <ScalarProperty Name="modified_on" ColumnName="modified_on" />
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPlanOptionLinkings">
+            <EntityTypeMapping TypeName="InShipModel.tblPlanOptionLinking">
+              <MappingFragment StoreEntitySet="tblPlanOptionLinking">
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="Fk_packaging_option_id" ColumnName="Fk_packaging_option_id" />
+                <ScalarProperty Name="Fk_plan_id" ColumnName="Fk_plan_id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPlans">
+            <EntityTypeMapping TypeName="InShipModel.tblPlan">
+              <MappingFragment StoreEntitySet="tblPlans">
+                <ScalarProperty Name="free_storage_days" ColumnName="free_storage_days" />
+                <ScalarProperty Name="modified_on" ColumnName="modified_on" />
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="recurring_duration" ColumnName="recurring_duration" />
+                <ScalarProperty Name="is_recurring" ColumnName="is_recurring" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblReceivedShipments">
+            <EntityTypeMapping TypeName="InShipModel.tblReceivedShipment">
+              <MappingFragment StoreEntitySet="tblReceivedShipment">
+                <ScalarProperty Name="shelf_no" ColumnName="shelf_no" />
+                <ScalarProperty Name="created_invoice_file_path" ColumnName="created_invoice_file_path" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="modified_on" ColumnName="modified_on" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="is_requested_picture" ColumnName="is_requested_picture" />
+                <ScalarProperty Name="user_notes" ColumnName="user_notes" />
+                <ScalarProperty Name="staff_comments" ColumnName="staff_comments" />
+                <ScalarProperty Name="box_condition" ColumnName="box_condition" />
+                <ScalarProperty Name="width" ColumnName="width" />
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="carrier" ColumnName="carrier" />
+                <ScalarProperty Name="tracking" ColumnName="tracking" />
+                <ScalarProperty Name="sender" ColumnName="sender" />
+                <ScalarProperty Name="received_date" ColumnName="received_date" />
+                <ScalarProperty Name="Fk_order_id" ColumnName="Fk_order_id" />
+                <ScalarProperty Name="Fk_Customer_Id" ColumnName="Fk_Customer_Id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRewardAmounts">
+            <EntityTypeMapping TypeName="InShipModel.tblRewardAmount">
+              <MappingFragment StoreEntitySet="tblRewardAmount">
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="debit" ColumnName="debit" />
+                <ScalarProperty Name="credit" ColumnName="credit" />
+                <ScalarProperty Name="Fk_CustomerId" ColumnName="Fk_CustomerId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRewardPoints">
+            <EntityTypeMapping TypeName="InShipModel.tblRewardPoint">
+              <MappingFragment StoreEntitySet="tblRewardPoints">
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="is_converted" ColumnName="is_converted" />
+                <ScalarProperty Name="reward_points" ColumnName="reward_points" />
+                <ScalarProperty Name="Fk_CustomerId" ColumnName="Fk_CustomerId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblShipmentDetails">
+            <EntityTypeMapping TypeName="InShipModel.tblShipmentDetail">
+              <MappingFragment StoreEntitySet="tblShipmentDetail">
+                <ScalarProperty Name="purchase_price" ColumnName="purchase_price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="comodity_code" ColumnName="comodity_code" />
+                <ScalarProperty Name="Fk_shipment_id" ColumnName="Fk_shipment_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblShipmentImages">
+            <EntityTypeMapping TypeName="InShipModel.tblShipmentImage">
+              <MappingFragment StoreEntitySet="tblShipmentImages">
+                <ScalarProperty Name="file_path" ColumnName="file_path" />
+                <ScalarProperty Name="Fk_shipment_id" ColumnName="Fk_shipment_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblShipmentReturnDetails">
+            <EntityTypeMapping TypeName="InShipModel.tblShipmentReturnDetail">
+              <MappingFragment StoreEntitySet="tblShipmentReturnDetail">
+                <ScalarProperty Name="prepaid_label_filename" ColumnName="prepaid_label_filename" />
+                <ScalarProperty Name="rma" ColumnName="rma" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address2" ColumnName="address2" />
+                <ScalarProperty Name="address1" ColumnName="address1" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="Fk_shipment_id" ColumnName="Fk_shipment_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSignupCouponConsumeds">
+            <EntityTypeMapping TypeName="InShipModel.tblSignupCouponConsumed">
+              <MappingFragment StoreEntitySet="tblSignupCouponConsumed">
+                <ScalarProperty Name="redeemed_on" ColumnName="redeemed_on" />
+                <ScalarProperty Name="redeemed_Amount" ColumnName="redeemed_Amount" />
+                <ScalarProperty Name="coupon_Code" ColumnName="coupon_Code" />
+                <ScalarProperty Name="Fk_CustomerId" ColumnName="Fk_CustomerId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,168 @@
+﻿@model List<_4InShip.com.Repository.tblCustomer>
+
+@{
+    ViewBag.Title = "Customers";
+}
+
+
+<section class="content">
+    @Html.Partial("_MsgDivPartial")
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Customers</h3>
+            @*<a href='@Url.Action("Index", "Customer")' class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true"> Add Customer</i></a>*@
+
+        </div>
+        <div class="form-horizontal">
+            <div class="box-body">
+                <table id="datatablecustomer" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Customer Reference </th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Facebook Id</th>
+                            <th>Google Id</th>
+                            <th>Payment Status</th>
+                            <th>Account Expiry date</th>
+                            <th>Status</th>
+                            <th>Created On</th>
+                            <th>Modified On</th>
+                            @*<th>Action</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model == null)
+                        {
+                        }
+                        else
+                        {
+
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.customer_reference</td>
+                                    <td>@item.email</td>
+                                    <td>@item.password</td>
+                                    <td>@item.facebook_id</td>
+                                    <td>@item.google_id</td>
+                                    <td>
+                                        <label class="textboxfor">
+                                            <span id='@("spanpaymentStatus"+item.Id)' class="label @(item.payment_status == true ? "label-success" : "label-danger")">@(item.payment_status == true ? "True" : "False")</span>
+                                        </label>
+                                    </td>
+                                    <td><span>@(item.account_expiry_date == null ? "" : item.account_expiry_date.Value.ToString("yyyy/MM/dd"))</span></td>
+
+                                    <td>
+                                        <label class="textboxfor">
+                                            <span id='@("spanStatus"+item.Id)' class="label @(item.status == true ? "label-success" : "label-danger")">@(item.status == true ? "Active" : "InActive")</span>
+                                        </label>
+                                    </td>
+                                    <td><span>@(item.created_on == null ? "" : item.created_on.Value.ToString("yyyy/MM/dd"))</span></td>
+                                    <td><span>@(item.modified_on == null ? "" : item.modified_on.Value.ToString("yyyy/MM/dd"))</span></td>
+
+                                    @*<td>
+                                        <a href="Index/@item.Id" class="btn btn-info btn-xs"><i class="fa fa-pencil"> Edit</i></a>
+                                        &nbsp;&nbsp;
+                                        @*<a href="#" id='Delete @item.Id' onclick="DeleteDatas(@item.Id)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"> Change Status</i></a>*@
+                                    @*</td>*@
+
+
+
+                                </tr>
+
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#datatablecustomer").DataTable({
+                responsive: true,
+                "order": [],
+                "columnDefs": [
+                         { responsivePriority: 1, targets: 0 },
+                         { responsivePriority: 2, targets: -1 }
+                ]
+
+            });
+
+        })
+     $('span[id^="spanStatus"]').click(function () {
+                var r = confirm('Are you sure,you want to change this status?');
+                if (r == true) {
+                    var statusid = $(this).attr('id');
+                    var id = statusid.replace('spanStatus', '');
+                    $.ajax({
+                        type: "post",
+                        url: "/Admin/Customer/ChangeStatusCustomerById",
+                        data: { 'id': id },
+                        success: function (id) {
+                            showMessage("Status has been changed successfully", true)
+                            if ($("#spanStatus" + id.toString()).text() === "Active")
+                                $("#spanStatus" + id.toString()).text('InActive').toggleClass('label-success label-danger')
+                            else
+                                $("#spanStatus" + id.toString()).text('Active').toggleClass('label-success label-danger')
+                        },
+                        error: function (data) {
+                            alert(data);
+                            showMessage("", false)
+                        }
+
+                    });
+
+                }
+                else {
+                    return false;
+                }
+
+     });
+
+
+     $('span[id^="spanpaymentStatus"]').click(function () {
+         var p = confirm('Are you sure,you want to change this paymentstatus?');
+         if (p == true) {
+             var statusids = $(this).attr('id');
+             var Id = statusids.replace('spanpaymentStatus', '');
+             $.ajax({
+                 type: "post",
+                 url: "/Admin/Customer/ChangepaymentStatusCustomerById",
+                 data: { 'Id': Id },
+                 success: function (id) {
+                     showMessage("Status has been changed successfully", true) 
+                     if ($("#spanpaymentStatus" + id.toString()).text() === "True")
+                         $("#spanpaymentStatus" + id.toString()).text('False').toggleClass('label-success label-danger')
+                     else
+                         $("#spanpaymentStatus" + id.toString()).text('True').toggleClass('label-success label-danger')
+                 },
+                 error: function (data) {
+                     alert(data.x);
+                     showMessage("", false)
+                 }
+
+             });
+
+         }
+         else {
+             return false;
+         }
+
+     });
+   
+
+    </script>
+
+}
+
+
+
+
+

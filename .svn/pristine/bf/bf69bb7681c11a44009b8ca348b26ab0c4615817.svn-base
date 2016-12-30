@@ -1,0 +1,205 @@
+﻿using _4InShip.com.Areas.Admin.Models;
+using _4InShip.com.Areas.Admin.Services;
+using _4InShip.com.Repository;
+using Newtonsoft.Json;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using System.Web.Script.Serialization;
+using static _4InShip.com.FilterConfig;
+
+namespace _4InShip.com.Areas.Admin.Controllers
+{
+    [CustomAuthorization(Url = "~/Admin/Login")]
+    [Authorize(Roles = "Admin")]
+    [IsAuthenticateAdminFilter]
+    public class ReceivedShipmentController : Controller
+    {
+        // GET: Admin/ReceivedShipment
+        ReceivedShipmentService Context = new ReceivedShipmentService();
+        public ActionResult Index(int? Id)
+        {
+            GetTblCustomer();
+            if (Id != null)
+            {
+                var data = Context.GetblReceivedShipmentById(Id ?? 0).ToList();
+                tblReceivedShipment objrecivedshipment = new tblReceivedShipment();
+                if (data != null && data.Count != 0)
+                {
+                    objrecivedshipment.Fk_Customer_Id = data[0].Fk_Customer_Id;
+                    objrecivedshipment.sender = data[0].sender;
+                    objrecivedshipment.tracking = data[0].tracking;
+                    objrecivedshipment.carrier = data[0].carrier;
+                    objrecivedshipment.weight = data[0].weight;
+                    objrecivedshipment.height = data[0].height;
+                    objrecivedshipment.length = data[0].length;
+                    objrecivedshipment.width = data[0].width;
+                    objrecivedshipment.box_condition = data[0].box_condition;
+                    objrecivedshipment.staff_comments = data[0].staff_comments;
+                    objrecivedshipment.shelf_no = data[0].shelf_no;
+                    objrecivedshipment.ItemType = (enumReceivShipmentStatus)data[0].status;
+                    objrecivedshipment.id = data[0].id;
+                    objrecivedshipment.created_on = data[0].created_on;
+                    objrecivedshipment.received_date = data[0].received_date;
+                }
+                List<tblShipmentDetail> objshipcList = new List<tblShipmentDetail>();
+                ArrayList lstarray = new ArrayList();
+                for (int i = 0; i <= data.Count - 1; i++)
+                {
+                    tblShipmentDetail objShipmentDetail = new tblShipmentDetail();
+                    objShipmentDetail.description = data[i].description;
+                    objShipmentDetail.quantity = data[i].quantity;
+                    objShipmentDetail.purchase_price = data[i].purchase_price;
+                    objShipmentDetail.comodity_code = data[i].comodity_code;
+                    objshipcList.Add(objShipmentDetail);
+
+                    //objrecList.Add(new tblReceivedShipment() { Description = data[i].description, Quantity = Convert.ToInt32(data[i].quantity), PurchasePrice = Convert.ToDecimal(data[i].purchase_price), ComodityCode = data[i].comodity_code });
+                }
+                ViewBag.ShipmentList = objshipcList.ToList();
+                return View(objrecivedshipment);
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public void InsertTblReceivedShipment()
+        {
+            RedirectToAction("Index", "ReceivedShipment");
+        }
+        [HttpPost]
+        public ActionResult InsertTblReceivedShipment(tblReceivedShipment receivedshipment)
+
+        {
+            try
+            {
+                if (receivedshipment != null)
+                {
+                    ViewBag.Message = Context.InsertUpdateReceivedShipment(receivedshipment);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+            }
+            tblReceivedShipment roll = new tblReceivedShipment();
+            ModelState.Clear();
+            GetTblCustomer();
+            return View("Index");
+        }
+
+        public JsonResult GetTblAdminUser()
+        {
+            var lst = Context.GettblAdminUser();
+            return Json(lst, JsonRequestBehavior.AllowGet);
+        }
+
+        private void GetTblCustomer()
+        {
+            try
+            {
+                ViewBag.Fk_Customer_Id = Context.Customer();
+            }
+            catch (Exception ex)
+            {
+                var err = ex.Message;
+            }
+
+
+        }
+        public ActionResult GetReceivedShipmentDetail()
+        {
+
+
+            List<ViewModelreceivedShipment> lst = Context.GetblReceivedShipment().ToList();
+
+
+            return View("GetReceivedShipmentDetail", lst);
+        }
+        public JsonResult DeleteReceivedShipmentById(int Id)
+        {
+            if (Id != 0)
+            {
+                Context.DeletetblReceivedShipments(Id);
+            }
+            return Json(Id.ToString(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult ChangeShipmebtReturnStatus(int Id)
+        {
+            if (Id != 0)
+            {
+                Context.ChangeTblShipmentReturnStatus(Id);
+            }
+            return Json("Reload", JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult ReceivedShipmentDetailById(int Id)
+        {
+            List<tblShipmentDetail> lst = Context.GetTblShipmentDetailById(Id);
+            return Json(lst, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult ReturnShipmentByFkId(int Id)
+        {
+            List<tblShipmentReturnDetail> lst = Context.GetTblShipmentReturnByFkId(Id);
+            return Json(lst, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult AddEditPckagesImages(int Id)
+        {
+            try
+            {
+                TempData["Ids"] = Id;
+                List<tblShipmentImage> lst = Context.GetTblShipmentImagesByfkId(Id);
+                if (lst != null)
+                {
+                    return View(lst);
+                }
+            }
+            catch (Exception ex)
+            {
+                var err = ex.Message;
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddEditPckagesImages(HttpPostedFileBase[] input7)
+        {
+            try
+            {
+                if (input7 != null)
+                {
+                    int Fk_Id = Convert.ToInt32(TempData["Ids"]);
+                    ViewBag.message = Context.InsertUpdateTblShipmentImages(Fk_Id, input7);
+                }
+            }
+            catch (Exception ex)
+            {
+                var err = ex.Message;
+            }
+            return RedirectToAction("AddEditPckagesImages");
+        }
+        public ActionResult DeletePckagesImages(string file_path)
+        {
+            int Fk_Id = Convert.ToInt32(TempData["Ids"]);
+            try
+            {
+                if (file_path != null)
+                {
+
+                    ViewBag.Message = Context.DeleteTblShipmentImages(Fk_Id, file_path);
+                }
+            }
+            catch (Exception ex)
+            {
+                var err = ex.Message;
+            }
+            return RedirectToAction("AddEditPckagesImages", new { id = Fk_Id });
+        }
+
+    }
+}

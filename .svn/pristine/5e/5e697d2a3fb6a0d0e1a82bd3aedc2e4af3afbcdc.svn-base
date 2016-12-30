@@ -1,0 +1,70 @@
+﻿
+
+@model  _4InShip.com.Models.ViewCustomerModel
+@{
+    ViewBag.Title = "ForgetPassword";
+}
+
+<link href="~/Content/css/myStyle.css" rel="stylesheet" />
+<link href="~/Content/css/css_developer.css" rel="stylesheet" />
+<header class="main_header sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <a class="logo" href="#"><img src="@Url.Content("~/Content/img/logo.png")"></a>
+                <div class="mobile-toggle hidden-md hidden-lg"> <span></span> <span></span> <span></span></div>
+                <nav>
+                    <ul class="main_menu">
+                        <li class="active"><a href="@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))">Home</a></li>
+                        <li><a href="features.html">features</a></li>
+                        <li><a href="@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))#price_area">plans</a></li>
+                        <li><a href="rates.html">rates</a></li>
+                        <li><a href="help.html">help</a></li>
+                        <li><a href="#">english <i class="fa fa-angle-down"></i></a></li>
+                        <li><a href="@Url.Action("login", "customer")">login</a></li>
+                        <li class="green"><a href="@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))#price_area">sign up</a></li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- END row -->
+</header>
+@using (Ajax.BeginForm("ForgetPassword", "Customer", new AjaxOptions { HttpMethod = "POST",  UpdateTargetId = "LoginDivs" }))
+{
+    @Html.ValidationSummary(true)
+    <section class="margintop90PX ">
+        <div class="container blog_area">
+            <div class="col-md-4 col-sm-3"></div>
+            <div class="col-md-4 col-sm-6">
+                <h1><i class="fa fa-sign-in"></i> Forgot Password</h1>
+             
+                <br><br>
+                <div id="LoginDivs"></div>
+                <div class="well well-sm">
+                    <label>UserName/Email</label>
+                   
+                    @Html.TextBoxFor(m => m.email, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", placeholder = "UserName/Email" })
+                    @Html.ValidationMessageFor(m => m.email, null, new { @class = "error" })
+                    <br />
+                    <button class="btn btn-success btn-block">Save</button>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-3"></div>
+        </div>
+    </section>
+}
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            @Html.Raw(ViewBag.Message)
+        });
+    </script>
+}
+
+
+
+
+

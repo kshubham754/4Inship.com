@@ -1,0 +1,349 @@
+﻿
+<!doctype html>
+<link href="~/Content/css/myStyle.css" rel="stylesheet" />
+<link href="~/Content/css/css_developer.css" rel="stylesheet" />
+<script src="js/jquery.nicescroll.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<link href="~/Content/css/myStyle.css" rel="stylesheet" />
+<link href="~/Content/css/css_developer.css" rel="stylesheet" />
+@Html.Partial("~/Views/Shared/_HeaderMenu.cshtml")
+
+  
+    <section class="margintop90PX">
+        <div class="container">
+            <div class="col-sm-12">
+                <h1><i class="fa fa-file-text-o"></i> AGREEMENT</h1>
+                <br>
+                <div class="well well-sm">
+                    In order to provide excellent services to all customers, 4InShip requires you to read and agree to the following rules and regulations:
+                    <br><br>
+                    <h1><i class="fa fa-file-text"></i> TERMS OF USE</h1>
+                    <ul class="fa-ul">
+                        <li><i class="fa-li fa fa-circle-o"></i> Customer should be at least 18 years old.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> Customer should be responsible for securing the confidentiality of their account, for example passwords, tracking numbers and any personal identifying information. 4InShip will not be responsible for any loss or harm that will occur if the customer violates this security commitment.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> We reserve the right to amend the prices of our services at anytime without prior notice.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> You must use your full legal name, email address, and any other information that is being requested to complete the registration process.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> Individuals and firms cannot have more than one account.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> 4InShip reserves the right to deactivate any account for any reason. If the deactivation occurred without justification and the customer did not use any of our services, the customer has the right to request a refund of the registration fee.</li>
+                    </ul>
+                    <h4><i class="fa fa-check-square"></i> RESTRICTED AND PROHIBITED ITEMS:</h4>
+                    <ul class="fa-ul">
+                        <li><i class="fa-li fa fa-circle-o"></i> Customer agrees not to order any prohibited item (prohibited by Local Customs, United States Customs or Federal Regulations). 4InShip does not ship any  items that are prohibited by Federal  laws and Customs.  Items that are not allowed in the customer’s country, items that are illegal to be shipped or considered prohibited in views of 4InShip will not be shipped.  Prohibited items will be confiscated.  You can see the list of prohibited items by clicking here.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> Customer shall be responsible for any additional documents required to pass the shipment through customs.  In case the customer’s order contains any item that is prohibited or requires additional documents the customer shall be liable for any penalties or fines for that order.  4InShip is not responsible for the return of shipments sent back from customs to the source.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> Any item that cannot be shipped within the United States in the view of the shipping carrier or local laws will not be shipped and will be discarded immediately. 4InShip does not provide returns outside the United States.  4InShip is not responsible for any damage or loss regarding this matter.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> Dangerous goods shipped to some countries may require an additional 3-5 business days to process.  Additional time may also be required during shipping and customs clearance.  There are no assurances or guarantees on the exact time of delivery.  The shipment of dangerous goods will require additional processing fees from both 4InShip and the carrier.</li>
+                    </ul>
+                    Following is a list of countries that allow or forbid shipping of batteries and perfumes:
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="table-responsive margintop15PX">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Country</th>
+                                            <th>Lithium Ion Battery</th>
+                                            <th>Perfume</th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td><strong>Australia</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Bahrain</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Canada</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Denmark</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>France</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Germany</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>India</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Ireland</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>Italy</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>Japan</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>Jordan</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>Kuwait</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>Malaysia</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>The Netherlands</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>New Zealand</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>Oman</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>Qatar</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>Saudi Arabia</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>Singapore</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>South Korea</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>Spain</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>Turkey</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>UAE</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr class="hidden-md hidden-lg">
+                                        <td><strong>UK</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-4 hidden-xs hidden-sm">
+                            <div class="table-responsive margintop15PX">
+                                <table class="table table-striped">
+                                    <thead class="hidden-xs">
+                                        <tr>
+                                            <th>Country</th>
+                                            <th>Lithium Ion Battery</th>
+                                            <th>Perfume</th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td><strong>Italy</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Japan</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Jordan</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Kuwait</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Malaysia</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>The Netherlands</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>New Zealand</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Oman</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-4 hidden-xs hidden-sm">
+                            <div class="table-responsive margintop15PX">
+                                <table class="table table-striped">
+                                    <thead class="hidden-xs">
+                                        <tr>
+                                            <th>Country</th>
+                                            <th>Lithium Ion Battery</th>
+                                            <th>Perfume</th>
+                                        </tr>
+                                    </thead>
+                                    <tr>
+                                        <td><strong>Qatar</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Saudi Arabia</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Singapore</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>South Korea</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Spain</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Turkey</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>UAE</strong></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>UK</strong></td>
+                                        <td><i class="fa fa-times color-red"></i></td>
+                                        <td><i class="fa fa-check color-green"></i></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4><i class="fa fa-check-square"></i> CHANGES TO AN ORDER:</h4>
+                    <ul class="fa-ul">
+                        <li><i class="fa-li fa fa-circle-o"></i> A customer may only cancel an order before processing has started, “In Queue”.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> After the “In Queue” status the order can not be cancelled nor shipments added or removed. If the customer wants to change the shipping type or add insurance the customer must contact customer service.</li>
+                    </ul>
+                    <h4><i class="fa fa-check-square"></i> SERVICES:</h4>
+                    <ul class="fa-ul">
+                        <li><i class="fa-li fa fa-circle-o"></i> 4InShip provides a variety of shipping options from various shipping companies.  The delivery time varies depending on the shipping carrier.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> We would like to mention that 4InShip does not provide any guarantees on delivery time, and the company’s responsibility ends when we hand over the consignment to the carrier. The carrier is now responsible for delivery of the order to the customer, and in case of any problem with the shipment the customer must contact the carrier.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> Shipping rates are based on either actual weight or dimensional weight ((L*W*H)/166)) of the order after consolidation, whichever is greater. Note that the shipping fee is calculated at the time of shipping and may be changed at anytime.  Shipping fees only include the shipping cost from 4InShip warehouse to the customer.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> Any extra fees will be the responsibility of the customer.  Depending on the size and type of the shipment some shipments may require additional charges that are assessed when the shipment arrives, for example: taxes and custom duties.</li>
+                    </ul>
+                    <h4><i class="fa fa-check-square"></i> REGISTERING SHIPMENTS:</h4>
+                    <ul class="fa-ul">
+                        <li><i class="fa-li fa fa-circle-o"></i> If a shipment arrives at 4InShip but is not registered to a customer account, it is necessary for the customer to contact 4InShip no later than 10 business days from the date of arrival so we can assign the shipment to the proper customer account.  In case the customer doesn’t contact us for the missing shipment within 10 business days from the date of arrival of the shipment, any claim will be rejected automatically and the shipment will be discarded.  4InShip will not be responsible for discarded items.  </li>
+                        <li><i class="fa-li fa fa-circle-o"></i> If 4InShip receives a prohibited item the customer will be notified immediately. The customer will have a period of 10 business days to remove the prohibited item or items from the 4InShip warehouse in accordance with 4InShip policy.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> If the customer continues ordering prohibited items, 4InShip has the right to deactivate the account without compensation of the product’s value, shipping fee or the registration value.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> The customer should verify the price and quantity of all items in their shipment to ensure accuracy before placing the order.  In case there is a discrepancy the customer should send the invoice to customer service to adjust the invoice before shipping.  The customer has no right to claim any custom duties due to an error in data entry and if the order was placed, the customer fully approves the declared value.</li>
+                    </ul>
+
+                    <h4><i class="fa fa-check-square"></i> PROCESSING ORDER:</h4>
+                    <ul class="fa-ul">
+                        <li><i class="fa-li fa fa-circle-o"></i> After the processing of the order is complete, the customer has 7 days to pay for the shipping fee. If the payment hasn’t been paid within 7 days, the customer will be charged for storage fee which is $1 per day per order. If the customer does not pay within 10 days, 4InShip has full authority to discard the contents of the order and suspend or deactivate the customer’s account without a refund of the subscription fee.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> Before ordering a shipment, it is the customer’s responsibility to make sure the address and country are entered properly. Additionally, it is the customer’s responsibility to ensure the description and price of the products are accurate in the order that is exported from 4InShip. 4InShip will not be responsible in for the delay, damage, vulnerability or penalties resulting from customs or custom duties in your country.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> The 4InShip warehouse is not temperature and humidity controlled and the temperature will be subject to fluctuations. Products that need to be kept cold may get damaged in our warehouse. 4InShip does not bear any responsibility for these items and the customer will not be compensated for loss.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> 4InShip supports parcel shipping only. 4InShip is unable to send messages, magazines, catalogs, or any other type of normal mail items.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> The maximum limit for each shipment within an order should not exceed $2,500 for each item in each order.</li>
+                    </ul>
+                    <h4><i class="fa fa-check-square"></i> STORAGE:</h4>
+                    <ul class="fa-ul">
+                        <li><i class="fa-li fa fa-circle-o"></i> 4InShip allows its customers to store their shipments for free for up to 45 days. After that, the customer will be charged $1 per day per shipment for an additional 15 days.  After a total of 60 days, the shipment will be disposed of without any liability on 4InShip.</li>
+                    </ul>
+                    <h4><i class="fa fa-check-square"></i> INSURANCE:</h4>
+                    <ul class="fa-ul">
+                        <li><i class="fa-li fa fa-circle-o"></i> 4InShip provides optional shipping insurance. The customer must verify the value of the shipment prior to the order being shipped from 4InShip.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> Note that 4InShip is not responsible for any stolen or missing shipment unless the shipment was insured. 4InShip with the help of the customer, will raise a claim with the carrier. In the  case of a claim, the refund will be based on the declared value and according to the carrier’s rules.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> 4InShip provides insurance on the shipment from the carrier for 2% of the declared value of purchases. Optional insurance for excess value is available.  The customer should make sure the invoice of 4InShip is same as the original purchase invoice from the seller. The claim will be filed based on the 4InShip declared value. Note that the shipments with declared value less than $100 are insured for free by 4InShip. In case the order is not insured, the maximum refund will be $100 even if the original purchase was more than $100.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> The customer should check the contents upon arrival and keep the original box and all packing materials of the shipment and should not discard anything in the case of a damaged/missing item so that we are able to file a claim with the insurance company.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> In order for 4InShip to confirm the loss or damage with the carrier the customer must provide images of the shipping box and any extra packing materials along with any other document to assist in proving the claim. Note that the external damage to the shipping box or the manufacturing box without damage to the product itself is not covered by insurance.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> If the customer receives and order that is missing an item or contains a damaged item the customer must file a complaint with customer service within 5 days from receipt of the shipment.  Any claim after the 5 days from receipt of the shipment will be declined.  </li>
+                        <li><i class="fa-li fa fa-circle-o"></i> 4InShip is not responsible for undelivered shipments due to an incorrect address, shipping a prohibited item, or because of the actions of any governmental authority, including customs.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> Items stored in the 4InShip warehouse are insured for their full value up to $2,500.  An invoice must be provided for the item to prove the shipment’s value.  Please note 4InShip will verify the arriving shipment’s weight with the estimated weight of the item for the purpose of making sure there are no fraudulent claims being attempted or in the case an incorrect item was sent.</li>
+                    </ul>
+
+                    <h4><i class="fa fa-check-square"></i> FRAUD:</h4>
+                    <ul class="fa-ul">
+                        <li><i class="fa-li fa fa-circle-o"></i> In any attempt of fraud regarding the payment or identity of the customer or the use of a 4InShip account in any fraudulent activity, 4InShip is fully authorized to deactivate the customer’s account without refunding the subscription amount or any kind of compensation.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> If there are any complaints from the authorities or the shipment’s sender about an attempt of fraud, the company holds the right to deactivate the customer’s account and hand over the shipment to the authorities or return it to it’s source.</li>
+                    </ul>
+                    <h4><i class="fa fa-check-square"></i> CANCELLATION:</h4>
+                    <ul class="fa-ul">
+                        <li><i class="fa-li fa fa-circle-o"></i> Either party may cancel this agreement with a notice. 4InShip has a right to deactivate any account in case of violation of this agreement or for any special reasons.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> Any ill-attempt towards 4InShip or its employees will be subject to legal repercussions.</li>
+                    </ul>
+                    <h4><i class="fa fa-check-square"></i> ENSURE:</h4>
+                    <ul class="fa-ul">
+                        <li><i class="fa-li fa fa-circle-o"></i> Customer will authorize 4InShip as their agent in the preparation of the shipment’s documents and give full authority to 4InShip in taking all legal actions, i.e: provide of Certificate of Origin or any other document needed to send a shipment to the customer.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> If the shipment is returned to 4InShip and 4InShip accepts the return because of problems related to customs documents or import regulations, fees or taxes, the customer will be responsible for the return shipping costs.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> If the customs or carrier charges 4InShip, we will charge the customer from the customer’s 4InShip account. 4InShip will not be responsible under any circumstances for the payment of fees, taxes, or any other costs associated with the customer’s shipment.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> If any part of the terms and conditions of use are considered illegal, invalid or unenforceable, the remaining terms and conditions of use shall remain in full force and effect and will be without any effect on other conditions.</li>
+                        <li><i class="fa-li fa fa-circle-o"></i> Terms of Service apply under the laws of the United Arab Emirates, and any part that is considered illegal is considered to be void.</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+

@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using _4InShip.com.Repository;
+using _4InShip.com.Areas.User.IServices;
+using _4InShip.com.Areas.User.Models;
+using System.Configuration;
+
+namespace _4InShip.com.Areas.User.Controllers
+{
+    [Authorize(Roles = "User")]
+    [CustomActionFilter]
+    public class HomeController : Controller
+    {
+        // GET: User/Home
+        private IShipmentService<tblReceivedShipment, tblOrder, UserViewCustomerModel, UserPaymentModel, ViewRecivedShipmentModel, tblAddressBook, ViewPackagingOptionsModel, ViewOrderModel, ShipmentMethodPackage, PacakageOptionArray> _repository;
+        public HomeController(IShipmentService<tblReceivedShipment, tblOrder, UserViewCustomerModel, UserPaymentModel, ViewRecivedShipmentModel, tblAddressBook, ViewPackagingOptionsModel, ViewOrderModel, ShipmentMethodPackage, PacakageOptionArray> repo)
+        {
+            _repository = repo;
+        }
+        public ActionResult Index()
+        {
+            int ID = Convert.ToInt32(Session["UserId"]);
+            var ShipmentList = _repository.GetRecievedShipment(ID);
+            ViewBag.OrderList = _repository.GetOrderRecordList(ID);
+            ViewBag.CustomerDetail = _repository.GetCustomerPlans(ID);
+            ViewBag.CustomerPayment = _repository.GetCustomerPayment(ID);
+            RewardpointsandBalance();
+            return View(ShipmentList);
+        }
+        private void RewardpointsandBalance()
+        {
+
+            int Balance = Convert.ToInt32(ConfigurationManager.AppSettings["RewardPoints"]);
+            ViewBag.yourpoints = _repository.yourpoints();
+            Balance = Balance * 100;
+            ViewBag.yourbalance =   Convert.ToInt32(ViewBag.yourpoints)/ Balance;
+            ViewBag.yourcreditAmount = _repository.yourBalance();
+
+
+        }
+    }
+}

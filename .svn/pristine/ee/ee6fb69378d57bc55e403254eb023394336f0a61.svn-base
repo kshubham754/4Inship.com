@@ -1,0 +1,12 @@
+﻿<div class="row">
+    <div class="col-xs-12">
+        <div id="divmsgError" class="alert alert-danger fade in" style="display: none;margin:10px">
+            <a href="#" class="close" data-dismiss="alert">&times;</a> <strong></strong><span>
+            </span>
+        </div>
+        <div id="divmsgSuccess" class="alert alert-success fade in" style="display: none;margin:10px">
+            <a href="#" class="close" data-dismiss="alert">&times;</a> <strong></strong><span>
+            </span>
+        </div>
+    </div>
+</div>

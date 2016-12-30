@@ -1,0 +1,124 @@
+﻿@model List<_4InShip.com.Areas.Admin.Models.ViewModelOrder>
+@{
+    ViewBag.Title = "Orders";
+}
+@using _4InShip.com.Areas.Admin.Models
+<div class="content-header">
+    <h2></h2>
+</div>
+
+<section class="content">
+    @Html.Partial("_MsgDivPartial")
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Orders</h3>
+        </div>
+        <div class="form-horizontal">
+            <div class="box-body">
+                <table id="Orders" class="table table-striped table-bordered dt-responsive" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Reference No</th>
+                            <th>Customer</th>
+                            <th>Invoice Reference No</th>
+                            <th>Carrier</th>
+                            <th>Product</th>
+                            <th>Service</th>
+                            <th>Pickup Date</th>
+                            <th>Pickup CutOff Time</th>
+                            <th>Booking Time</th>
+                            <th>Delivery Date</th>
+                            <th>Delivery Time</th>
+                            <th>Payable Amoumt</th>
+                            <th>Tracking No</th>
+                            <th>Billing Weight</th>
+                            <th>IsDelivered</th>
+                            <th>Signature  </th>
+                            <th>Status </th>
+                            <th>Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.reference_no</td>
+                                <td>@item.Customer_reference</td>
+                                <td>@item.invoice_Refernce</td>
+                                <td>@item.carrier</td>
+                                <td>@item.product</td>
+                                <td>@item.service</td>
+                                <td><span>@(item.pickup_date == null ? "" : item.pickup_date.Value.ToString("yyyy/MM/dd"))</span></td>
+                                <td><span>@(item.pickup_cut_off_time == null ? "" : item.pickup_cut_off_time.Value.ToString(" HH:mm:ss tt"))</span></td>
+                                <td><span>@(item.booking_time == null ? "" : item.booking_time.Value.ToString(" HH:mm:ss tt"))</span></td>
+                                <td><span>@(item.delvery_date == null ? "" : item.delvery_date.Value.ToString("yyyy/MM/dd"))</span></td>
+                                <td><span>@(item.delvery_time == null ? "" : item.delvery_time.Value.ToString(" HH:mm:ss tt"))</span></td>
+                                <td>@item.payable_amount</td>
+                                <td>@item.tracking_no</td>
+                                <td>@item.billing_weight</td>
+                                <td>
+                                    <label class="textboxfor">
+                                        <span class="label @(item.is_delivered == true ? "label-success" : "label-danger")">@(item.is_delivered == true ? "True" : "False")</span>
+                                    </label>
+                                </td>
+                                <td>@item.signature</td>
+                                @{
+                                    clsCommon objclscomman = new clsCommon();
+                                    var Status = objclscomman.OrderStatus(Convert.ToString(item.status));
+                                    string[] SplitlabelCalss = Status.Split(',');
+                                    <td><span class="label @SplitlabelCalss[0]">@SplitlabelCalss[1]</span></td>
+                                }
+                                <td>
+                                    <a href='@Url.Action("Orderbox", "Order",new { ids = item.id })' class="btn btn-info btn-xs"><i class="fa fa-plus"> Add Order Box</i></a>
+
+                                </td>
+                            </tr>
+                                    }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#Orders").DataTable({
+                responsive: true,
+                "order": [],
+                "columnDefs": [
+                         { responsivePriority: 1, targets: 0 },
+                         { responsivePriority: 2, targets: -1 }
+                ]
+
+            });
+
+        })
+        @Html.Raw(ViewBag.Message);
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

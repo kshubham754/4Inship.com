@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace _4InShip.com.Areas.User.Models
+{
+    public class ViewPackagingOptionsModel: ShipmentMethodPackage
+    {
+        public string title { get; set; }
+        public decimal? price { get; set; }
+        public string description { get; set; }
+        public string ShipmentCheckboxID { get;set; }
+        public string Addressdropid { get; set; }
+
+    }
+    public class ShipmentMethodPackage: PacakageOptionArray
+    {
+        public string shipmentMethodPrice { get; set; }
+        public string shipmentdescription { get; set; }
+      
+    }
+
+    public class PacakageOptionArray
+    {
+        public string PackageOptionPrice { get; set; }
+        public string PackageOptionTitle { get; set; }
+       
+    }
+  
+
+}

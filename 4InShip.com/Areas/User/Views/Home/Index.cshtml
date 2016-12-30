@@ -1,0 +1,333 @@
+﻿@model List<_4InShip.com.Repository.tblReceivedShipment>
+@{
+    ViewBag.Title = "Index";
+}
+@using _4InShip.com.Areas.Admin.Models
+<section class="margintop90PX margintop90PX-xs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="~/.">Home</a></li>
+                    <li class="active">Shipment Received</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- body content start -->
+<section>
+    <div class="container">
+        <div class="box-grey">
+            <div class="row">
+                <div class="col-sm-4 border-rgt space-top-bot">
+                    <h2>Operations Status</h2>
+                    Time to process order/incoming shipments
+                </div>
+                <div class="col-sm-4 border-rgt space-top-bot">
+                    <h2><i class="fa fa-arrow-up"></i> Orders</h2>
+                    Average Time: <span class="label label-success">7 Houre</span>
+                </div>
+                <div class="col-sm-4 space-top-bot">
+                    <h2><i class="fa fa-arrow-down"></i> Incoming Shipments</h2>
+                    Average Time: <span class="label label-danger">48 Houre</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="margintop20PX">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <aside class="box-grey space-top-bot-sm ">
+                    <div class="row">
+                        <div class="col-sm-3 text-center-xs"><img src="../../Content/img/logo-randy.jpg"></div>
+                        <div class="col-sm-9 text-center-xs">
+                            <h3>@ViewBag.CustomerDetail.FirstName @ViewBag.CustomerDetail.LastName</h3>
+                            <p class="text-center-xs">Your Plan: <span class="label label-success">@ViewBag.CustomerDetail.PlanTitle</span></p>
+                        </div>
+                    </div>
+                    <div class="row margintop15PX">
+                        <div class="col-sm-12 text-center"><a href="mailto:useremail@4inship.com"><i class="fa fa-envelope"></i> @ViewBag.CustomerDetail.Email </a></div>
+                        @if (ViewBag.CustomerDetail.PlanPrice != 0)
+                        {
+                            <div class="col-sm-12 margintop15PX"><a href="#" class="btn btn-success btn-block btn-lg"><i class="fa fa-plus-circle"></i> Upgrade</a></div>
+                        }
+                    </div>
+
+                    <div class="row margintop15PX">
+                        <div class="col-sm-12">
+                            <h2>Your U.S. Address</h2>
+                            The address you use when shopping online
+                        </div>
+                        <div class="col-sm-12 margintop10PX">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tr class="AddressBackground">
+                                        <td>Address1</td>
+                                        <td><strong>2115 S Union Ave</strong></td>
+                                    </tr>
+                                    <tr class="AddressBackground">
+                                        <td>Address2</td>
+                                        <td><strong>Suite 182-232</strong></td>
+                                    </tr>
+                                    <tr class="AddressBackground">
+                                        <td>City</td>
+                                        <td><strong>Alliance</strong></td>
+                                    </tr>
+                                    <tr class="AddressBackground">
+                                        <td>State</td>
+                                        <td><strong>OH</strong></td>
+                                    </tr>
+                                    <tr class="AddressBackground">
+                                        <td>Zip</td>
+                                        <td><strong>44601</strong></td>
+                                    </tr>
+                                    <tr class="AddressBackground">
+                                        <td>Phone</td>
+                                        <td><strong>440-339-2600</strong></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row margintop10PX">
+                        <div class="col-sm-12">
+                            <h2>My Credit</h2>
+                           Brief Information
+                        </div>
+                        <div class="col-sm-12 margintop10PX">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td>Your Balance</td>
+                                        @if (ViewBag.yourcreditAmount != null)
+                                        {
+                                            <td><strong>@String.Format("${0:0.00}", (ViewBag.yourcreditAmount))</strong></td>
+                                        }
+                                        else
+                                        {
+                                            <td><strong>$0.00</strong></td>
+                                        }
+                                       
+                                    </tr>
+                                    <tr>
+                                        <td>Your Points</td>
+                                       @if (ViewBag.yourpoints != null)
+                                       {
+                                        <td><strong>@ViewBag.yourpoints @("=") @String.Format("${0:0.00}", (ViewBag.yourbalance))</strong></td>
+                                       }
+                                       else
+                                       {
+                                        <td><strong>0 = $0.00</strong></td>
+                                       }
+                                        
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </aside>
+            </div>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-sm-12"><h1>Track your shipment</h1></div>
+                    <div class="col-sm-12 margintop10PX">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Your Shipment Number">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 margintop10PX">
+                        <a role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Show all Alerts <i class="fa fa-exclamation-triangle"></i></a>
+                        <div class="alert alert-success fade in alert-dismissable margintop5PX">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                            Dimensional Weight We are no longer chargin the dimensional weight for the maority of shipments !
+                        </div>
+                        <div class="collapse" id="collapseExample">
+                            <div class="alert alert-success fade in alert-dismissable ">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                                Dimensional Weight We are no longer chargin the dimensional weight for the maority of shipments !
+                            </div>
+
+                            <div class="alert alert-success fade in alert-dismissable ">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                                Dimensional Weight We are no longer chargin the dimensional weight for the maority of shipments !
+                            </div>
+
+                            <div class="alert alert-success fade in alert-dismissable ">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                                Dimensional Weight We are no longer chargin the dimensional weight for the maority of shipments !
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h1>Your shipment History</h1>
+                        <a href="~/User/Shipment/ShipmentDetails" class="btn btn-success btn-lg">Create Order/All Shipments <i class="fa fa-pencil"></i></a>
+                        <div class="table-responsive margintop15PX">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th><a href="#">Date <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Sender/Tracking Number <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Weight <i class="fa fa-caret-down"></i></a></th>
+                                        <th><a href="#">Status <i class="fa fa-caret-down"></i></a></th>
+                                    </tr>
+                                </thead>
+                                @if (Model == null)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="8" class="text-center">
+                                                <h2><i class="fa fa-exclamation-circle"></i> No results found</h2>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                }
+                                else
+                                {
+                                    foreach (var item in Model)
+                                    {
+
+                                        <tbody>
+                                            <tr>
+                                                <td>@Convert.ToDateTime(item.received_date).ToString("yyyy/MM/dd")</td>
+                                                <td>@item.sender / @item.tracking</td>
+                                                <td>@item.weight LB</td>
+                                                @{
+                                                    clsCommon objclscomman = new clsCommon();
+                                                    var Status = objclscomman.Status(Convert.ToString(item.status));
+                                                    string[] SplitlabelCalss = Status.Split(',');
+                                                    <td><span class="label @SplitlabelCalss[0]">@SplitlabelCalss[1]</span></td>
+                                                }
+                                            </tr>
+                                        </tbody>  }
+                                                    }
+
+                            </table>
+                        </div>
+                        <a href="~/User/Shipment/ShipmentDetails" class="btn btn-success btn-lg">Create Order/All Shipments <i class="fa fa-pencil"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Last order & Payment start -->
+<section class="margintop20PX">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="box-white">
+                    <h2><i class="fa fa-long-arrow-down"></i> Latest Orders</h2>
+                    <div class="table-responsive margintop15PX">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><a href="#">Date <i class="fa fa-caret-down"></i></a></th>
+                                    <th><a href="#">Order Number <i class="fa fa-caret-down"></i></a></th>
+                                    <th><a href="#">Status <i class="fa fa-caret-down"></i></a></th>
+                                </tr>
+                            </thead>
+                            @if (ViewBag.OrderList.Count == 0)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td colspan="8" class="text-center">
+                                            <h2><i class="fa fa-exclamation-circle"></i> No results found</h2>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                            else
+                            {
+                                foreach (var item in ViewBag.OrderList)
+                                {
+                                    <tbody>
+                                        <tr>
+
+
+
+                                            <td>@Convert.ToDateTime(item.booking_time).ToString("yyyy/MM/dd")</td>
+                                            <td>@item.carrier / @item.tracking_no</td>
+                                            @{  clsCommon objclscomman = new clsCommon();
+                                                var Status = objclscomman.Status(Convert.ToString(item.status));
+                                                string[] SplitlabelCalss = Status.Split(',');
+                                                <td><span class="label @SplitlabelCalss[0]">@SplitlabelCalss[1]</span></td>
+                                            }
+
+                                        </tr>
+                                    </tbody>
+                                                    }
+                                                }
+
+                        </table>
+                    </div>
+                    <a href="#" class="btn btn-primary">All Orders <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-sm-7 spacetop20PX-xs">
+                <div class="box-white">
+                    <h2><i class="fa fa-usd"></i> Latest Payments</h2>
+                    <div class="table-responsive margintop15PX">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th><a href="#">Date <i class="fa fa-caret-down"></i></a></th>
+                                    <th><a href="#">Order Number <i class="fa fa-caret-down"></i></a></th>
+                                    <th><a href="#">Method <i class="fa fa-caret-down"></i></a></th>
+                                    <th><a href="#">Amount <i class="fa fa-caret-down"></i></a></th>
+                                    <th><a href="#">Status <i class="fa fa-caret-down"></i></a></th>
+                                </tr>
+                            </thead>
+                            @if (ViewBag.CustomerPayment.Count == 0)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td colspan="5" class="text-center">
+                                            <h2><i class="fa fa-exclamation-circle"></i> No results found</h2>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+
+                            else
+                            {
+                                foreach (var item in ViewBag.CustomerPayment)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            <td>@Convert.ToDateTime(item.PaymentDate).ToString("yyyy/MM/dd")</td>
+                                            <td>@item.OrderReferenceNumber</td>
+                                            <td>@item.Method</td>
+                                            <td>@String.Format("${0:0.00}", (item.Amount))</td>
+                                            @if (item.Status == true)
+                                            {
+                                                <td><span class="label label-success">Success</span></td>
+
+                                            }
+                                        </tr>
+                                    </tbody>
+                                }
+                            }
+
+                        </table>
+                    </div>
+                    <a href="#" class="btn btn-primary">All Payments History <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

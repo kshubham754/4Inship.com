@@ -1,0 +1,121 @@
+﻿@model _4InShip.com.Repository.tblAddressBook
+@{
+    ViewBag.Title = "Index";
+}
+<section class="margintop90PX margintop90PX-xs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li class="active"><a href="@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))">Home</a></li>
+                    <li class="active">My Account</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+@using (Ajax.BeginForm("Index", "Setting", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "SignUp" }))
+{
+<section>
+    <div class="container">
+        <div class="row">
+            @Html.Partial("_LeftMenuSettingsPartial")
+            <div class="col-md-8">
+                <h2>Your Information</h2>
+                Name and Email Address
+                <br><br>
+                <div class="row form-group">
+                    <div class="col-sm-6 ">
+                        <label>First Name</label>
+                        @Html.HiddenFor(m => m.Id)
+                        
+                        @Html.TextBoxFor(model => model.first_name, new { @type = "text", @maxlength = "50", @readonly = "readonly", @class = "form-control", @placeholder = @Model.first_name })
+                    </div>
+                    <div class="col-sm-6 spacetop15PX-xs">
+                        <label>Last Name</label>
+                      
+                        @Html.TextBoxFor(model => model.last_name, new { @type = "text", @maxlength = "50", @readonly = "readonly", @class = "form-control", @placeholder = @Model.last_name })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Address Name</label>
+                        @Html.TextBoxFor(model => model.address_name, new { @type = "text", @maxlength = "50",  @class = "form-control", @placeholder = @Model.address_name })
+                    </div>
+                    <div class="col-sm-12">
+                        <label>Company</label>
+                        @Html.TextBoxFor(model => model.company, new { @type = "text", @maxlength = "50", @class = "form-control", @placeholder = @Model.company })
+                    </div>
+
+                    <div class="col-sm-12">
+                        <label>Tax ID / National ID</label>
+                        @Html.TextBoxFor(model => model.tax_id, new { @type = "text", @maxlength = "50", @class = "form-control", @placeholder = @Model.tax_id })
+                    </div>
+                </div>
+
+                <div class="well well-sm margintop20PX">
+                    <h4>How to add a New Address?</h4>
+                    New rules from shipping couriers requires an accurate shipping address to ensure speedy delivery. Please update your address.
+                    Example: <a href="#">Click Here</a> || <a href="#">Using Google Map</a>
+                </div>
+
+                <h2>My Shipping Address</h2>
+                By default, we will ship to this address.
+                <br><br>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <label>Address 1</label>
+                        @Html.TextBoxFor(model => model.address1, new { @type = "text", @maxlength = "50", @readonly = "readonly", @class = "form-control", @placeholder = @Model.address1 })
+                        <em>Please use the following format: Building Number Street Name - District ( e.g; 8228 King Abdulaziz Road - Al Amal)</em>
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        <label>Address 2</label>
+                        @Html.TextBoxFor(model => model.address2, new { @type = "text", @maxlength = "50", @class = "form-control", @placeholder ="Address 2" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-6">
+                        <label>Country</label>
+                        @Html.DropDownListFor(model => model.country_code, null, new { @class = "form-control textboxfor", SearchSelect = "true" })
+                        @Html.ValidationMessageFor(model => model.country_code, null, new { @class = "error" })
+                    </div>
+                    <div class="col-sm-6 spacetop15PX-xs">
+                        <label>City</label>
+                        @Html.TextBoxFor(model => model.city, new { @type = "text", @maxlength = "50", @class = "form-control", @placeholder = "City" })
+                        
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-sm-8">
+                        <label>State/Province</label>
+                        @Html.TextBoxFor(model => model.state, new { @type = "text", @maxlength = "50", @class = "form-control", @placeholder = "State" })
+                       
+                    </div>
+                    <div class="col-sm-4 spacetop15PX-xs">
+                        <label>Postal Code</label>
+                        @Html.TextBoxFor(model => model.post_code, new { @type = "number", @min="0", @maxlength = "50", @class = "form-control", @placeholder = "Postal Code" })
+                     
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-sm-12 form-group">
+                        <label>Mobile Number</label>
+                        @Html.TextBoxFor(model => model.mobile1, new { @type = "tel", @min = "0", @maxlength = "50",  @readonly = "readonly", @class = "form-control", @placeholder = @Model.mobile1 })
+                       
+                    </div>
+                    <div class="col-sm-12">
+                        <label>Alternative number</label>
+                        @Html.TextBoxFor(model => model.mobile2, new { @type = "tel", @min = "0", @maxlength = "50", @class = "form-control", @placeholder = "Mobile Number" })
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12"><button class="btn btn-success btn-block">Save Changes</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+}

@@ -1,0 +1,93 @@
+﻿@model _4InShip.com.Areas.User.Models.ChangePasswordModel
+{
+    ViewBag.Title = "ChangePassword";
+}
+
+<section class="margintop90PX margintop90PX-xs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li class="active"><a href="@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))">Home</a></li>
+                    <li class="active">My Account</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    @using (Ajax.BeginForm("ChangePassword", "Setting", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "SignUp" }))
+    {
+
+        <div class="container">
+            <div class="row">
+                @Html.Partial("_LeftMenuSettingsPartial")
+                <div class="col-md-8">
+                    <h2>Change Password</h2>
+
+                    <br><br>
+
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label>Old Password</label>
+                            @Html.TextBoxFor(model => model.oldpassword, new { @type = "text", @maxlength = "50", @onchange = "OnChangeEvent();", @class = "form-control", @placeholder = "Old Password" })
+                            @Html.ValidationMessageFor(m => m.oldpassword, null, new { @class = "error" })
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <label>New Password</label>
+                            @Html.TextBoxFor(model => model.newpassword, new { @type = "password", @maxlength = "50", @class = "form-control textboxfor", @placeholder = "New Password" })
+                            @Html.ValidationMessageFor(m => m.newpassword, null, new { @class = "error" })
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <label>Confirm Password</label>
+                            @Html.TextBoxFor(model => model.confirmpassword, new { @type = "password", @maxlength = "50", @class = "form-control", @placeholder = "Confirm Password" })
+                            @Html.ValidationMessageFor(m => m.confirmpassword, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-sm-12"><button class="btn btn-success btn-block">Save Changes</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+            if ($.validator) {
+                //  Validation
+                $.validator.addMethod("validatecurrentpassword", function (value, element, params) {
+                    var isMatched = false;
+                    isMatched = matchWithCurrentPassword();
+                    return isMatched;
+                }, '');
+                if ($.validator.unobtrusive) {
+                    $.validator.unobtrusive.adapters.addBool("validatecurrentpassword");
+                }
+            }
+
+        function matchWithCurrentPassword() {
+            var ajaxCall= $.ajax({
+                type: "POST",
+                url: '@Url.Action("CheckOldPassword", "Setting")',
+                async: false,
+                data: JSON.stringify({ "pass": $("#oldpassword").val() }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    return data;
+                },
+                error: function () {
+                    return false;
+                }
+
+            });
+            return ajaxCall.responseJSON;
+        }
+    </script>
+}
+
+

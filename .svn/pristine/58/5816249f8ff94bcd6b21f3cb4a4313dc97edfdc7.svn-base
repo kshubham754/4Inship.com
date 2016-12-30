@@ -1,0 +1,57 @@
+﻿
+@model _4InShip.com.Repository.tblPackagingOption
+@{
+    ViewBag.Title = "InsertTblPackagingOptions";
+}
+
+<section class="content-header">
+    <h1></h1>
+</section>
+
+<section class="content">
+
+    @Html.Partial("_MsgDivPartial")
+    @using (Html.BeginForm("InsertTblPackagingOptions", "PackagingOptions", FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Add Packaging Option</h3>
+                <a href='@Url.Action("PackagingOptions", "PackagingOptions")' class="btn btn-xs btn-primary pull-right"><i class="fa fa-eye" aria-hidden="true"> View All Packaging Options</i></a>
+            </div>
+            <div class="form-horizontal">
+                <div class="box-body">
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Title</label>
+                        <div class="col-sm-10">
+                            @Html.HiddenFor(m => m.Id)
+                            @Html.TextBoxFor(m => m.title, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", id = "inputtitle", placeholder = "Title" })
+                            @Html.ValidationMessageFor(m => m.title, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Description</label>
+                        <div class="col-sm-10">
+                            @Html.TextAreaFor(m => m.description, new { @type = "text", @class = "form-control textboxfor", id = "inputdescription", placeholder = "Description" })
+                            @Html.ValidationMessageFor(m => m.description, null, new { @class = "error" })
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="reset" onclick="Cancel_Click();" class="btn btn-danger pull-right">Cancel</button>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+@section Scripts {
+    <script type="text/javascript">
+    @Html.Raw(ViewBag.Message);
+    </script>
+
+}
+
+
+

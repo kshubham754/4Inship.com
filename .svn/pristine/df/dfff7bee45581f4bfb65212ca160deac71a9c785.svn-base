@@ -1,0 +1,295 @@
+﻿
+
+@model _4InShip.com.Repository.tblReceivedShipment
+@{
+    ViewBag.Title = "AddReceivedShipment";
+}
+
+<section class="content-header">
+    <h1></h1>
+</section>
+<section class="content">
+    @Html.Partial("_MsgDivPartial")
+    @using (Html.BeginForm("InsertTblReceivedShipment", "ReceivedShipment", FormMethod.Post, new { id = "frm_rshipment", name = "frm_rshipment" }))
+    {
+        @Html.ValidationSummary(true)
+        <form id="myform">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Add  Received Shipment</h3>
+                    <a href='@Url.Action("ReceivedShipments", "ReceivedShipment")' class="btn btn-xs btn-primary pull-right"><i class="fa fa-eye" aria-hidden="true"> View All Received Shipments</i></a>
+                </div>
+                <div class="form-horizontal">
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            <label for="inputAssignuser" class="col-sm-2 control-label">Customer</label>
+                            <div class="col-sm-10">
+                                @Html.HiddenFor(m => m.id)
+                                @Html.DropDownListFor(model => model.Fk_Customer_Id, null, new { @class = "form-control textboxfor", SearchSelect = "true" })
+                                @Html.ValidationMessageFor(model => model.Fk_Customer_Id, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Sender</label>
+                            <div class="col-sm-10">
+
+                                @Html.TextBoxFor(m => m.sender, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", placeholder = "Sender" })
+                                @Html.ValidationMessageFor(model => model.sender, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Tracking</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.tracking, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", placeholder = "Tracking" })
+                                @Html.ValidationMessageFor(model => model.tracking, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Carrier</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.carrier, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", placeholder = "Carrier" })
+                                @Html.ValidationMessageFor(model => model.carrier, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Weight</label>
+                            <div class="col-sm-10">
+
+                                @Html.TextBoxFor(m => m.weight, new { @min = "0", @step = "1", @maxlength = "10", @type = "number", @class = "form-control textboxfor", placeholder = "Weight" })
+                                @Html.ValidationMessageFor(model => model.weight, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Height</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.height, new { @min = "0", @step = "1", @maxlength = "10", @type = "number", @class = "form-control textboxfor", placeholder = "Height" })
+                                @Html.ValidationMessageFor(model => model.height, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Lenght</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.length, new { @min = "0", @step = "1", @maxlength = "10", @type = "number", @class = "form-control textboxfor", placeholder = "Length" })
+                                @Html.ValidationMessageFor(model => model.length, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Width</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.width, new { @min = "0", @step = "1", @maxlength = "10", @type = "number", @class = "form-control textboxfor", placeholder = "Width" })
+                                @Html.ValidationMessageFor(model => model.width, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Received Date</label>
+                            <div class="col-sm-10 ">
+                                @Html.TextBoxFor(m => m.received_date, "{0:yyyy/MM/}", new { @id = "ReceivedOn", @calendar = "date", @class = "form-control textboxfor", placeholder = "Received Date" })
+                                @Html.ValidationMessageFor(m => m.received_date, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Box Condition</label>
+                            <div class="col-sm-10">
+                                @Html.DropDownListFor(m => m.box_condition, new List<SelectListItem>
+                                      {
+                                 new SelectListItem{ Text="Good" },
+                                   new SelectListItem{ Text="Bad" }
+                                             }, "--Select Box_condition--", new { @class = "form-control textboxfor" })
+                                @Html.ValidationMessageFor(model => model.box_condition, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Staff Comments</label>
+                            <div class="col-sm-10">
+
+                                @Html.TextBoxFor(m => m.staff_comments, new { @type = "text", @maxlength = "500", @class = "form-control textboxfor", placeholder = "Staff_comments" })
+                                @Html.ValidationMessageFor(model => model.staff_comments, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputSelve" class="col-sm-2 control-label">Shelve No</label>
+                            <div class="col-sm-10">
+
+                                @Html.TextBoxFor(m => m.shelf_no, new { @class = "form-control textboxfor", placeholder = "Shelve No" })
+                                @Html.ValidationMessageFor(model => model.shelf_no, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Status</label>
+                            <div class="col-sm-10 ">
+                                @Html.EnumDropDownListFor(m => m.ItemType, "-- Select Status -- ", new { @class = "form-control textboxfor" })
+                                @Html.ValidationMessageFor(model => model.ItemType, null, new { @class = "error" })
+                            </div>
+                        </div>
+                       
+                        <div class="box-header with-border">
+                            <h2 class="box-title">
+                                Shipment Items
+                            </h2>
+                        </div>
+                        <div id="AddShipmentdiv">
+                            <div class="shipmentDetail" id="ShipDetails">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">Purchase Price</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" min="0" step="1" id="purchase" class="form-control static" placeholder="Purchase Price" name="PurchasePrice" />
+                                        <span id="errorpurchase" class="hidden" style="color:red">Purchase Price is required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">Quantity</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" min="0" step="1" id="Quantity" class="form-control static" placeholder="Quantity" name="Quantity" />
+                                        <span id="errorQuantity" class="hidden" style="color:red">Quantity is required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">Description</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="Description" placeholder="Description" class="form-control static" name="Description" />
+                                        <span id="errorDescription" class="hidden" style="color:red">Description is required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label static">Comodity Code</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="ComodityCode" placeholder="Comodity Code" class="form-control static" name="ComodityCode" />
+                                        <span id="errorDescription" class="hidden" style="color:red">Comodity Code is required</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-3">
+                                        <button type="button" id="RemoveField" onclick="RemoveDiv(this);" class="btn btn-danger pull-right hidden"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="col-lg-3" style="padding: 0 216px 0px 0px;">
+                                        <button type="button" onclick="AddTable();" id="AddField" class="btn btn-success pull-right"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" id="Submit_form" class="btn btn-success" onclick="return Validateform();">Submit</button>
+                        <button type="submit" onclick="Cancel_Click();" class="btn btn-danger pull-right">Cancel</button>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </form>
+
+    }
+</section>
+<link href="~/Areas/Admin/css/datepicker3.css" rel="stylesheet" />
+<link href="~/Areas/Admin/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+@section Scripts {
+    <script type="text/javascript">
+        @Html.Raw(ViewBag.Message);
+    </script>
+    <script type="text/javascript">
+        var i = 1;
+        function AddTable() {
+            $("#AddShipmentdiv").children('div:last').clone().appendTo($("#AddShipmentdiv")).find('input').each(function () {
+                $(this).val('');
+                $(this).attr({
+
+                    'id': function (_, id) { return id + i }
+                });
+            });
+            Showbuttonhide();
+            $("#AddShipmentdiv").children('div:last').appendTo($("#AddShipmentdiv")).find('span').each(function () {
+                $(this).attr({
+
+                    'id': function (_, id) { return id + i },
+
+                });
+            })
+            i++;
+        };
+
+    </script>
+    <script type="text/javascript">
+        function RemoveDiv(id) {
+            $(id).parents('#ShipDetails').remove()
+            Showbuttonhide()
+        }
+
+        function Showbuttonhide() {
+            if ($('.shipmentDetail').length === 1) {
+                $("[id='RemoveField']").addClass('hidden');
+            }
+            else
+                $("[id='RemoveField']").removeClass('hidden');
+            $("[id='AddField']:not(:last)").addClass('hidden');
+            $("[id='AddField']:last").removeClass('hidden');
+        }
+    </script>
+    <script type="text/javascript">
+        var i = 1;
+        $("#Submit_form").click(function () {
+            CheckValidate();
+        })
+    </script>
+    <script type="text/javascript">
+        function CheckValidate() {
+            $("#AddShipmentdiv").find('input').filter(function () {
+                if ($(this).val() === '') {
+                    $(this).css('border', '1px solid red');
+                    return true;
+                }; return false;
+            }).next().removeClass('hidden')
+        }
+        $(document).on("change", "input.static", function () {
+            $("#AddShipmentdiv").find('input').filter(function () {
+                if ($(this).val() === '') {
+
+                    return false;
+                }
+                $(this).removeAttr('Style');
+                return true;
+            }).next().addClass('hidden')
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var ShipmentList =@Html.Raw(Json.Encode(ViewBag.ShipmentList));
+            for (var i = 1; i <= ShipmentList.length-1; i++) {
+                AddTable();
+            }
+            $.each(ShipmentList,function (i,obj) {
+
+                $("[id^='purchase']").eq(i).val(obj.purchase_price);
+                $("[id^='ComodityCode']").eq(i).val(obj.comodity_code);
+                $("[id^='Quantity']").eq(i).val(obj.quantity);
+                $("[id^='Description']").eq(i).val(obj.description);
+            });
+        })
+
+    </script>
+    <script type="text/javascript">
+        function Validateform(){
+            var validateInput=$("form").validate();
+
+            var bool=true;
+            $("#AddShipmentdiv").find('input').each(function(){
+                if($(this).val()===""){
+                    bool=false;
+                }
+            });
+            $('div.form-group').find('input').not('.static').each(function(e,obj){
+                validateInput.element('#'+obj.name);
+            });
+            return bool;
+
+        }
+    </script>
+
+}
+
+
+
+
+

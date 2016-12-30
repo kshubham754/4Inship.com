@@ -1,0 +1,29 @@
+using System.Web.Mvc;
+using Microsoft.Practices.Unity;
+using Unity.Mvc5;
+using _4InShip.com.Services;
+using _4InShip.com.Models;
+using _4InShip.com.IServices;
+using _4InShip.com.Repository;
+using _4InShip.com.Areas.User.IServices;
+using _4InShip.com.Areas.User.Services;
+using _4InShip.com.Areas.User.Models;
+
+namespace _4InShip.com
+{
+    public static class UnityConfig
+    {
+        public static void RegisterComponents()
+        {
+            var container = new UnityContainer();
+
+            // register all your components with the container here
+            // it is NOT necessary to register your controllers
+            // e.g. container.RegisterType<ITestService, TestService>();
+            container.RegisterType<IPlanServices<PlansOptionModel>, PlanServices>();
+            container.RegisterType<ICustomerServices<ViewCustomerModel, ViewCustomerPaymentModel>, CustomerServices>();
+            container.RegisterType <IShipmentService<tblReceivedShipment, tblOrder, UserViewCustomerModel,UserPaymentModel,ViewRecivedShipmentModel, tblAddressBook,ViewPackagingOptionsModel, ViewOrderModel, ShipmentMethodPackage, PacakageOptionArray>,ShipmentsService>();
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+        }
+    }
+}

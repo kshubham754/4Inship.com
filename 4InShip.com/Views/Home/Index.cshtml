@@ -1,0 +1,361 @@
+﻿@model List<_4InShip.com.Models.PlansOptionModel>
+@using _4InShip.com.Models
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/css/style.css" rel="stylesheet" />
+<link href="~/Content/css/myStyle.css" rel="stylesheet" />
+<link href="~/Content/css/css_developer.css" rel="stylesheet" />
+@Html.Partial("_HeaderMenu")
+<div class="carousel fade-carousel slide" data-ride="carousel" data-interval="8000" id="bs-carousel">
+    <!-- Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#bs-carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#bs-carousel" data-slide-to="1"></li>
+        <li data-target="#bs-carousel" data-slide-to="2"></li>
+    </ol>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item slides active">
+            <div class="slide-1"></div>
+            <div class="hero">
+                <hgroup>
+                    <h1>Save your <span>money</span></h1>
+                    <h3>and enjoy with online shoppping</h3>
+                </hgroup>
+                <button class="btn btn-hero btn-lg" role="button">Explore Now!</button>
+            </div>
+        </div>
+        <div class="item slides">
+            <div class="slide-2"></div>
+            <div class="hero">
+                <hgroup>
+                    <h1>fast delivery <span>& more</span></h1>
+                    <h3>Just follow the 3 easy steps !!!</h3>
+                </hgroup>
+                <button class="btn btn-hero btn-lg" role="button">Signup With Us</button>
+            </div>
+        </div>
+        <div class="item slides">
+            <div class="slide-3"></div>
+            <div class="hero">
+                <hgroup>
+                    <h1>Delivery at <span>your door</span></h1>
+                    <h3>We are happy to deliver your valuable things.</h3>
+                </hgroup>
+                <button class="btn btn-hero btn-lg" role="button">See all features</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="blog_area">
+
+    <div class="row">
+        <div class="blog_section">
+            <h1>How it <span>works</span></h1>
+        </div>
+
+        <div class="col-sm-3 bg-box1 text-white"><img src="@Url.Content("~/Content/img/online-shopping.jpg")"><br>SHOP ONLINE</div>
+        <div class="col-sm-3 bg-box2  text-white"><img src="@Url.Content("~/Content/img/checkout-box.jpg")"><br>CHECKOUT WITH YOUR US ADDRESS</div>
+        <div class="col-sm-3 bg-box3  text-white"><img src="@Url.Content("~/Content/img/package-order.jpg")"><br>WE RECEIVE & PACKAGE YOUR ORDER</div>
+        <div class="col-sm-3 bg-box4  text-white"><img src="@Url.Content("~/Content/img/order-delivered.jpg")"><br>YOUR ORDER IS DELIVERED TO YOU</div>
+
+    </div>
+</div><!-- blog area end   -->
+<!-- features area start -->
+<div id="feature_area" class="service_area">
+    <div class="container">
+        <div class="row">
+            <div class="blog_section">
+                <h1>our <span>features</span></h1>
+            </div>
+            <div class="service_section wow bounceInLeft animated">
+                <div class="col-md-2 col-sm-4">
+                    <div class="single_service">
+                        <div class="ico"><i class="fa fa-money"></i></div>
+                        <h2>4inship Rewards</h2>
+                        <p>Rack up points and earn free shipments</p>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-4">
+                    <div class="single_service">
+                        <div class="ico"><i class="fa fa-fire"></i></div>
+                        <h2>Fast shipping in 24 hours</h2>
+                        <p>Complete with step-by-step tracking using our App</p>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-4">
+                    <div class="single_service">
+                        <div class="ico"><i class="fa fa-picture-o"></i></div>
+                        <h2>Pictures of shipments</h2>
+                        <p>We take photos of all shipments we receive, and provided at your request.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-4">
+                    <div class="single_service">
+                        <div class="ico"><i class="fa fa-archive"></i></div>
+                        <h2>Consolidated Shipping</h2>
+                        <p>We’ll consolidate multiple purchases into one shipment, saving you money.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-4">
+                    <div class="single_service">
+                        <div class="ico"><i class="fa fa-check"></i></div>
+                        <h2>Insurance available</h2>
+                        <p>for complete peace of mind.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-4">
+                    <div class="single_service">
+                        <div class="ico"><i class="fa fa-ticket"></i></div>
+                        <h2>Unique Online Support</h2>
+                        <p>In 25 countries, across just about every time zone!</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- features area end -->
+<!-- Price area start -->
+<div id="price_area" class="price_area">
+    <div class="container">
+        <div class="row">
+            <div class="price_section">
+                <h1>Price <span>section</span></h1>
+                <div class="col-md-12">
+                    <div class="pricing-table">
+                        @{ int count = 0;
+                            foreach (_4InShip.com.Repository.tblPlan item in ViewBag.PlansOption)
+                            {
+
+                                count++;
+
+                                if (count == 1)
+                                {
+                                    <div class="col-md-4 col-sm-4 col-xs-12 pricing-box first wow bounceInUp animated">
+
+                                        <ul>
+                                            <li class="plan-title">
+                                                @item.title
+                                            </li>
+                                            <li class="subscription-price oswald">
+                                                <span class="currency oswald">$</span>
+                                                <span class="price">@(Convert.ToInt32(item.price))</span>
+                                                @if (item.is_recurring == true)
+                                                {
+                                                    @("/  Monthly");
+                                                }
+                                                else
+                                                {
+                                                    @("/  OneTime");
+                                                }
+                                            </li>
+
+                                            <li class="ptop10">@item.description</li>
+                                            @foreach (var items in Model.Where(x => x.p_id == item.Id).Select(x => x))
+                                            {
+                                                if (items.IsSignUp == true)
+                                                {
+                                                    <li class="last border-none pbottom40">
+                                                        @items.title: $@(Convert.ToInt32(items.price)) @{if (items.description != null)
+                                                            { @("/") @items.description;
+                                                            }
+                                                        }
+                                                    </li>
+                                                                }
+                                                            }
+                                            <li class="sing-up">
+                                                @{
+                                                    string itemid = Convert.ToString(item.Id);
+                                                    string id = Cryptography.Encrypt(itemid);}
+                                                <a href="~/Customer/SignUp/@id" class="animate">Sing Up</a>
+                                            </li>
+
+                                        </ul>
+
+                                    </div><!-- end pricing-box -->
+                                                    }
+                                                    if (count == 2)
+                                                    {
+                                                        <div class="col-md-4 col-sm-4 col-xs-12 pricing-box second featured wow bounceInUp animated">
+
+                                                            <ul>
+                                                                <li class="plan-title">
+                                                                    @item.title
+                                                                </li>
+                                                                <li class="subscription-price oswald">
+                                                                    <span class="currency oswald">$</span>
+                                                                    <span class="price">@(Convert.ToInt32(item.price))</span>
+                                                                    @if (item.is_recurring == true)
+                                                                    {
+                                                                        @("/  Monthly");
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @("/  OneTime");
+                                                                    }
+                                                                </li>
+                                                                <li class="ptop10">@item.description</li>
+                                                                @foreach (var items in Model.Where(x => x.p_id == item.Id).Select(x => x))
+                                                                {
+                                                                    if (items.IsSignUp == true)
+                                                                    {
+                                                                        <li class="last border-none pbottom40">
+                                                                            @items.title: $@(Convert.ToInt32(items.price)) @{if (items.description != null)
+                                                                                { @("/") @items.description;
+                                                                                }
+                                                                            }
+                                                                        </li>
+                                                                                    }
+
+                                                                                }
+                                                                <li class="sing-up">
+                                                                    @{
+                                                                        string itemid = Convert.ToString(item.Id);
+                                                                        string id = Cryptography.Encrypt(itemid);}
+                                                                    <a href="~/Customer/SignUp/@id" class="animate">Sing Up</a>
+                                                                </li>
+
+                                                            </ul>
+
+                                                        </div><!-- end pricing-box -->
+                                                                        }
+                                                                        if (count == 3)
+                                                                        {
+                                                                            <div class="col-md-4 col-sm-4 col-xs-12 pricing-box last wow bounceInUp animated">
+
+                                                                                <ul>
+                                                                                    <li class="plan-title">
+                                                                                        @item.title
+                                                                                    </li>
+                                                                                    <li class="subscription-price oswald">
+                                                                                        <span class="currency oswald">$</span>
+                                                                                        <span class="price">@(Convert.ToInt32(item.price))</span>
+                                                                                        @if (item.is_recurring == true)
+                                                                                        {
+                                                                                            @("/  Monthly");
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            @("/  OneTime");
+                                                                                        }
+                                                                                    </li>
+                                                                                    <li class="ptop10">@item.description</li>
+                                                                                    @foreach (var items in Model.Where(x => x.p_id == item.Id).Select(x => x))
+                                                                                    {
+                                                                                        if (items.IsSignUp == true)
+                                                                                        {
+                                                                                            <li class="last border-none pbottom40">
+                                                                                                @items.title: $@(Convert.ToInt32(items.price)) @{if (items.description != null)
+                                                                                                    { @("/") @items.description;
+                                                                                                    }
+                                                                                                }
+                                                                                            </li>
+                                                                                                        }
+                                                                                                    }
+                                                                                    <li class="sing-up">
+                                                                                        @{
+                                                                                            string itemid = Convert.ToString(item.Id);
+                                                                                            string id = Cryptography.Encrypt(itemid);}
+                                                                                        <a href="~/Customer/SignUp/@id" class="animate">Sing Up</a>
+                                                                                    </li>
+
+                                                                                </ul>
+
+                                                                            </div><!-- end pricing-box -->
+                                                                                                }
+                                                                                            }
+                        }
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div><!-- price area end   -->
+
+<div class="customer-support">
+    <img src="@Url.Content("~/Content/img/customer-support.jpg")">
+</div>
+
+
+<div id="contact_area" class="contact_area">
+    <div class="container">
+        <div class="row">
+            <div class="contact_section">
+                <h1>Contact <span>us</span></h1>
+                <p>OUR TEAM INCLUDES GREAT THINKERS. YOU WOULD LOVE TO WORK WITH THEM AS THEY ARE JUST AMAZING PEOPLE.</p>
+
+                <div class="col-md-6">
+                    <div class="contact_form">
+                        <fieldset id="contact_form">
+                            <div id="result"></div>
+                            <label for="name">
+                                <input type="text" name="name" id="name" placeholder="Enter Your Name" class="form-control" />
+                            </label>
+
+                            <label for="email">
+                                <input type="email" name="email" id="email" placeholder="Enter Your Email" class="form-control" />
+                            </label>
+
+                            <label for="phone">
+                                <input type="text" name="phone" id="phone" placeholder="Phone Number" class="form-control" />
+                            </label>
+
+                            <label for="message">
+                                <textarea name="message" id="message" placeholder="Enter Your Name" class="form-control"></textarea>
+                            </label>
+                            <button class="btn btn-success btn-lg pull-left" id="submit_btn">Submit</button>
+                            </label>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contact_text">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        </p>
+                        <h3>contact info</h3>
+                        <ul class="contact_info">
+                            <li>info@fahem.me</li>
+                            <li>south baluadanga,dinajpur</li>
+                            <li>+880174120000,+880174120000,</li>
+                        </ul>
+                        <h3>follow us</h3>
+                        <ul class="contact_social">
+                            <a href="#"><li><i class="fb fa fa-facebook-square"></i></li></a>
+                            <a href="#"><li><i class="tw fa fa-twitter-square"></i></li></a>
+                            <a href="#"><li><i class="rss fa fa-rss-square"></i></li></a>
+                            <a href="#"><li><i class="gp fa fa-google-plus-square"></i></li></a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- contact area end   -->
+@section Scripts{
+    <script src="~/Scripts/wow.js"></script>
+    <script src="~/Scripts/jquery.nicescroll.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.mixitup.min.js"></script>
+    <script src="~/Scripts/imagesloaded.pkgd.min.js"></script>
+    <script src="~/Scripts/skillset.js"></script>
+    <script src="~/Scripts/owl.carousel.js"></script>
+    <script src="~/Scripts/scrollupto.js"></script>
+}

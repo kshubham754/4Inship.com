@@ -1,0 +1,211 @@
+﻿@model _4InShip.com.Models.ViewCustomerPaymentModel
+@{
+    ViewBag.Title = "CustomerPayment";
+}
+<link href="~/Content/css/myStyle.css" rel="stylesheet" />
+<link href="~/Content/css/css_developer.css" rel="stylesheet" />
+@Html.Partial("~/Views/Shared/_HeaderMenu.cshtml")
+
+@using (Ajax.BeginForm("CustomerPaymentBillingAddress", "Customer", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "CutomerPayment" }))
+{
+    @Html.ValidationSummary(true)
+    <section class="margintop90PX">
+        <div class="container blog_area">
+            <div class="col-md-2 col-sm-1"></div>
+            <div class="col-md-8 col-sm-10">
+                <h1><i class="fa fa-credit-card-alt"></i> Payment</h1>
+                <strong>We Secured Your Line</strong>
+                <br>
+                <img src="@Url.Content("~/Content/img/siteseal_gd_3_h_d_m.gif")">
+                <br><br>
+                <h1><i class="fa fa-address-book"></i> Billing Address</h1>
+                <div class="well well-sm">
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <span class="checkbox">
+                                <label style="font-size: 1em">
+                                    <input value="" id="billingaddress" unchecked type="checkbox">
+                                    <span class="cr"><i class="cr-icon fa fa-check"></i></span> Same As Shippping Address
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                    <div id="BillingAddresshidden">
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label>First Name</label>
+                                @Html.TextBoxFor(model => model.first_name, new { @type = "text", @class = "form-control", @placeholder = "First Name" })
+                                @Html.ValidationMessageFor(model => model.first_name, null, new { @class = "error" })
+                            </div>
+                            <div class="col-sm-6 spacetop15PX-xs">
+                                <label>Last Name</label>
+                                @Html.TextBoxFor(model => model.last_name, new { @type = "text", @class = "form-control", @placeholder = "Last Name" })
+                                @Html.ValidationMessageFor(model => model.last_name, null, new { @class = "error" })
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <label>Email</label>
+                                @Html.TextBoxFor(model => model.email, new { @type = "text", @class = "form-control", @placeholder = "Your Biling Email" })
+                                @Html.ValidationMessageFor(model => model.email, null, new { @class = "error" })
+
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <label>Mobile Number</label>
+                                @Html.TextBoxFor(model => model.mobile, new { @type = "text", @class = "form-control", @placeholder = "Your Biling Phone" })
+                                @Html.ValidationMessageFor(model => model.mobile, null, new { @class = "error" })
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <label>Address</label>
+                                @Html.TextBoxFor(model => model.address, new { @type = "text", @class = "form-control", @placeholder = "Current Address" })
+                                @Html.ValidationMessageFor(model => model.address, null, new { @class = "error" })
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-6">
+                                <label>Country</label>
+                                @Html.DropDownListFor(model => model.Country, null, new { required = "required", @class = "form-control " })
+                            </div>
+                            <div class="col-sm-6 spacetop15PX-xs">
+                                <label>Bill to Address City</label>
+                                @Html.TextBoxFor(model => model.city, new { @type = "text", @class = "form-control", @placeholder = "City" })
+                                @Html.ValidationMessageFor(model => model.city, null, new { @class = "error" })
+                                @*<select name="" class="form-control">
+                                        <option>Select</option>
+                                    </select>*@
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <label>State/Province</label>
+                                @Html.TextBoxFor(model => model.state, new { @type = "text", @class = "form-control", @placeholder = "State/Province" })
+                                @Html.ValidationMessageFor(model => model.state, null, new { @class = "error" })
+
+                            </div>
+                            <div class="col-sm-4 spacetop15PX-xs">
+                                <label>Zip Code</label>
+                                @Html.TextBoxFor(model => model.post_code, new { @type = "text", @class = "form-control", @placeholder = "Zip Code" })
+                                @Html.ValidationMessageFor(model => model.post_code, null, new { @class = "error" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h1><i class="fa fa-credit-card"></i> Credit Card</h1>
+                <div class="well well-sm">
+                    <div class="row form-group">
+                        <div class="col-sm-8">
+                            <label>Credit Card Number</label>
+                            @Html.TextBoxFor(model => model.CreditCard, new { @type = "number", @class = "form-control", @placeholder = "8888-8888-8888-8888" })
+                            @Html.ValidationMessageFor(model => model.CreditCard, null, new { @class = "error" })
+                        </div>
+                        <div class="col-sm-4 spacetop15PX-xs ul-list-xs">
+                            <label class="hidden-xs">&nbsp;</label>
+                            <ul class="list-unstyled list-inline">
+                                <li><img src="@Url.Content("~/Content/img/visa.png")"></li>
+                                <li><img src="@Url.Content("~/Content/img/mastercard.png")"></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-4">
+                                    <label>Expire Month</label>
+                                    @Html.TextBoxFor(model => model.ExpireMonth, new { @type = "number", @min = "0", @max = "12", @class = "form-control", @placeholder = "MM" })
+                                    @Html.ValidationMessageFor(model => model.ExpireMonth, null, new { @class = "error" })
+                                </div>
+                                <div class="col-md-3 col-sm-4 spacetop15PX-xs">
+                                    <label>Expire Year</label>
+                                    @Html.TextBoxFor(model => model.ExpireYear, new { @type = "number", @min = "2016", @max = "3000", @class = "form-control", @placeholder = "YYYY" })
+                                    @Html.ValidationMessageFor(model => model.ExpireYear, null, new { @class = "error" })
+                                </div>
+                                <div class="col-md-6 col-sm-4"></div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4 spacetop15PX-xs">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-8">
+                                    <label>CVV Code</label>
+                                    @Html.TextBoxFor(model => model.CVCCode, new { @type = "number", @class = "form-control", @placeholder = "000" })
+                                    @Html.ValidationMessageFor(model => model.CVCCode, null, new { @class = "error" })
+                                </div>
+                                <div class="col-md-6 col-sm-4"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <span class="checkbox">
+                            <label style="font-size: 1em">
+                                <input value="" type="checkbox">
+
+                            </label>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 form-group"><a href="#" class="btn btn-danger"><i class="fa fa-long-arrow-left"></i> Previous</a></div>
+                    <div class="col-sm-12"><button class="btn btn-success btn-block">Pay</button></div>
+                </div>
+
+
+            </div>
+            <div class="col-md-2 col-sm-1"></div>
+        </div>
+    </section>
+}
+
+@section Scripts{
+    <script src="~/Scripts/select2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            @Html.Raw(TempData["CustomerBillingPayment"]);
+            @Html.Raw(TempData["Message"]);
+            $("#billingaddress").attr('unchecked', false)
+        });
+    </script>
+    <script type="text/javascript">
+        $("#billingaddress").click(function () {
+            var CheckedValue = $("#billingaddress").attr('checked')
+            var UnCheckedValue = $("#billingaddress").attr('unchecked')
+            if (typeof CheckedValue !== 'undefined' && CheckedValue != '') {
+                $("#billingaddress").attr('checked', false);
+                $("#billingaddress").next('span').children().removeClass('fa-check')
+                $("#BillingAddresshidden").show(1000);
+            }
+            else if (typeof UnCheckedValue != 'undefined' && UnCheckedValue != '') {
+                $("#billingaddress").attr('checked', true);
+                $("#billingaddress").next('span').children().addClass('fa-check')
+                $("#BillingAddresshidden").hide(1000);
+            }
+
+            var url = "/Customer/GetAddressbookData";
+            $.get(url, null, function (data) {
+                $("#first_name").val(data.first_name);
+                $("#last_name").val(data.last_name);
+                $("#email").val(data.email);
+                $("#mobile").val(data.mobile);
+                $("#address").val(data.address);
+                $("#Country").val(data.Country);
+                $("#city").val(data.city);
+                $("#state").val(data.state);
+                $("#post_code").val(data.post_code);
+            });
+        });
+    </script>
+}

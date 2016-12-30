@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace _4InShip.com.Areas.User.IServices
+
+{
+    public interface IShipmentService<T,T1,T2,T3,T4,T5,T6,T7>where T:class
+    {
+        List<T> GetRecievedShipment(int ID);
+        string SaveInvoicefilepath(T objrecivedship);
+        int yourpoints();
+        int yourBalance();
+        List<T1> GetOrderRecordList(int ID);
+        T2 GetCustomerPlans(int ID);
+        List<T3> GetCustomerPayment(int ID);
+        List<T4> GetReciveShipmentDetails(int ID);
+        List<T4> GetShipmentDetails();
+        T5 GettblAdressData(int ID);
+        List<T6> GetoptionplanPlandata(int ID);
+        string CancelRecShipment(int ID);
+        string GetRequestPicture(int ID);
+        string GetReturnPanding(int ID);
+        string ReturnPackageData(T4 objreturn);
+        string CreateShipmentOrder(List<T6> entity, T7 entitys);
+
+    }
+
+}

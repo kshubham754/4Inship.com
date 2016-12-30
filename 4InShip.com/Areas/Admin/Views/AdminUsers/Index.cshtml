@@ -1,0 +1,69 @@
+﻿@model _4InShip.com.Repository.tblAdminUser
+@{
+    ViewBag.Title = "InsertUpdateAdminUsers";
+}
+<section class="content">
+    @Html.Partial("_MsgDivPartial")
+    @using (Html.BeginForm("InsertTblAdminUsers", "AdminUsers", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+     
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Add Admin User</h3>
+                    <a href='@Url.Action("AdminUsers", "AdminUsers")' class="btn btn-xs btn-primary pull-right"><i class="fa fa-eye" aria-hidden="true"> View All Admin Users</i></a>
+                </div>
+                <div class="form-horizontal">
+                    <div class="box-body">
+
+                        <div class="form-group">
+                            <label for="inputname" class="col-sm-2 control-label">Name</label>
+                            <div class="col-sm-10">
+                                @Html.HiddenFor(m => m.Id)
+                                @Html.TextBoxFor(m => m.name, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", id = "inputname", placeholder = "Name" })
+                                @Html.ValidationMessageFor(m => m.name, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputusername" class="col-sm-2 control-label">User Name</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.username, new { @type = "text", @maxlength = "50",@class = "form-control textboxfor", id = "inputusername", placeholder = "User Name" })
+                                @Html.ValidationMessageFor(m => m.username, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.password, new { @type = "password", @maxlength = "50", @class = "form-control textboxfor", id = "inputpassword", placeholder = "Password" })
+                                @Html.ValidationMessageFor(m => m.password, null, new { @class = "error" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputroll" class="col-sm-2 control-label">Roll</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(m => m.role, new { @type = "text", @maxlength = "25", @class = "form-control textboxfor", id = "inputroll", placeholder = "Roll" })
+                                @Html.ValidationMessageFor(m => m.role, null, new { @class = "error" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button type="reset" onclick="Cancel_Click();" class="btn btn-danger pull-right">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+    
+    }
+</section>
+@section Scripts {
+
+    <script type="text/javascript">
+    @Html.Raw(ViewBag.Message);
+    </script>
+
+}
+
+
+

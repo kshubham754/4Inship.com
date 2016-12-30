@@ -1,0 +1,135 @@
+﻿
+@model List<_4InShip.com.Repository.tblAdminUser>
+@{
+    ViewBag.Title = "AdminUsersDetail";
+}
+
+<div class="content-header">
+    <h2></h2>
+</div>
+
+<div class="content">
+    @Html.Partial("_MsgDivPartial")
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Admin Users </h3>
+            <a href='@Url.Action("Index", "AdminUsers")' class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true"> Add Admin User</i></a>
+
+        </div>
+        <div class="form-horizontal">
+            <div class="box-body">
+                <table id="tbladminusers" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>User Name</th>
+                            <th>Password</th>
+                            <th>Role</th>
+                            <th>Created On</th>
+                            <th>Modified On</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.name</td>
+                            <td>@item.username</td>
+                            <td>@item.password</td>
+                            <td>@item.role</td>
+                            <td><span>@(item.created_on == null ? "" : item.created_on.Value.ToString("yyyy/MM/dd"))</span></td>
+                            <td><span>@(item.modified_on == null ? "" : item.modified_on.Value.ToString("yyyy/MM/dd"))</span></td>
+
+                            <td>
+                                <label class="textboxfor">
+                                    <span id='@("spanStatus"+item.Id)' class="label @(item.status == true ? "label-success" : "label-danger")">@(item.status == true ? "Active" : "InActive")</span>
+                                </label>
+                            </td>
+                            <td>
+                                <a href="Index/@item.Id" class="btn btn-info btn-xs"><i class="fa fa-pencil"> Edit</i></a>
+                                &nbsp;&nbsp;
+                                @*<a href="#" id='Delete @item.Id' onclick="DeleteDatas(@item.Id)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"> Delete</i></a>*@
+                            </td>
+
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Areas/Admin/js/jquery-1.10.2.intellisense.js"></script>
+<script src="~/Areas/Admin/js/admin.js"></script>
+
+@section Scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#tbladminusers").DataTable({
+                responsive: true,
+                "columnDefs": [
+            {
+                "targets": [ 0, 7],
+                orderable: false
+            }
+            ]
+
+            });
+
+
+            $('span[id^="spanStatus"]').click(function () {
+                var r = confirm('Are you sure you want to change this status?')
+                if (r == true) {
+                    var statusid = $(this).attr('id');
+                    var id = statusid.replace('spanStatus', '');
+                    $.ajax({
+                        type: "post",
+                        url: "/AdminUsers/ChangeStatusTblUserById",
+                        data: { 'id': id },
+                        success: function (id) {
+                            showMessage("Status has been changed successfully", true)
+                            if ($("#spanStatus" + id.toString()).text() === "Active")
+                                $("#spanStatus" + id.toString()).text('InActive').toggleClass('label-success label-danger')
+                            else
+                                $("#spanStatus" + id.toString()).text('Active').toggleClass('label-success label-danger')
+                        },
+                        error: function (data) {
+                            alert(data.x);
+                            showMessage("", false)
+                        }
+                    });
+                }
+                else {
+                    return false;
+                }
+                
+            });
+
+        })
+        @Html.Raw(ViewBag.Message);
+        function DeleteDatas(id) {
+            var parent = $(this).parent().parent();
+            $.ajax({
+                type: "post",
+                url: "/AdminUsers/DeleteAdminUsersDetailById",
+                data: { 'id': id },
+                success: function (id) {
+                    if (id !== "0") {
+
+                        $("a[id='Delete " + id + "']").eq(0).parent().parent().next('.child').remove();
+                        $("a[id='Delete " + id + "']").eq(0).parent().parent().remove();
+                        showMessage("Record has been deleted successfully", true);
+                    }
+                },
+                error: function (data) {
+                    alert(data.x);
+                }
+            });
+        }
+    </script>
+}
+

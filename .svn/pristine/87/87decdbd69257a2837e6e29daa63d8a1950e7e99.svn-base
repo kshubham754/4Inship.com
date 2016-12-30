@@ -1,0 +1,207 @@
+﻿using _4InShip.com.Areas.User.IServices;
+using _4InShip.com.Areas.User.Models;
+using _4InShip.com.Repository;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Script.Serialization;
+
+namespace _4InShip.com.Areas.User.Controllers
+{
+    [Authorize(Roles = "User")]
+    [CustomActionFilter]
+    public class ShipmentController : Controller
+    {
+        // GET: User/Shipment
+        UserCommanClass objUserCommanClass = new UserCommanClass();
+        private IShipmentService<tblReceivedShipment, tblOrder, UserViewCustomerModel, UserPaymentModel, ViewRecivedShipmentModel, tblAddressBook, ViewPackagingOptionsModel, ViewOrderModel> _repository;
+        public ShipmentController(IShipmentService<tblReceivedShipment, tblOrder, UserViewCustomerModel, UserPaymentModel, ViewRecivedShipmentModel, tblAddressBook, ViewPackagingOptionsModel, ViewOrderModel> repo)
+        {
+            _repository = repo;
+        }
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult ShipmentDetails()
+        {
+
+            int ID = Convert.ToInt32(Session["UserId"]);
+            int defaultAddressID = 0;
+            ViewBag.AdressList = objUserCommanClass.AddressTableDrpdown(ID);
+            if (ViewBag.AdressList != null)
+            {
+                defaultAddressID = Convert.ToInt32(ViewBag.AdressList[0].Value);
+                TempData["defaultAddress"] = defaultAddressID;
+                ViewBag.DefaultAddress = _repository.GettblAdressData(defaultAddressID);
+            }
+            ViewBag.optionpackagelist = _repository.GetoptionplanPlandata(ID);
+            List<ViewRecivedShipmentModel> ObjReciveShipmentList = _repository.GetReciveShipmentDetails(ID);
+            ViewBag.ShipmentDetails = _repository.GetShipmentDetails();
+          
+            return View(ObjReciveShipmentList);
+        }
+        [HttpPost]
+        public JsonResult GetReciveShipmentDetail(string ID)
+        {
+            tblAddressBook Data = _repository.GettblAdressData(Convert.ToInt32(ID));
+            return Json(Data, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult CancelRecivedShipment(string CancelShipmentID)
+        {
+            ViewBag.Message = _repository.CancelRecShipment(Convert.ToInt32(CancelShipmentID));
+            return Json(ViewBag.Message, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult RequestPicture(string[] requestpicture)
+        {
+            string message = "";
+            if (requestpicture != null)
+            {
+                for (int i = 0; i < requestpicture.Length; i++)
+                {
+                    if (requestpicture[i] != "")
+                    {
+                        var id = requestpicture[i].Replace("id", "");
+                        message = _repository.GetRequestPicture(Convert.ToInt32(id));
+
+                    }
+                }
+            }
+            return Json(message, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult CorrectPrice()
+        {
+            HttpFileCollectionBase files = Request.Files;
+            string message = "";
+            for (int i = 0; i < files.Count; i++)
+            {
+                HttpPostedFileBase file = files[i];
+                string reciviedshipid = "";
+                if (Request.Form["recievshipId"] != null)
+                {
+                    reciviedshipid = Request.Form["recievshipId"];
+                }
+                string extension = Path.GetExtension(file.FileName);
+                string fileName = Guid.NewGuid().ToString().Substring(0, 8) + extension;
+                if (!Directory.Exists(Server.MapPath("~/Uploads/Invoice" + "/") + reciviedshipid))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/Uploads/Invoice" + "/") + reciviedshipid);
+                }
+                file.SaveAs(Server.MapPath("~/Uploads/Invoice/" + "/" + reciviedshipid + "/") + fileName.ToString());
+                tblReceivedShipment objrecivedship = new tblReceivedShipment();
+                objrecivedship.id = Convert.ToInt32(reciviedshipid);
+                objrecivedship.created_invoice_file_path = fileName.ToString();
+                message = _repository.SaveInvoicefilepath(objrecivedship);
+            }
+            return Json(message, JsonRequestBehavior.AllowGet);
+        }
+        //ReturnPAckage //
+        [HttpPost]
+        public ActionResult ReturPackageForm(ViewRecivedShipmentModel objViewRecivedShipmentModel)
+        {
+            string message = "";
+            if (Request.Files.Count != 0)
+            {
+                HttpFileCollectionBase files = Request.Files;
+
+                for (int i = 0; i < files.Count; i++)
+                {
+                    HttpPostedFileBase file = files[i];
+                    string[] reciviedshipid = Request.Form["returnpackageid"].Split(',');
+                    for (int k = 0; k < reciviedshipid.Length; k++)
+                    {
+
+                        if (reciviedshipid[k] != "")
+                        {
+                            string extension = Path.GetExtension(file.FileName);
+                            string fileName = Guid.NewGuid().ToString().Substring(0, 8) + extension;
+                            if (!Directory.Exists(Server.MapPath("~/Uploads/ReturnPackages" + "/") + reciviedshipid[k].Replace("id", "")))
+                            {
+                                Directory.CreateDirectory(Server.MapPath("~/Uploads/ReturnPackages" + "/") + reciviedshipid[k].Replace("id", ""));
+                            }
+                            file.SaveAs(Server.MapPath("~/Uploads/ReturnPackages/" + "/" + reciviedshipid[k].Replace("id", "") + "/") + fileName.ToString());
+
+                            objViewRecivedShipmentModel.Fk_shipment_id = Convert.ToInt32(reciviedshipid[k].Replace("id", ""));
+                            objViewRecivedShipmentModel.ReturnpackagefileUpload = fileName.ToString();
+                            message = _repository.ReturnPackageData(objViewRecivedShipmentModel);
+                        }
+                       
+                    }
+                    return Json(message, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            else if (objViewRecivedShipmentModel.returnpackageid[0] != "")
+            {
+                // id according save data//
+
+                string[] returnpackageid = objViewRecivedShipmentModel.returnpackageid[0].Split(',');
+                for (int i = 0; i < returnpackageid.Length; i++)
+                {
+                    if (returnpackageid[i] != "")
+                    {
+                        objViewRecivedShipmentModel.Fk_shipment_id = Convert.ToInt32(returnpackageid[i].Replace("id", ""));
+                        message = _repository.ReturnPackageData(objViewRecivedShipmentModel);
+                    }
+
+                }
+
+            }
+            return Json(message, JsonRequestBehavior.AllowGet);
+        }
+        // change address dropdown Get shipment api method//
+        [HttpPost]
+        public JsonResult GetShipmentMethodCarrierApi(string id)
+        {
+            if(id !="")
+            {
+                ViewBag.ShipmentCarrierApi = objUserCommanClass.ShipmentCarrierApi(Convert.ToInt32(id));
+            }
+            return Json(ViewBag.ShipmentCarrierApi, JsonRequestBehavior.AllowGet);
+        }
+        // default address Get shipment api method//
+        [HttpGet]
+        public JsonResult defaultAddtessGetShipmentMethod()
+        {
+           
+            ViewBag.ShipmentCarrierApi = objUserCommanClass.ShipmentCarrierApi(Convert.ToInt32(TempData["defaultAddress"]));
+            return Json(ViewBag.ShipmentCarrierApi, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult CreateShipmentOrder(string data)
+        {
+            string message = "";
+            Dictionary<string, object> values = JsonConvert.DeserializeObject<Dictionary<string, object>>(data);
+            List<ShipmentMethodPackage> ShipmentPackage= JsonConvert.DeserializeObject<List<ShipmentMethodPackage>>(values["ShipmentMethodPackage"].ToString());
+            List<PacakageOptionArray> Packageoption = JsonConvert.DeserializeObject<List<PacakageOptionArray>>(values["PacakageOptionArray"].ToString());
+            string[] Recivedshipmentcheckbox = JsonConvert.DeserializeObject<string[]>(values["ShipmentCheckboxID"].ToString());
+            string AddressDrop = JsonConvert.DeserializeObject<string>(values["Addressdropid"].ToString());
+            int ID = Convert.ToInt32(Session["UserId"]);
+            List<ViewPackagingOptionsModel> objViewPackagingOptionsModel = new List<ViewPackagingOptionsModel>();
+            foreach (var item in ShipmentPackage)
+            {
+                objViewPackagingOptionsModel.Add(new ViewPackagingOptionsModel() { shipmentMethodPrice = item.shipmentMethodPrice, shipmentdescription = item.shipmentdescription });
+            }
+            foreach (var item in Packageoption)
+            {
+                objViewPackagingOptionsModel.Add(new ViewPackagingOptionsModel() { PackageOptionPrice = item.PackageOptionPrice, PackageOptionTitle = item.PackageOptionTitle });
+            }
+            ViewOrderModel objViewOrderModel = new ViewOrderModel();
+            if(Recivedshipmentcheckbox !="")
+            {
+                objViewOrderModel.Fk_Customer_id = ID;
+                objViewOrderModel.ShipmentCheckboxID = Recivedshipmentcheckbox;
+                objViewOrderModel.Fk_orderAddres_id = Convert.ToInt32(AddressDrop);
+                //message = _repository.CreateShipmentOrder(objViewPackagingOptionsModel, objViewOrderModel);
+            }
+            return Json(null);
+        }
+    }
+  
+}

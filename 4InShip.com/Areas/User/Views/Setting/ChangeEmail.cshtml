@@ -1,0 +1,56 @@
+﻿@model _4InShip.com.Areas.User.Models.ChangeEmailId
+@{
+    ViewBag.Title = "ChangeEmail";
+}
+
+<section class="margintop90PX margintop90PX-xs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li class="active"><a href="@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))">Home</a></li>
+                    <li class="active">My Account</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    @using (Ajax.BeginForm("ChangeEmail", "Setting", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "SignUp" }))
+    {
+
+        <div class="container">
+            <div class="row">
+                @Html.Partial("_LeftMenuSettingsPartial")
+                <div class="col-md-8">
+                    <h2>Change Email Address</h2>
+
+                    <br><br>
+
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                                <label>Current Email</label>
+                                    @Html.TextBoxFor(m => m.currentemail, new { @type = "text", @maxlength = "50", @readonly = "readonly", @class = "form-control", @Value = @Model.currentemail })
+                                   @Html.ValidationMessageFor(m => m.currentemail, null, new { @class = "error" })
+                            </div>
+                        <div class="col-sm-12 form-group">
+                            <label>New Email</label>
+                            @Html.TextBoxFor(m => m.newemail, new { @type = "text", @maxlength = "50", @class = "form-control", @placeholder = "New Email" })
+                            @Html.ValidationMessageFor(m => m.newemail, null, new { @class = "error" })
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <label>Confirm Email</label>
+                            @Html.TextBoxFor(m => m.confirmemail, new { @type = "text", @maxlength = "50", @class = "form-control", @placeholder = "Confirm Email" })
+                            @Html.ValidationMessageFor(m => m.confirmemail, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-sm-12"><button class="btn btn-success btn-block">Save Changes</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    </section>
+    

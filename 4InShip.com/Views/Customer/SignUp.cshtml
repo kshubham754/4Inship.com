@@ -1,0 +1,193 @@
+﻿@model  _4InShip.com.Models.ViewCustomerModel
+@{
+    ViewBag.Title = "SignUp";
+}
+<link href="~/Content/css/myStyle.css" rel="stylesheet" />
+<link href="~/Content/css/css_developer.css" rel="stylesheet" />
+<link href="~/Content/css/select2.min.css" rel="stylesheet" />
+@Html.Partial("~/Views/Shared/_HeaderMenu.cshtml")
+@using (Ajax.BeginForm("SignUp", "Customer", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "SignUp" }))
+{
+    @Html.ValidationSummary(true)
+    <section class="margintop90PX">
+        <div class="container blog_area">
+            <div class="col-md-2 col-sm-1"></div>
+            <div class="col-md-8 col-sm-10">
+                <h1><i class="fa fa-user"></i> Customer Information</h1>
+                <strong>Your Information is safe with us!</strong>
+                <br>
+                We promise we will never SPAM you with unwanted emails. We respect your privacy and will never share your email address with any person or organization. All data are 100% encrypted with a strong industry-standard SSL encryption
+                <br><br>
+                <h1><i class="fa fa-cog"></i> Your Login Information</h1>
+                <div class="well well-sm">
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label>Username/Email</label>
+                            @Html.TextBoxFor(model => model.email, new { @type = "email", @class = "form-control", @placeholder = "Email" })
+                            @Html.ValidationMessageFor(model => model.email, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 ">
+                            <label>Password</label>
+                            @*<input type="text" class="form-control">*@
+                            @Html.PasswordFor(model => model.password, new { @type = "password", @class = "form-control", @placeholder = "Password" })
+                            @Html.ValidationMessageFor(model => model.password, null, new { @class = "error" })
+                        </div>
+                        <div class="col-sm-6 spacetop15PX-xs">
+                            <label>Confirm Password</label>
+                            @Html.PasswordFor(model => model.ConfirmPassword, new { @type = "password", @class = "form-control", @placeholder = "Confirm Password" })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "error" })
+
+                        </div>
+                    </div>
+                </div>
+                <h1><i class="fa fa-map-marker"></i> We Will Ship to this Address</h1>
+                <div class="well well-sm">
+                    <div class="row form-group">
+                        <div class="col-sm-6">
+                            <label>First Name</label>
+                            @Html.TextBoxFor(model => model.FirstName, new { @type = "text", @class = "form-control", @placeholder = "First Name" })
+                            @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "error" })
+
+                        </div>
+                        <div class="col-sm-6 spacetop15PX-xs">
+                            <label>Last Name</label>
+                            @Html.TextBoxFor(model => model.LastName, new { @type = "text", @class = "form-control", @placeholder = "Last Name" })
+                            @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "error" })
+
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label>Company</label>
+                            @Html.TextBoxFor(model => model.Company, new { @type = "text", @class = "form-control", @placeholder = "Company" })
+
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label>Address</label>
+                            @Html.TextBoxFor(model => model.Address, new { @type = "text", @class = "form-control", @placeholder = "Building No Street - District" })
+                            @Html.ValidationMessageFor(model => model.Address, null, new { @class = "error" })
+
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-6">
+                            <label>Country</label>
+                            @Html.DropDownListFor(model => model.Country, null, new { required = "required", @class = "form-control", @SearchSelect = "true" })
+
+                            @Html.ValidationMessageFor(model => model.Country, null, new { @class = "error" })
+                        </div>
+                        <div class="col-sm-6 spacetop15PX-xs">
+                            <label>City</label>
+                            @Html.TextBoxFor(model => model.City, new { @type = "text", @class = "form-control", @placeholder = "City" })
+                            @Html.ValidationMessageFor(model => model.City, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-8">
+                            <label>State/Province</label>
+                            @Html.TextBoxFor(model => model.State, new { @type = "text", @class = "form-control", @placeholder = "State" })
+                            @Html.ValidationMessageFor(model => model.State, null, new { @class = "error" })
+
+                        </div>
+                        <div class="col-sm-4 spacetop15PX-xs">
+                            <label>Zip Code</label>
+                            @Html.TextBoxFor(model => model.ZipCode, new { @type = "text", @class = "form-control", @placeholder = "Zip Code" })
+                            @Html.ValidationMessageFor(model => model.ZipCode, null, new { @class = "error" })
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Mobile Number</label>
+                            @Html.TextBoxFor(model => model.MobileNumber, new { type = "text", @class = "form-control", @placeholder = "Mobile Number" })
+                            @Html.ValidationMessageFor(model => model.MobileNumber, null, new { @class = "error" })
+
+                        </div>
+                    </div>
+                </div>
+                <h1><i class="fa fa-scissors"></i> Coupon Information</h1>
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Coupon code</label>
+                            @Html.TextBoxFor(model => model.CuponCode, new { @type = "text", @class = "form-control", @placeholder = "Coupon Code" })
+                            <div id="Couponerror" style="color:red" class="hidden">Coupon does not exist!</div>
+                            <div id="CouponSuccess" style="color:green" class="hidden">hurrah! coupon code applied successfully.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 form-group"><a href="../../" class="btn btn-danger"><i class="fa fa-times-circle"></i> Cancel</a></div>
+                    <div class="col-sm-12"><button type="submit" class="btn btn-success btn-block" onclick="return validateCoupon();">Save &amp; Next</button></div>
+                </div>
+
+            </div>  
+            <div class="col-md-2 col-sm-1"></div>
+        </div>
+    </section>
+}
+
+@section Scripts{
+    <script src="~/Scripts/select2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.ui.dropdown').dropdown();
+            $('.ui.buttons .dropdown.button').dropdown({
+                action: 'combo'
+            });
+        })
+    </script>
+    <script type="text/javascript">
+   @Html.Raw(ViewBag.Message)
+        $("#CuponCode").change(function () {
+            checkCoupon();
+        });
+
+        $("#CuponCode").keyup(function () {
+            $("#Couponerror").addClass("hidden");
+            $('#CouponSuccess').addClass("hidden");
+        })
+        function validateCoupon() {
+            checkCoupon();
+            
+        }
+        function checkCoupon()
+        {
+            var CouponCode = $("#CuponCode").val();
+            if ($("#CuponCode").val() == '') {
+                $("#Couponerror").addClass("hidden").removeAttr("isvalid");
+            }
+            else {
+                var form = new FormData();
+                form.append("CouponCode", CouponCode);
+                $.ajax({
+                    url: "/Customer/CheckCoupon",
+                    type: "POST",
+                    data: form,
+                    async: false,
+                    traditional:true,
+                    processData: false,
+                    contentType: false,
+                    success: function (d) {
+                        if (d != "") {
+                            $("#Couponerror").removeClass("hidden").removeAttr("isvalid");
+                            return false;
+                        }
+                        else {
+                            $("#Couponerror").show().attr("isvalid", "false");
+                            $('#CouponSuccess').removeClass("hidden");
+                            return true;
+                        }
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        // TODO: Show error
+                    }
+                });
+            }
+        }
+    </script>
+} 

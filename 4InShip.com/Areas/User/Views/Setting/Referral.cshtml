@@ -1,0 +1,41 @@
+﻿@model _4InShip.com.Areas.User.Models.ReferralEmailModel
+@{
+    ViewBag.Title = "Referral";
+}
+
+<section>
+
+    @using (Ajax.BeginForm("Referral", "Setting", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "SignUp" }))
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Referrals</h2>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            @Html.TextBox("referrals", null, new { @class = "form-control",@Value= "https://secure2.4InShip.com/shipping/signup?r=2e0d6", @readonly="readonly" })
+                           </div>
+                        <div class="col-sm-12 form-group">
+                            <div class="col-sm-6 form-group">
+                                <label> Email</label>
+                                @Html.TextBoxFor(m => m.email, new { @type = "text", @maxlength = "50", @class = "form-control", @placeholder = "you@example.org" })
+                                @Html.ValidationMessageFor(m => m.email, null, new { @class = "error" })
+                            </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Name</label>
+                            @Html.TextBoxFor(m => m.name, new { @type = "text", @maxlength = "50", @class = "form-control", @placeholder = "Name" })
+                            @Html.ValidationMessageFor(m => m.name, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-sm-12"><button class="btn btn-success btn-block">Send Invitation</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+

@@ -1,0 +1,173 @@
+﻿@model _4InShip.com.Repository.tblAddressBook
+@{
+    ViewBag.Title = "SingleAddress";
+}
+<section class="margintop90PX margintop90PX-xs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">My Account</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    @using (Ajax.BeginForm("SingleAddress", "Setting", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "SignUp" }))
+    {
+
+
+        <div class="container">
+            <div class="row">
+                @Html.Partial("_LeftMenuSettingsPartial")
+
+                <div class="col-md-8">
+                    <div class="well well-sm">
+                        <h4>How to add a New Address?</h4>
+                        New rules from shipping couriers requires an accurate shipping address to ensure speedy delivery. Please update your address.
+                        Example: <a href="#">Click Here</a> || <a href="#">Using Google Map</a>
+                    </div>
+
+                    <h2>My Address Book</h2>
+                    <div class="row form-group">
+                        <div class="col-sm-6">
+                            <label>First Name</label>
+                            @Html.TextBoxFor(m => m.first_name, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", placeholder = "First Name" })
+                            @Html.ValidationMessageFor(m => m.first_name, null, new { @class = "error" })
+                        </div>
+                        <div class="col-sm-6 spacetop15PX-xs">
+                            <label>Last Name</label>
+                            @Html.TextBoxFor(m => m.last_name, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", placeholder = "Last Name" })
+                            @Html.ValidationMessageFor(m => m.last_name, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label>Address Name</label>
+                            @Html.HiddenFor(m => m.Id)
+                            @Html.TextBoxFor(m => m.address_name, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", placeholder = "Address Name" })
+                            @Html.ValidationMessageFor(m => m.address_name, null, new { @class = "error" })
+                            <input type="hidden" id="hdnAddress_Id" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label>Company</label>
+                            @Html.TextBoxFor(m => m.company, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", @placeholder = "Company" })
+
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label>Tax ID / National ID</label>
+                            @Html.TextBoxFor(m => m.tax_id, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", placeholder = "Tax ID / National ID" })
+                            @Html.ValidationMessageFor(m => m.tax_id, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label>Address 1</label>
+                            @Html.TextBoxFor(m => m.address1, new { @type = "text", @maxlength = "100", @class = "form-control textboxfor", placeholder = "Address 1" })
+                            @Html.ValidationMessageFor(m => m.address1, null, new { @class = "error" })
+                            <em>ADDRESS: Building No Street - District ( e.g; 8228 King Abdulaziz Road - Al Amal)</em>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label>Address 2</label>
+                            @Html.TextBoxFor(m => m.address2, new { @type = "text", @maxlength = "100", @class = "form-control textboxfor", placeholder = "Address 2" })
+                            @Html.ValidationMessageFor(m => m.address2, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-6">
+                            <label>Country</label>
+                            @Html.DropDownListFor(model => model.country_code, null, new { @class = "form-control textboxfor", SearchSelect = "true" })
+                            @Html.ValidationMessageFor(model => model.country_code, null, new { @class = "error" })
+                        </div>
+                        <div class="col-sm-6 spacetop15PX-xs">
+                            <label>City</label>
+                            @Html.TextBoxFor(m => m.city, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", placeholder = "City" })
+                            @Html.ValidationMessageFor(m => m.city, null, new { @class = "error" })
+                        </div>
+                    </div>
+
+
+                    <div class="row form-group">
+                        <div class="col-sm-8">
+                            <label>State/Province</label>
+                            @Html.TextBoxFor(m => m.state, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", placeholder = "State" })
+                            @Html.ValidationMessageFor(m => m.state, null, new { @class = "error" })
+                        </div>
+                        <div class="col-sm-4 spacetop15PX-xs">
+                            <label>Postal Code</label>
+                            @Html.TextBoxFor(m => m.post_code, new { @type = "number", @min = "0", @maxlength = "20", @class = "form-control textboxfor", placeholder = "Postal Code" })
+                            @Html.ValidationMessageFor(m => m.post_code, null, new { @class = "error" })
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-sm-12 form-group">
+                            <label>Mobile Number</label>
+                            @Html.TextBoxFor(m => m.mobile1, new { @type = "tel", @min = "0", @maxlength = "20", @class = "form-control textboxfor", placeholder = "Mobile" })
+                            @Html.ValidationMessageFor(m => m.mobile2, null, new { @class = "error" })
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Alternative number</label>
+                            @Html.TextBoxFor(m => m.mobile2, new { @type = "tel", @min = "0", @maxlength = "20", @class = "form-control textboxfor", placeholder = "Mobile" })
+                            @Html.ValidationMessageFor(m => m.address_name, null, new { @class = "error" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12"><button class="btn btn-success btn-block">Save Changes</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+</section>
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#hdnAddress_Id").val(location.pathname.substring(location.pathname.lastIndexOf("/") + 1));
+        });
+        if ($.validator) {
+            //  Validation
+            $.validator.addMethod("validateaddressname", function (value, element, params) {
+                var isMatched = false;
+                isMatched = validateaddressnameAjaxCall();
+                return isMatched;
+            }, '');
+            if ($.validator.unobtrusive) {
+                $.validator.unobtrusive.adapters.addBool("validateaddressname");
+            }
+        }
+
+        function validateaddressnameAjaxCall() {
+            var ajaxCall = $.ajax({
+                type: "POST",
+                url: '@Url.Action("CheckAddressname", "Setting")',
+                async: false,
+                data: JSON.stringify({ "addressname": $("#address_name").val(), addressBook_Id: $("#hdnAddress_Id").val() }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    return data;
+                },
+                error: function () {
+                    return false;
+                }
+
+            });
+            return ajaxCall.responseJSON;
+        }
+    </script>
+}
+
+
+

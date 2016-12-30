@@ -1,0 +1,88 @@
+﻿@model _4InShip.com.Repository.tblPlan
+@{
+    ViewBag.Title = "CustomerPlans";
+}
+<div class="title_right">
+</div>
+
+<section class="content-header">
+    <h1></h1>
+</section>
+
+<section class="content">
+    @Html.Partial("_MsgDivPartial")
+    @using (Html.BeginForm("CustomerPlans", "Plans", FormMethod.Post))
+    { @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="box box-info">
+            <div class="box box-info">
+                <div class="form-horizontal">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Add Customer Plan</h3>
+                            <a href='@Url.Action("Plans", "Plans")' class="btn btn-xs btn-primary pull-right"><i class="fa fa-eye" aria-hidden="true"> View All Customer Plans</i></a>
+                        </div>
+                        <div class="form-horizontal">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-2 control-label">Title</label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(model => model.title, new { @type = "text", @maxlength = "50", @class = "form-control", @id = "inputEmail3", @placeholder = "Tile" })
+                                        @Html.ValidationMessageFor(model => model.title, null, new { @class = "error" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-2 control-label">Price</label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(model => model.price, new { @min = "0", @type = "number", @maxlength = "50", @class = "form-control textboxfor", @id = "inputEmail3", @placeholder = "Price" })
+                                        @Html.ValidationMessageFor(model => model.price, null, new { @class = "error" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-2 control-label">Free Storage Days</label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(model => model.free_storage_days, new { @min = "0", @type = "number", @maxlength = "50", @class = "form-control textboxfor", @id = "inputfreestoragedays", @placeholder = "Free Storage Days" })
+                                        @Html.ValidationMessageFor(model => model.free_storage_days, null, new { @class = "error" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div>
+                                            <label>
+                                                <input name="IsRecurring"  class="flat-red" type="checkbox">
+                                                IsRecurring
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div>
+                                            <label>
+                                                <input name="Status" class="flat-red" type="checkbox">
+                                                Status
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="reset" class="btn btn-danger pull-right">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</section>
+@section Scripts {
+<script type="text/javascript">
+        @Html.Raw(ViewBag.Message);
+</script>
+  }
+
+

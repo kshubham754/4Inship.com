@@ -1,0 +1,47 @@
+﻿<div class="col-md-4">
+    <aside>
+
+        <dropdown class="hidden-md hidden-lg">
+            <nav class="navbar navbar-default navbar-static-top">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Setting Menu</a>
+                </div>
+                
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav text-left">
+                        <li><a href="@Url.Action("Index", "Setting")"><i class="fa fa-address-card"></i> Address &amp; Information</a></li>
+                        <li><a href="@Url.Action("AddressBook", "Setting")"><i class="fa fa-address-book"></i> Address Book</a></li>
+                        <li><a href="@Url.Action("ChangePassword", "Setting")"><i class="fa fa-lock"></i> Change Password</a></li>
+                        <li><a href="@Url.Action("ChangeEmail", "Setting")"><i class="fa fa-envelope"></i> Change Email Address</a></li>
+                        <li><a href="@Url.Action("ManagePoints", "Setting")"><i class="fa fa-star"></i> Manage Points</a></li>
+                        <li><a href="@Url.Action("SingleCreditCard", "Setting")"><i class="fa fa-credit-card"></i> Manage Credit Cards</a></li>
+                        <li><a href="#"><i class="fa fa-plus-circle"></i> Change Your Plan</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </nav>
+        </dropdown>
+        
+        <div class="hidden-xs hidden-sm">
+            <div class="list-group">
+                <h4 class="list-group-item active">Personal Settings</h4>
+                <a href="@Url.Action("Index", "Setting")" class="list-group-item"><i class="fa fa-address-card"></i> Address &amp; Information</a>
+                <a href="@Url.Action("AddressBook", "Setting")" class="list-group-item"><i class="fa fa-address-book"></i> Address Book</a>
+                <a href="@Url.Action("ChangePassword", "Setting")"class="list-group-item"><i class="fa fa-lock"></i> Change Password</a>
+                <a href="@Url.Action("ChangeEmail", "Setting")" class="list-group-item"><i class="fa fa-envelope"></i> Change Email Address</a>
+                <h4 class="list-group-item active">Payments &amp; Points</h4>
+                <a href="@Url.Action("ManagePoints", "Setting")" class="list-group-item"><i class="fa fa-star"></i> Manage Points</a>
+                <a href="@Url.Action("SingleCreditCard", "Setting")" class="list-group-item"><i class="fa fa-credit-card"></i> Manage Credit Cards</a>
+                <h4 class="list-group-item active">Accounts</h4>
+                <a href="#" class="list-group-item"><i class="fa fa-plus-circle"></i> Change Your Plan</a>
+            </div>
+
+        </div>
+    </aside>
+</div>

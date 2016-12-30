@@ -1,0 +1,218 @@
+﻿
+@model List<_4InShip.com.Areas.Admin.Models.ViewModelreceivedShipment>
+@{
+    ViewBag.Title = "ReceivedShipmentDetail";
+}
+@using _4InShip.com.Areas.Admin.Models
+
+<section class="content-header">
+    <h1></h1>
+</section>
+<section class="content">
+    @Html.Partial("_MsgDivPartial")
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Received Shipments </h3>
+            <a href='@Url.Action("Index", "ReceivedShipment")' class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus" aria-hidden="true"> Add Received Shipment</i></a>
+        </div>
+        <div class="form-horizontal">
+            <div class="box-body">
+                <table id="tblReceivedShipment" class="table table-striped table-bordered dt-responsive " cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Sender/Tracking</th>
+                            <th>Carrier</th>
+                            <th>Box Condition</th>
+                            <th>Status</th>
+                            <th>Recevied Date</th>
+                            <th>Created On</th>
+                            <th>Modified On</th>
+                            <th>Shelve No</th>
+                            <th>Picture  </th>
+                            <th>Action  </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Fk_assigned_user</td>
+                                <td>@item.sender @("/") @item.tracking</td>
+                                <td>@item.carrier</td>
+                                <td>@item.box_condition</td>
+                                @{
+                                    clsCommon objclscomman = new clsCommon();
+                                    var Status = objclscomman.Status(Convert.ToString(item.status));
+                                    string[] SplitlabelCalss = Status.Split(',');
+                                    <td><span class="label @SplitlabelCalss[0]">@SplitlabelCalss[1]</span></td>
+                                }
+                                <td><span>@(item.received_date == null ? "" : item.received_date.ToString("yyyy/MM/dd"))</span></td>
+                                <td><span>@(item.created_on == null ? "" : item.created_on.Value.ToString("yyyy/MM/dd"))</span></td>
+                                <td><span>@(item.modified_on == null ? "" : item.modified_on.Value.ToString("yyyy/MM/dd"))</span></td>
+                                <td>@item.shelf_no</td>
+                                <td>
+                                    @if (item.temp == 1)
+                                    {
+                                        if (item.chkimage.Count != 0)
+                                        {
+
+                                            <a href="AddEditPckagesImages/@item.id" class="label label-warning"><i class="fa fa-eye"> View</i></a>
+
+                                        }
+                                        else
+                                        {
+
+                                            <a href="AddEditPckagesImages/@item.id" class="btn btn-info btn-xs"><i class="fa fa-pencil"> Request Pending</i></a>
+
+                                        }
+
+
+                                    }
+
+                                </td>
+                                <td>
+                                    <a href="Index/@item.id" class="btn btn-info btn-xs"><i class="fa fa-pencil"> Edit</i></a>
+                                    <a href="#" id='Delete @item.id' onclick="DeleteData(@item.id)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"> Delete</i></a>
+                                    <a href="#" id='Popup @item.id' onclick="openpopup(@item.id)" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-xs"><i class="fa fa-eye"> Detail</i></a>
+                                    @*@if (item.is_requested_picture == true)
+                                    {
+                                        <a href="AddEditPckagesImages/@item.id" class="label label-warning"><i class="fa fa-pencil"> Add/Edit Packages Images</i></a>
+                                    }
+                                    @if (item.status == "8")
+                                    {
+                                        <a href="#" id='Popup @item.id' onclick="openpopupReturn(@item.id)" data-toggle="modal" data-target="#myModals" class="label label-warning"><i class="fa fa-level-down"> Return Packages</i></a>
+                                    }*@
+                                    </td>
+                            </tr>
+                                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">ShipmentDetails</h4>
+            </div>
+            <div class="modal-body">
+                <table id="tblReceivedShipmentPopup" class="table table-striped table-bordered dt-responsive " cellspacing="0"></table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModals" class="modal fade" role="dialog" width="100%">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Retuned Packages</h4>
+            </div>
+            <div class="modal-body">
+                <table id="tblReceivedShipmentPopupReturn" class="table table-striped table-bordered dt-responsive "></table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#tblReceivedShipment").DataTable({
+                responsive: true,
+                "order": [],
+                columnDefs: [
+                         { responsivePriority: 1, targets: 0 },
+                         { responsivePriority: 2, targets: -1 }
+                ]
+
+            });
+        });
+        function openpopup(id) {
+            $.ajax({
+                type: "post",
+                url: "/ReceivedShipment/ReceivedShipmentDetailById",
+                data: { 'id': id },
+                success: function (data) {
+                    var target = $("#tblReceivedShipmentPopup");
+                    target.empty();
+                    target.append("<thead><tr><th>PurchasePrice</th><th>Quantity</th><th>Description</th><th>ComodityCode</th></thead>")
+                    $.each(data, function (i, item) {
+                        target.append("<tbody><tr><td>" + item.purchase_price + "</td><td>" + item.quantity + "</td><td>" + item.description + "</td><td>" + item.comodity_code + "</td></tr></tbody>")
+                    });
+
+                },
+                error: function (data) {
+                    alert(data.x);
+                }
+            });
+        }
+        function openpopupReturn(id) {
+            $.ajax({
+                type: "post",
+                url: "/ReceivedShipment/ReturnShipmentByFkId",
+                data: { 'id': id },
+                success: function (data) {
+                    var target = $("#tblReceivedShipmentPopupReturn");
+                    target.empty();
+                    target.append("<thead><tr><th>First Name</th><th>Last Name</th><th>Address1</th><th>Address2</th><th>City</th><th>State</th><th>Postal Code</th><th>Mobile</th><th>RMA</th><th>Prepai Label Filename</th><th>Action</th></thead>")
+                    $.each(data, function (i, item) {
+                        target.append("<tbody><tr><td>" + item.first_name + "</td><td>" + item.last_name + "</td><td>" + item.address1 + "</td><td>" + item.address2 + "</td><td>" + item.city + "</td><td>" + item.state + "</td><td>" + item.postal_code + "</td><td>" + item.mobile + "</td><td>" + item.rma + "</td><td>" + item.prepaid_label_filename + "</td><td><a href='javascript:void(0)' onclick='ChangeStatus(" + item.id + ")' class='label label-warning'><i class='fa fa-level-down'> Return Shipment</i></a> </td></tr></tbody>")
+                    });
+                },
+                error: function (data) {
+                    alert(data.x);
+                }
+            });
+        }
+        @Html.Raw(ViewBag.Message);
+        function DeleteData(id) {
+            var parent = $(this).parent().parent();
+            $.ajax({
+                type: "post",
+                url: "/ReceivedShipment/DeleteReceivedShipmentById",
+                data: { 'id': id },
+                success: function (id) {
+                    if (id !== "0") {
+                        $("a[id='Delete " + id + "']").eq(0).parent().parent().next('.child').remove();
+                        $("a[id='Delete " + id + "']").eq(0).parent().parent().remove();
+                        showMessage("Record has been deleted successfully", true);
+                    }
+                },
+                error: function (data) {
+                    alert(data.x);
+                }
+            });
+        }
+        function ChangeStatus(id) {
+            var parent = $(this).parent().parent();
+            $.ajax({
+                type: "post",
+                url: "/ReceivedShipment/ChangeShipmebtReturnStatus",
+                data: { 'id': id },
+                success: function (data) {
+                    if (data != null)
+                        location.reload();
+                },
+                error: function (data) {
+                    alert(data.x);
+                }
+            });
+        }
+    </script>
+
+}
+

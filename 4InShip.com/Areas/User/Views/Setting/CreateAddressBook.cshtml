@@ -1,0 +1,143 @@
+﻿@model _4InShip.com.Repository.tblAddressBook
+@{
+    ViewBag.Title = "CreateAddressBook";
+}
+<link href="~/Content/css/myStyle.css" rel="stylesheet" />
+<link href="~/Content/css/css_developer.css" rel="stylesheet" />
+
+<section class="margintop90PX margintop90PX-xs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">My Account</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+@using (Ajax.BeginForm("CreateAddressBook", "Setting",  new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "SignUp" }))
+{
+    @Html.ValidationSummary(true)
+    <section class="margintop120PX">
+        <div class="container blog_area">
+            <div class="col-md-2 col-sm-1"></div>
+            <div class="col-md-8 col-sm-10">
+                <h1><i class="fa fa-user"></i> Customer Information</h1>
+                <strong>Your Information is safe with us!</strong>
+                <br>
+                We promise we will never SPAM you with unwanted emails. We respect your privacy and will never share your email address with any person or organization. All data are 100% encrypted with a strong industry-standard SSL encryption
+                <br><br>
+                <h1><i class="fa fa-cog"></i> Your Login Information</h1>
+                
+                <h1><i class="fa fa-map-marker"></i> We Will Ship to this Address</h1>
+                <div class="well well-sm">
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label>Address Name</label>
+                            @Html.HiddenFor(m => m.Id)
+                            @Html.TextBoxFor(model => model.address_name, new { @type = "text",@maxlength="50", @class = "form-control", @placeholder = "Address Name" })
+                            @Html.ValidationMessageFor(model => model.address_name, null, new { @class = "error" })
+
+                        </div>
+                        <div class="col-sm-6">
+                            <label>First Name</label>
+                            @Html.TextBoxFor(model => model.first_name, new { @type = "text", @maxlength = "50", @class = "form-control", @placeholder = "First Name" })
+                            @Html.ValidationMessageFor(model => model.first_name, null, new { @class = "error" })
+
+                        </div>
+                        <div class="col-sm-6 spacetop15PX-xs">
+                            <label>Last Name</label>
+                            @Html.TextBoxFor(model => model.last_name, new { @type = "text", @maxlength = "50", @class = "form-control", @placeholder = "Last Name" })
+                            @Html.ValidationMessageFor(model => model.last_name, null, new { @class = "error" })
+
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-12">
+                            <label>Company</label>
+                            @Html.TextBoxFor(model => model.company, new { @type = "text", @maxlength = "50", @class = "form-control", @placeholder = "Company" })
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Address 1</label>
+                            @Html.TextBoxFor(model => model.address1, new { @type = "text", @maxlength = "100", @class = "form-control", @placeholder = "Building No Street - District" })
+                            @Html.ValidationMessageFor(model => model.address1, null, new { @class = "error" })
+
+                        </div>
+                        
+                        <div class="col-sm-12">
+                            <label>Address 2</label>
+                            @Html.TextBoxFor(model => model.address2, new { @type = "text", @maxlength = "100", @class = "form-control", @placeholder = "Building No Street - District" })
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-6">
+                            <label>Country Code</label>
+                            @Html.DropDownListFor(model => model.country_code, null, new { @class = "form-control textboxfor", SearchSelect = "true" })
+                             @Html.ValidationMessageFor(model => model.country_code, null, new { @class = "error" })
+                        </div>
+                        <div class="col-sm-6 spacetop15PX-xs">
+                            <label>City</label>
+                            @Html.TextBoxFor(model => model.city, new { @type = "text", @maxlength = "25", @class = "form-control", @placeholder = "City" })
+                            @Html.ValidationMessageFor(model => model.city, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-8">
+                            <label>State/Province</label>
+                            @Html.TextBoxFor(model => model.state, new { @type = "text", @maxlength = "25", @class = "form-control", @placeholder = "State/Province" })
+                            @Html.ValidationMessageFor(model => model.state, null, new { @class = "error" })
+
+                        </div>
+                        <div class="col-sm-4 spacetop15PX-xs">
+                            <label>Postal Code</label>
+                            @Html.TextBoxFor(model => model.post_code, new { @type = "number", @maxlength = "20", @class = "form-control", @placeholder = "Postal Code" })
+                            @Html.ValidationMessageFor(model => model.post_code, null, new { @class = "error" })
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Mobile Number 1</label>
+                            @Html.TextBoxFor(model => model.mobile1, new { type = "tel",  @class = "form-control", @placeholder = "Mobile Number" })
+                            @Html.ValidationMessageFor(model => model.mobile1, null, new { @class = "error" })
+
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Mobile Number 2</label>
+                            @Html.TextBoxFor(model => model.mobile2, new { type = "tel",  @class = "form-control", @placeholder = "Mobile Number" })
+                            
+
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="reset" onclick="Cancel_Click();" class="btn btn-danger pull-right">Cancel</button>
+                </div>
+
+            </div>
+            <div class="col-md-2 col-sm-1"></div>
+        </div>
+    </section>
+}
+@section Scripts{
+    <script type="text/javascript">
+        
+    </script>
+    <script type="text/javascript">
+   @Html.Raw(ViewBag.Message)
+        
+       
+    </script>
+}
+
+
+
+
+
+
+

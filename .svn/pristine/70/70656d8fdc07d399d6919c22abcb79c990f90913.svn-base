@@ -1,0 +1,93 @@
+﻿@model  _4InShip.com.Models.ViewCustomerModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<link href="~/Content/css/myStyle.css" rel="stylesheet" />
+<link href="~/Content/css/css_developer.css" rel="stylesheet" />
+@Html.Partial("_HeaderMenu")
+@using (Ajax.BeginForm("Login", "Customer", new AjaxOptions { HttpMethod = "POST", AllowCache = true, UpdateTargetId = "LoginDiv" }))
+{
+    @Html.ValidationSummary(true)
+    <section class="margintop90PX ">
+        <div class="container blog_area">
+            <div class="col-md-4 col-sm-3"></div>
+            <div class="col-md-4 col-sm-6">
+                <h1><i class="fa fa-sign-in"></i> Login</h1>
+                <br><br>
+                <div id="LoginDiv"></div>
+                <div class="well well-sm">
+                    <label>UserName/Email</label>
+                    @Html.HiddenFor(m => m.Id)
+                    @Html.TextBoxFor(m => m.email, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", placeholder = "UserName/Email" })
+                    @Html.ValidationMessageFor(m => m.email, null, new { @class = "error" })
+
+                    <br>
+                    <label>Password</label>
+                    @Html.TextBoxFor(m => m.password, new { @type = "password", @maxlength = "50", @class = "form-control textboxfor", placeholder = "Password" })
+                    @Html.ValidationMessageFor(m => m.password, null, new { @class = "error" })
+
+
+                    <span class="checkbox">
+                        <label style="font-size: 1em">
+                            <input value="true" name="IsRemember" checked="checked" type="checkbox">
+                            <span class="cr"><i class="cr-icon fa fa-check"></i></span> Remember Me
+                        </label>
+                    </span>
+                    <button class="btn btn-success btn-block">Login</button>
+                    <br>
+                    <a href="#" data-toggle="modal" data-target="#myModal">Forgot Password?</a>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-3"></div>
+        </div>
+    </section>
+}
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h1 class="modal-title"><i class="fa fa-sign-in"></i> Forgot Password</h1>
+            </div>
+            <div class="modal-body">
+                @using (Ajax.BeginForm("ForgetPassword", "Customer", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "LoginDivs" }))
+                {
+                    @Html.ValidationSummary(true)
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
+
+
+                            <br>
+                            <div id="LoginDivs"></div>
+                            <div class="well well-sm">
+                                <label>UserName/Email</label>
+
+                                @Html.TextBoxFor(m => m.email, new { @type = "text", @maxlength = "50", @class = "form-control textboxfor", placeholder = "UserName/Email" })
+                                @Html.ValidationMessageFor(m => m.email, null, new { @class = "error" })
+                                <br />
+                                <button class="btn btn-success btn-block">Save</button>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            @Html.Raw(ViewBag.Message)
+             @Html.Raw(TempData["SignUpMessage"])
+        });
+   </script>
+}
+
+
+

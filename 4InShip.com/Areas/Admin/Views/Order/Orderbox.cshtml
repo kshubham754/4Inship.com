@@ -1,0 +1,76 @@
+﻿@model _4InShip.com.Repository.tblOrderBox
+@{
+    ViewBag.Title = "Orderbox";
+}
+<section class="content">
+
+    @Html.Partial("_MsgDivPartial")
+    @using (Html.BeginForm("Orderbox", "Order", FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Add Order Box</h3>
+                <a href='@Url.Action("Orderbox", "Order")' class="btn btn-xs btn-primary pull-right"><i class="fa fa-eye" aria-hidden="true"> View All Order Boxes</i></a>
+            </div>
+            <div class="form-horizontal">
+                <div class="box-body">
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Actual Weight</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(m => m.actual_weight, new { @type = "number", @maxlength = "50", @class = "form-control textboxfor",  placeholder = "Actual Weight" })
+                            @Html.ValidationMessageFor(m => m.actual_weight, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Dim Weight</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(m => m.dim_weight, new { @type = "number", @class = "form-control textboxfor", id = "inputdescription", placeholder = "Dim Weight" })
+                            @Html.ValidationMessageFor(m => m.dim_weight, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Billable Weight</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(m => m.billable_weight, new { @type = "number", @class = "form-control textboxfor",  placeholder = "Billable Weight" })
+                            @Html.ValidationMessageFor(m => m.billable_weight, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Height</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(m => m.height, new { @type = "number", @class = "form-control textboxfor",  placeholder = "Height" })
+                            @Html.ValidationMessageFor(m => m.height, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Width</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(m => m.width, new { @type = "number", @class = "form-control textboxfor",  placeholder = "Width" })
+                            @Html.ValidationMessageFor(m => m.width, null, new { @class = "error" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Length</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(m => m.length, new { @type = "number", @class = "form-control textboxfor",  placeholder = "Length" })
+                            @Html.ValidationMessageFor(m => m.length, null, new { @class = "error" })
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="reset" onclick="Cancel_Click();" class="btn btn-danger pull-right">Cancel</button>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+@section Scripts {
+    <script type="text/javascript">
+    @Html.Raw(ViewBag.Message);
+    </script>
+
+}
+

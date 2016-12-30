@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/UserBasicStyle/css")
+</head>
+<body>
+    <!--Message Div Start-->
+    <div id="div_msg" style="display: none;">
+        <strong style="color:#3db714;"></strong>
+    </div>
+    <!--Message Div End-->
+    <header class="main_header sticky overflow-V">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4 logo">
+                <a href="@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))"><img src="@Url.Content("~/Content/img/logo.png")"></a>
+                </div>
+                <div class="col-xs-8 text-right margintop25PX ul-list-xs">
+                    <ul class="list-unstyled list-inline">
+                        @*<li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="@Url.Content("~/Content/img/Flag-English.jpg")"> Eng <i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="active"><a href="#"><img src="@Url.Content("~/Content/img/Flag-English.jpg")"> English</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#"><img src="@Url.Content("~/Content/img/Flag-Chineese.jpg")"> Chineese</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#"><img src="@Url.Content("~/Content/img/Flag-Danish.jpg")"> Danish</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#"><img src="@Url.Content("~/Content/img/Flag-Japan.jpg")"> Japan</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#"><img src="@Url.Content("~/Content/img/Flag-Koren.jpg")"> Koren</a></li>
+                            </ul>
+                        </li>*@
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle-o"></i> User Account <i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="@Url.Action("Index", "Setting")"><span class="glyphicon glyphicon-cog"></span> Account Settings</a></li>
+                                <li class="divider"></li>
+                                <li><a href="@Url.Action("SignOut","Account")"><span class="glyphicon glyphicon-log-out"></span> Sign Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    @RenderBody()
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <ul class="list-inline list-unstyled">
+                        <li><a href="@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))">Home</a></li>
+                        <li><a href="#"><i class="fa fa-question-circle"></i> Faqs</a></li>
+                        <li><a href="#"><i class="fa fa-dollar"></i> Rates</a></li>
+                        <li><a href="#"><i class="fa fa-file-text"></i> About Us</a></li>
+                        <li><a href="@Url.Action("Index", "Agreement")"><i class="fa fa-file-text-o"></i> Agreement</a></li>
+                        <li><a href="#"><i class="fa fa-tasks"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fa fa-envelope"></i> Contact Us</a></li>
+                    </ul>
+                    <br>
+                    © 2016 4InShip. All Rights Reserved
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/pgwmodal.min.js"></script>
+    <script src="~/Scripts/js_developer.js"></script>
+    <script src="~/Scripts/select2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            @Html.Raw(ViewBag.Message)
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

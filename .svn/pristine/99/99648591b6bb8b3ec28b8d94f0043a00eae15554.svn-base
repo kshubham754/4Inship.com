@@ -1,0 +1,88 @@
+﻿using _4InShip.com.Areas.Admin.Models;
+using _4InShip.com.Areas.Admin.Services;
+using _4InShip.com.Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web; 
+using System.Web.Mvc;
+using static _4InShip.com.FilterConfig;
+
+namespace _4InShip.com.Areas.Admin.Controllers
+{
+    [CustomAuthorization(Url = "~/Admin/Login")]
+    [Authorize(Roles = "Admin")]
+    [IsAuthenticateAdminFilter]
+    public class TblOrderController : Controller
+    {
+        // GET: Admin/TblOrder
+        TblOrderService Context = new TblOrderService();
+        public ActionResult Index(int? Id)
+        {
+            if (Id != null)
+            {
+
+                return View(Context.GetTbltblOrderById(Id ?? 0).SingleOrDefault());
+            }
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult InsertTblOrde(tblOrder tblorder)
+        {
+            try
+            {
+                if (tblorder != null)
+                {
+                    ViewBag.Message = Context.InsertUpdateTblOrder(tblorder);
+                    var err = ViewBag.Message;
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+
+            }
+            tblOrder roll = new tblOrder();
+            ModelState.Clear();
+            return View("Index", roll);
+        }
+        public ActionResult UpdateTblPackagingOptions(tblOrder tblorder)
+        {
+
+            try
+            {
+                if (tblorder != null)
+                {
+                    Context.InsertUpdateTblOrder(tblorder);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                var err = ex.Message;
+
+            }
+            tblOrder roll = new tblOrder();
+            ModelState.Clear();
+            return View("Index", roll);
+        }
+        public ActionResult GetTblOrderDetail(tblOrder tblorder)
+        {
+            tblOrder roll = new tblOrder();
+
+            List<ViewModelTblOrder> lst = Context.GetTblOrder().ToList();
+
+            return View("GetTblOrderDetail", lst);
+        }
+        public JsonResult DeleteTblOrderById(int Id)
+        {
+            if (Id != 0)
+            {
+                Context.DeletetblTbltblOrder(Id);
+            }
+            return Json(Id.ToString(), JsonRequestBehavior.AllowGet);
+
+        }
+    }
+}

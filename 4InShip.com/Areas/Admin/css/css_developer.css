@@ -1,0 +1,43 @@
+﻿/*Validation Css Start*/
+.error {
+ color: red;
+}
+
+.field-validation-error {
+ color: #ff0000;
+}
+
+.field-validation-valid {
+ display: none;
+}
+
+.input-validation-error {
+ border: 1px solid #ff0000;
+}
+
+.validation-summary-errors {
+ font-weight: bold;
+ color: #ff0000;
+}
+
+.validation-summary-valid {
+ display: none;
+}
+/*Validation Css End*/
+
+.property-list {
+ z-index: 1;
+ background: url(../dist/img/DeleteBanner.png) no-repeat;
+ color: #fff;
+ font-weight: bolder;
+ width: 77px;
+ height: 25px;
+ line-height: 25px;
+ position: absolute;
+ margin: 10px 0 0 -5px;
+ text-align: center;
+}
+.pm-close {
+top:0px !important;
+right:0px !important;
+}

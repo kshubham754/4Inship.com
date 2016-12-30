@@ -1,0 +1,104 @@
+﻿]@model _4InShip.com.Repository.tblAdminUser
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Admin| Log in</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="~/Areas/Admin/bootstrap/css/bootstrap.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/Areas/Admin/dist/css/AdminLTE.min.css">
+    <script src="~/Areas/Admin/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Areas/Admin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <link href="~/Areas/Admin/css/css_developer.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/pgwmodal.min.css" rel="stylesheet" />
+    <script src="~/Areas/Admin/Scripts/pgwmodal.min.js"></script>
+
+</head>
+
+<body class="hold-transition login-page">
+    <div id="div_msg" style="display: none;color:#0000FF;">
+        <strong style="color:#3db714;"></strong>
+    </div>
+    <div class="login-box">
+        <div class="login-logo">
+            <img src="@Url.Content("~/Content/img/logo.png")">
+        </div>
+        <!-- /.login-logo -->
+        @using (Ajax.BeginForm("Index", "Login", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "login-box" }))
+        {
+            @Html.ValidationSummary(true)
+            <div class="login-box-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+                <form action="../../index2.html" method="post">
+                    <div class="form-group has-feedback">
+                        @Html.TextBoxFor(model => model.username, new { @class = "form-control", placeholder = "Username" })
+                        @Html.ValidationMessageFor(model => model.username, null, new { @class = "error" })
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        @Html.PasswordFor(model => model.password, new { @class = "form-control", placeholder = "Password" })
+                        @Html.ValidationMessageFor(model => model.password, null, new { @class = "error" })
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+                        <!-- /.col -->
+                        <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <!-- /.social-auth-links -->
+            </div>
+        }
+        <!-- /.login-box-body -->
+    </div>
+
+    <!-- /.login-box -->
+    <!-- jQuery 2.2.3 -->
+    <!-- iCheck -->
+
+</body>
+
+</html>
+<script type="text/javascript">
+    $(function () {
+        @Html.Raw(ViewBag.Message)
+    });
+    function showMessage(msg, bool) {
+
+        if (bool === true) {
+            $('#div_msg').html('<div class="alert-success">' + msg + '</div>');
+            $.pgwModal({
+                target: '#div_msg',
+                titleBar: false
+            });
+            $(".pm-content").css({ "background": "#DFF0D8" })
+        }
+        else {
+            $('#div_msg').html('<div style="color: #dc0400;">' + msg + '</div>');
+            $.pgwModal({
+                target: '#div_msg',
+                titleBar: false
+            });
+            $(".pm-content").css({ "background": "#ffebeb" })
+        }
+    }
+</script>
+

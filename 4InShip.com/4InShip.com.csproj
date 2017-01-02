@@ -157,11 +157,6 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.SqlServer.Types.11.0.2\lib\net20\Microsoft.SqlServer.Types.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Remotion.Linq, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
       <HintPath>..\packages\Remotion.Linq.2.1.1\lib\net45\Remotion.Linq.dll</HintPath>
       <Private>True</Private>
@@ -279,7 +274,6 @@
     <Compile Include="Areas\Admin\Controllers\PlansController.cs" />
     <Compile Include="Areas\Admin\Controllers\ReceivedShipmentController.cs" />
     <Compile Include="Areas\Admin\Controllers\ReturnPackagesController.cs" />
-    <Compile Include="Areas\Admin\Controllers\TblOrderController.cs" />
     <Compile Include="Areas\Admin\Models\AdminUsersmodel.cs" />
     <Compile Include="Areas\Admin\Models\clsAuthenticateAdmin.cs" />
     <Compile Include="Areas\Admin\Models\clsCommon.cs" />
@@ -293,6 +287,7 @@
     <Compile Include="Areas\Admin\Models\ViewModelreceivedShipment.cs" />
     <Compile Include="Areas\Admin\Models\ViewModelTblOrder.cs" />
     <Compile Include="Areas\Admin\Services\AdminUsersService.cs" />
+    <Compile Include="Areas\Admin\Services\Customer.cs" />
     <Compile Include="Areas\Admin\Services\InvoiceService.cs" />
     <Compile Include="Areas\Admin\Services\PackagingOptionsService.cs" />
     <Compile Include="Areas\Admin\Services\PlanServices.cs" />
@@ -324,7 +319,6 @@
     <Compile Include="Areas\User\Services\ShipmentsService.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\AgreementController.cs" />
-    <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1092,24 +1086,6 @@
     <Content Include="Areas\Admin\Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Areas\Admin\Scripts\JS_developer.js" />
     <None Include="Areas\Admin\Scripts\_references.js" />
-    <Content Include="Areas\Admin\Scripts\lg-autoplay.js" />
-    <Content Include="Areas\Admin\Scripts\lg-autoplay.min.js" />
-    <Content Include="Areas\Admin\Scripts\lg-fullscreen.js" />
-    <Content Include="Areas\Admin\Scripts\lg-fullscreen.min.js" />
-    <Content Include="Areas\Admin\Scripts\lg-hash.js" />
-    <Content Include="Areas\Admin\Scripts\lg-hash.min.js" />
-    <Content Include="Areas\Admin\Scripts\lg-pager.js" />
-    <Content Include="Areas\Admin\Scripts\lg-pager.min.js" />
-    <Content Include="Areas\Admin\Scripts\lg-share.js" />
-    <Content Include="Areas\Admin\Scripts\lg-share.min.js" />
-    <Content Include="Areas\Admin\Scripts\lg-thumbnail.js" />
-    <Content Include="Areas\Admin\Scripts\lg-thumbnail.min.js" />
-    <Content Include="Areas\Admin\Scripts\lg-video.js" />
-    <Content Include="Areas\Admin\Scripts\lg-video.min.js" />
-    <Content Include="Areas\Admin\Scripts\lg-zoom.js" />
-    <Content Include="Areas\Admin\Scripts\lg-zoom.min.js" />
-    <Content Include="Areas\Admin\Scripts\lightgallery.js" />
-    <Content Include="Areas\Admin\Scripts\lightgallery.min.js" />
     <Content Include="Areas\Admin\Scripts\main.js" />
     <Content Include="Areas\Admin\Scripts\modernizr-2.6.2.js" />
     <Content Include="Areas\Admin\Scripts\modernizr.custom.79639.js" />
@@ -1125,36 +1101,6 @@
     <Content Include="Areas\User\Content\css\fileinput.min.css" />
     <Content Include="Areas\User\Content\img\loading.gif" />
     <Content Include="Areas\User\Content\js\fileinput.min.js" />
-    <Content Include="bin\4InShip.com.dll" />
-    <Content Include="bin\4InShip.com.pdb" />
-    <Content Include="bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\EntityFramework.BulkInsert.dll" />
-    <Content Include="bin\EntityFramework.dll" />
-    <Content Include="bin\EntityFramework.MappingAPI.dll" />
-    <Content Include="bin\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\Microsoft.AI.Agent.Intercept.dll" />
-    <Content Include="bin\Microsoft.AI.DependencyCollector.dll" />
-    <Content Include="bin\Microsoft.AI.PerfCounterCollector.dll" />
-    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.dll" />
-    <Content Include="bin\Microsoft.AI.Web.dll" />
-    <Content Include="bin\Microsoft.AI.WindowsServer.dll" />
-    <Content Include="bin\Microsoft.ApplicationInsights.dll" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
-    <Content Include="bin\Microsoft.Practices.ServiceLocation.dll" />
-    <Content Include="bin\Microsoft.Practices.Unity.Configuration.dll" />
-    <Content Include="bin\Microsoft.Practices.Unity.dll" />
-    <Content Include="bin\Microsoft.Practices.Unity.RegistrationByConvention.dll" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
-    <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Mvc.dll" />
-    <Content Include="bin\System.Web.Optimization.dll" />
-    <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\System.Web.WebPages.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.dll" />
-    <Content Include="bin\WebGrease.dll" />
     <Content Include="Content\css\animate.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min - Copy.css" />
@@ -1264,7 +1210,6 @@
     <Content Include="Areas\Admin\Views\ReceivedShipment\GetReceivedShipmentDetail.cshtml" />
     <Content Include="Areas\Admin\Views\AdminUsers\GetAdminUsersDetail.cshtml" />
     <Content Include="Areas\Admin\Views\AdminUsers\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\TblOrder\GetTblOrderDetail.cshtml" />
     <EntityDeploy Include="Repository\4Inship.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>4Inship1.Designer.cs</LastGenOutput>
@@ -1306,8 +1251,6 @@
     <Content Include="Areas\User\Views\Setting\ManagePoints.cshtml" />
     <Content Include="Areas\User\Views\Shipment\ShipmentDetails.cshtml" />
     <Content Include="Areas\Admin\Views\Customer\Customers.cshtml" />
-    <Content Include="Areas\Admin\Views\Order\Orderbox.cshtml" />
-    <Content Include="Areas\Admin\Views\Order\Orders.cshtml" />
     <None Include="Properties\PublishProfiles\Publish4InShip.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Repository\4Inship.Context.tt">
@@ -1356,6 +1299,54 @@
     <Content Include="Scripts\wow.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="Uploads\PackagesImages\16\24cb5305-c3b7-4225-9e2c-a47a6ff33dfc.jpg" />
+    <Content Include="Uploads\PackagesImages\16\54edac71-3970-47f7-a8a5-627b41f8c2e6.jpg" />
+    <Content Include="Uploads\PackagesImages\16\6ff47876-0610-4ffd-99fd-143f72efac17.jpg" />
+    <Content Include="Uploads\PackagesImages\16\877df213-544b-4e74-a3de-ae8dd594430c.jpg" />
+    <Content Include="Uploads\PackagesImages\16\c63806ba-b38a-45b6-bfb0-7edba19aed97.jpg" />
+    <Content Include="Uploads\PackagesImages\16\c88c9a04-1ee9-4f1e-b920-12deb52c089a.jpg" />
+    <Content Include="Uploads\PackagesImages\16\edd3c1fd-9400-43d1-ac13-090f54e546ca.jpg" />
+    <Content Include="Uploads\PackagesImages\17\1ba07f85-aafb-4015-a0d7-d0c518170cd1.jpg" />
+    <Content Include="Uploads\PackagesImages\17\4959cc1f-378f-4cfc-98f4-d43a890dd167.jpg" />
+    <Content Include="Uploads\PackagesImages\17\6810afaa-90d7-4caf-8a37-5a938dd6db22.jpg" />
+    <Content Include="Uploads\PackagesImages\17\8b7dd3da-6de1-4bd2-a2d7-bba92994b38c.jpg" />
+    <Content Include="Uploads\PackagesImages\17\8f5df010-236c-48a9-afaf-32044a05ca2c.jpg" />
+    <Content Include="Uploads\PackagesImages\17\e5fe3f0b-a948-4899-9b2f-a66aa8cc7fe9.jpg" />
+    <Content Include="Uploads\PackagesImages\1\10e2a330-7c71-4efd-a30f-37b4cba85d37.jpg" />
+    <Content Include="Uploads\PackagesImages\1\6adf4d77-b6dc-44f4-be79-95dd223a5abd.jpg" />
+    <Content Include="Uploads\PackagesImages\1\78e10a27-585e-4042-9a8d-1065dc41b808.jpg" />
+    <Content Include="Uploads\PackagesImages\1\791d5801-76dd-4147-b88d-b3dfea6454bd.jpg" />
+    <Content Include="Uploads\PackagesImages\1\7c57132c-a813-4478-94c4-3bd28d8f1bfa.jpg" />
+    <Content Include="Uploads\PackagesImages\1\a4da11bd-c504-4137-b3f6-9f3aaff74863.jpg" />
+    <Content Include="Uploads\PackagesImages\1\cf705ccb-635b-4c1f-a27e-35607ef65337.jpg" />
+    <Content Include="Uploads\PackagesImages\1\fbfe5879-bad7-4ed7-a119-d7521576276c.jpg" />
+    <Content Include="Uploads\PackagesImages\20\19d8cd84-28b3-496c-81c4-8a76258fdcdb.jpg" />
+    <Content Include="Uploads\PackagesImages\20\44bb72a4-2eb3-409d-ad41-a1fc37009b07.jpg" />
+    <Content Include="Uploads\PackagesImages\20\6b55546f-4dd3-4a68-a9c1-eecd0756eec6.jpg" />
+    <Content Include="Uploads\PackagesImages\20\7a2954de-afad-4d92-af67-21526a9ddcd5.jpg" />
+    <Content Include="Uploads\PackagesImages\21\266a82f6-01bf-4200-b03e-58ae9813eb7f.jpg" />
+    <Content Include="Uploads\PackagesImages\21\409faf33-044b-434d-a539-ea4b6d985123.jpg" />
+    <Content Include="Uploads\PackagesImages\21\5ee8b36b-16a2-47f1-b9c4-127fe2f7cc5a.jpg" />
+    <Content Include="Uploads\PackagesImages\21\7fb9f76c-60f7-4666-80e2-9ec0fab7d6d5.jpg" />
+    <Content Include="Uploads\PackagesImages\21\d25e5b5d-3292-405e-9a95-9bba92ade449.jpg" />
+    <Content Include="Uploads\PackagesImages\21\fef2b590-69b1-499d-9d09-9e8debfd93da.jpg" />
+    <Content Include="Uploads\PackagesImages\22\08cfbe42-0afd-4f4d-9475-0a6a360cca75.jpg" />
+    <Content Include="Uploads\PackagesImages\22\16ddb8f9-93bd-44b3-8d4c-20057690bbb1.jpg" />
+    <Content Include="Uploads\PackagesImages\22\261e99aa-189f-481a-b6cf-debf1ad245e3.jpg" />
+    <Content Include="Uploads\PackagesImages\22\306ba2ce-5877-4ff1-851c-dee66be0c3bb.jpg" />
+    <Content Include="Uploads\PackagesImages\22\48f887e4-44ba-4b4d-9525-7fa7e92ec95d.jpg" />
+    <Content Include="Uploads\PackagesImages\22\4f4bd3cd-820c-43e3-a36c-5fa30b7aa8b3.jpg" />
+    <Content Include="Uploads\PackagesImages\22\5dbad820-cc61-4ab4-afd1-a38b9834d896.jpg" />
+    <Content Include="Uploads\PackagesImages\22\5f5a6cfd-c9c7-4635-aa84-e1f976335902.jpg" />
+    <Content Include="Uploads\PackagesImages\22\9958717a-4f23-4990-a22a-f62af98dc014.jpg" />
+    <Content Include="Uploads\PackagesImages\22\a474b843-e96a-4122-b209-7ff491f196f8.jpg" />
+    <Content Include="Uploads\PackagesImages\22\a4cc2337-4120-438b-9d02-84deffcc606e.jpg" />
+    <Content Include="Uploads\PackagesImages\22\be4f1b5c-2537-4e44-b4d1-2e5b2d5e538b.jpg" />
+    <Content Include="Uploads\PackagesImages\22\d0bdfbd4-4a88-4107-818c-0c9305e93cd8.jpg" />
+    <Content Include="Uploads\PackagesImages\22\d7bda68b-377f-4a6b-a484-3bc988626778.jpg" />
+    <Content Include="Uploads\PackagesImages\22\f8ec3444-afd8-4964-a795-95d1265dc64b.jpg" />
+    <Content Include="Uploads\PackagesImages\7\avatar04.png" />
+    <Content Include="Uploads\PackagesImages\7\avatar5.png" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1382,7 +1373,7 @@
     <Folder Include="Areas\Admin\Views\Home\" />
     <Folder Include="Content\dropdown\" />
     <Folder Include="Content\js\" />
-    <Folder Include="Uploads\PackagesImages\7\" />
+    <Folder Include="Uploads\PackagesImages\3\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

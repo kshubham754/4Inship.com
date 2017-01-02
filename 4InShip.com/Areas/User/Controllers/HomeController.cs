@@ -36,8 +36,8 @@ namespace _4InShip.com.Areas.User.Controllers
             int Balance = Convert.ToInt32(ConfigurationManager.AppSettings["RewardPoints"]);
             ViewBag.yourpoints = _repository.yourpoints();
             Balance = Balance * 100;
-            ViewBag.yourbalance =   Convert.ToInt32(ViewBag.yourpoints)/ Balance;
-            ViewBag.yourcreditAmount = _repository.yourBalance();
+            ViewBag.yourbalance =   "0.00";
+            ViewBag.yourcreditAmount = "0.00";
 
 
         }

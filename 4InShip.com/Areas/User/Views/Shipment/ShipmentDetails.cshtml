@@ -3,6 +3,7 @@
     ViewBag.Title = "ShipmentDetails";
 }
 <!-- breadcrum start -->
+<link href="~/Areas/Admin/css/lightgallery.min.css" rel="stylesheet" />
 <section class="margintop90PX margintop90PX-xs">
     <div class="container">
         <div class="row">
@@ -75,8 +76,17 @@
     </div>
 </section>
 @section Scripts {
-
     <script src="~/Areas/User/Content/js/fileinput.min.js"></script>
+    @*Lightbox Start*@
+    <script src="~/Scripts/lightbox/lightgallery.min.js"></script>
+    <script src="~/Scripts/lightbox/lg-fullscreen.min.js"></script>
+    <script src="~/Scripts/lightbox/lg-autoplay.min.js"></script>
+    <script src="~/Scripts/lightbox/lg-hash.min.js"></script>
+    <script src="~/Scripts/lightbox/lg-zoom.min.js"></script>
+    <script src="~/Scripts/lightbox/lg-pager.min.js"></script>
+    <script src="~/Scripts/lightbox/lg-thumbnail.min.js"></script>
+    <script src="~/Scripts/lightbox/lg-share.min.js"></script>
+    @*Lightbox End*@
     <script type="text/javascript">
         var AdressbookDrop=@Html.Raw(Json.Encode(ViewBag.AdressList));
         var DefaultAddress= @Html.Raw(Json.Encode(ViewBag.DefaultAddress));
@@ -248,7 +258,7 @@
                         if (typeof shipMethod !== "undefined") {
                             ShipmentMethodPackage.push(shipMethod);
                         }
-                        
+
                     });
                     var data=JSON.stringify({ShipmentMethodPackage:ShipmentMethodPackage,PacakageOptionArray:PacakageOptionArray,ShipmentCheckboxID:ShipmentCheckboxID,Addressdropid:Addressdropid});
                     $.ajax({
@@ -260,7 +270,7 @@
                         success: function (data) {
                             if (data == "") {
                                 showMessage('Please select at least one shipment', false);
-                        
+
                             }
                             else
                                 showMessage(data, true);
